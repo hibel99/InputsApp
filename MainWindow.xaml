@@ -58,7 +58,7 @@
                         <TextBlock Text="Pivot Category" HorizontalAlignment="Center" Style="{StaticResource SettingsText}"/>
                         <TextBlock Text="Pivot Part Name" Padding="0 50 0 0" HorizontalAlignment="Center" Style="{StaticResource SettingsText}"/>
                     </StackPanel>
-
+                    
                     <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
                         <ComboBox Name="PivotCategoryCB" Height="50" HorizontalAlignment="Center" Width="500" Style="{StaticResource MaterialDesignOutlinedComboBox}">
                             <ComboBoxItem Content="Alice"/>
