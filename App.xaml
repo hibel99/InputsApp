@@ -4,6 +4,18 @@
              xmlns:local="clr-namespace:InputsApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <Style x:Key="SettingsText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#f0f0f0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="200 0 0 0"/>
+            <Setter Property="FontSize" Value="25"/>
+        </Style>
+        
+        
     </Application.Resources>
+    
+    
+    
 </Application>

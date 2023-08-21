@@ -10,29 +10,77 @@
         Title="MainWindow" 
         WindowStyle="None"
         AllowsTransparency="True"
-        Background="Transparent"
-        ResizeMode="CanResizeWithGrip"
+        Background="#f0f0f0"
+        ResizeMode="NoResize"
         Height="1080"
         Foreground="#f0f0f0"
         Width="1920"
         FontFamily="Roboto"
-        WindowState="Normal"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-
         <ResourceDictionary>
-
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <materialDesign:CustomColorTheme x:Name="fav" BaseTheme="Dark" PrimaryColor="#B8B8B8" SecondaryColor="WhiteSmoke" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
 
     <Grid>
         
-        <Border Background="AliceBlue" CornerRadius="10">
-            <Button Click="Button_Click" />
+        <Border Background="Black" CornerRadius="10">
+
+            <Grid Name="PivotGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top"  Grid.Column="1" Grid.Row="0">
+                    <Button Name="MinimizeButton" BorderBrush="Transparent" Click="MinimizeButton_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Cursor="Hand" Height="20" Margin="0,0,0,0">
+                        <icon:PackIconMaterial Kind="Minus" Width="10" Height="10" Margin="0 7 0 0"/>
+                    </Button>
+
+                    <Button Name="CloseButton"  BorderBrush="Transparent" Click="CloseButton_Click" HorizontalAlignment="Left" Cursor="Hand" VerticalAlignment="Bottom" Height="20" Margin="0,0,0,0" >
+                        <icon:PackIconMaterial Kind="Close" Width="10" Height="10"/>
+                    </Button>
+                    
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+                        <TextBlock Text="Pivot Category" HorizontalAlignment="Center" Style="{StaticResource SettingsText}"/>
+                        <TextBlock Text="Pivot Part Name" Padding="0 50 0 0" HorizontalAlignment="Center" Style="{StaticResource SettingsText}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+                        <ComboBox Name="PivotCategoryCB" Height="50" HorizontalAlignment="Center" Width="500" Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                            <ComboBoxItem Content="Alice"/>
+                            <ComboBoxItem Content="Bob"/>
+                            <ComboBoxItem Content="Charlie"/>
+                        </ComboBox>
+                        <TextBox Name="PivotPartTB" Height="50" HorizontalAlignment="Center" Width="500" Padding="0 50 0 0" Foreground="White" materialDesign:HintAssist.Hint="Part Name"/>
+                    </StackPanel>
+                </StackPanel>
+                
+                
+                <!-- public int ID { get; set; }
+        public int InvoiceID { get; set; }
+        public string PivotCategory { get; set; }
+        public string PivotPart { get; set; }
+        public int Quantity { get; set; }
+        public decimal Cost { get; set; }
+        public decimal MarkupPercentage { get; set; }
+        public decimal Price { get; set; }
+        public DateTime Date { get; set; }-->
+            </Grid>
+            
         </Border>
     </Grid>
 </Window>
