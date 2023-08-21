@@ -4,9 +4,35 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InputsApp"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" 
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="CanResizeWithGrip"
+        Height="1080"
+        Foreground="#f0f0f0"
+        Width="1920"
+        FontFamily="Roboto"
+        WindowState="Normal"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
 
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <materialDesign:CustomColorTheme x:Name="fav" BaseTheme="Dark" PrimaryColor="#B8B8B8" SecondaryColor="WhiteSmoke" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        
+        <Border Background="AliceBlue" CornerRadius="10">
+            <Button Click="Button_Click" />
+        </Border>
     </Grid>
 </Window>
