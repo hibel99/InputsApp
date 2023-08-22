@@ -29,8 +29,9 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid>
-        
+    <Grid
+        >
+
         <Border Background="Black" CornerRadius="10">
 
             <Grid Name="PivotGrid">
@@ -51,14 +52,14 @@
                     <Button Name="CloseButton"  BorderBrush="Transparent" Click="CloseButton_Click" HorizontalAlignment="Left" Cursor="Hand" VerticalAlignment="Bottom" Height="20" Margin="0,0,0,0" >
                         <icon:PackIconMaterial Kind="Close" Width="10" Height="10"/>
                     </Button>
-                    
+
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
                     <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
                         <TextBlock Text="Pivot Category" HorizontalAlignment="Center" Style="{StaticResource SettingsText}"/>
                         <TextBlock Text="Pivot Part Name" Padding="0 50 0 0" HorizontalAlignment="Center" Style="{StaticResource SettingsText}"/>
                     </StackPanel>
-                    
+
                     <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
                         <ComboBox Name="PivotCategoryCB" Height="50" HorizontalAlignment="Center" Width="500" Style="{StaticResource MaterialDesignOutlinedComboBox}">
                             <ComboBoxItem Content="Alice"/>
@@ -68,8 +69,8 @@
                         <TextBox Name="PivotPartTB" Height="50" HorizontalAlignment="Center" Width="500" Padding="0 50 0 0" Foreground="White" materialDesign:HintAssist.Hint="Part Name"/>
                     </StackPanel>
                 </StackPanel>
-                
-                
+
+
                 <!-- public int ID { get; set; }
         public int InvoiceID { get; set; }
         public string PivotCategory { get; set; }
@@ -79,8 +80,31 @@
         public decimal MarkupPercentage { get; set; }
         public decimal Price { get; set; }
         public DateTime Date { get; set; }-->
+
+                <ListView  Grid.Column="1" Margin="0,222,-2,6" Grid.Row="1" Background="Red" >
+                    <ListView.View>
+                        <GridView>
+                            <GridView.Columns>
+                                <GridViewColumn Header="Pivot type" DisplayMemberBinding="{Binding PivotPart}"/>
+                                <GridViewColumn Header="Spare Parts" DisplayMemberBinding="{Binding PivotCategory}"/>
+                                <GridViewColumn Header="price" DisplayMemberBinding="{Binding Cost}"/>
+                            </GridView.Columns>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+
             </Grid>
-            
+
+
+
+
+
+
+
         </Border>
+
+
+
     </Grid>
 </Window>
