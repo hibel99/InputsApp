@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:InputsApp"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks" 
+         
+
         mc:Ignorable="d"
         Title="MainWindow" 
         WindowStyle="None"
@@ -17,7 +19,7 @@
         Width="1920"
         FontFamily="Roboto"
         WindowState="Maximized"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -30,57 +32,259 @@
     </Window.Resources>
 
     <Grid>
-        
-        <Border Background="Black" CornerRadius="10">
 
-            <Grid Name="PivotGrid">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top"  Grid.Column="1" Grid.Row="0">
-                    <Button Name="MinimizeButton" BorderBrush="Transparent" Click="MinimizeButton_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Cursor="Hand" Height="20" Margin="0,0,0,0">
-                        <icon:PackIconMaterial Kind="Minus" Width="10" Height="10" Margin="0 7 0 0"/>
-                    </Button>
 
-                    <Button Name="CloseButton"  BorderBrush="Transparent" Click="CloseButton_Click" HorizontalAlignment="Left" Cursor="Hand" VerticalAlignment="Bottom" Height="20" Margin="0,0,0,0" >
-                        <icon:PackIconMaterial Kind="Close" Width="10" Height="10"/>
-                    </Button>
-                    
+
+        <Grid Background="#F5F6F8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="800"/>
+                <ColumnDefinition Width="400*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Height="118" VerticalAlignment="Top"  Margin="10,20,20,0" Source="./Image/1.png" />
+
+
+
+            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Top" Height="39" Margin="763,0,13,0">
+
+
+                <Button Style="{StaticResource exitButton}" Height="36" Click="MinimizeButton_Click" Width="48">
+                    <icon:PackIconMaterial Kind="WindowMinimize" Width="10" Height="10"/>
+
+                </Button>
+
+                <Button Style="{StaticResource exitButton}" Height="36" Click="CloseButton_Click" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <icon:PackIconMaterial Kind="Close" Width="10" Height="10"/>
+                </Button>
+
+            </StackPanel>
+
+            <Grid Grid.Column="1" Margin="0,0,4,0">
+                <StackPanel Orientation="Horizontal" Margin="0,16,0,1007"/>
+                <StackPanel Orientation="Horizontal" Margin="50,77,0,884">
+                    <RadioButton Name="Pivot" Content="Pivot" Margin="8 20 0 0" Style="{StaticResource booo}"  Width="124" Height="40" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False"  />
+                    <RadioButton Name="SpinklersParts" Content="Spinklers Parts" Margin="30 20 0 0" Style="{StaticResource booo}" Width="124" Height="40" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
-                    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
-                        <TextBlock Text="Pivot Category" HorizontalAlignment="Center" Style="{StaticResource SettingsText}"/>
-                        <TextBlock Text="Pivot Part Name" Padding="0 50 0 0" HorizontalAlignment="Center" Style="{StaticResource SettingsText}"/>
+
+
+                <StackPanel Margin="0,211,0,760" Orientation="Horizontal"/>
+
+
+                <Grid Margin="0,208,0,-2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsChecked,ElementName=Pivot}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+
+
+
+
+
+                    <StackPanel VerticalAlignment="Top" Height="766" Margin="50,0,573,0">
+                        <TextBlock Text="Pivot Category" Foreground="Black" Margin="12 40 0 0" HorizontalAlignment="Left" />
+                        <TextBlock Text="Pivot Part Name" Foreground="Black"   Margin="12 70 0 0" HorizontalAlignment="Left" Height="40"  />
+                        <TextBlock Text="Date" Foreground="Black"   Margin="12 62 0 0" HorizontalAlignment="Left" Height="40"  />
+                        <TextBlock Text="Cost" Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="27"  />
+                        <TextBlock Text="Height " Foreground="Black"   Margin="12 70 0 0" HorizontalAlignment="Left" Height="40"  />
+                        <TextBlock Text="Width  " Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="40"  />
+                        <TextBlock Text="Length   " Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="40"  />
+                        <TextBlock Text="Weight   " Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="40"  />
+
                     </StackPanel>
-                    
-                    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
-                        <ComboBox Name="PivotCategoryCB" Height="50" HorizontalAlignment="Center" Width="500" Style="{StaticResource MaterialDesignOutlinedComboBox}">
+
+
+                    <StackPanel Grid.Column="0"  Orientation="Vertical" Margin="295,0,0,85">
+                        <ComboBox Name="PivotCategoryCB" Height="50" Style="{StaticResource comboboxgreen}" Foreground="Black" BorderBrush="Black" BorderThickness="1" Margin="10 20 0 0" Padding="10 0 0 0" HorizontalAlignment="Center" Width="480" FontSize="15"  >
                             <ComboBoxItem Content="Alice"/>
                             <ComboBoxItem Content="Bob"/>
                             <ComboBoxItem Content="Charlie"/>
                         </ComboBox>
-                        <TextBox Name="PivotPartTB" Height="50" HorizontalAlignment="Center" Width="500" Padding="0 50 0 0" Foreground="White" materialDesign:HintAssist.Hint="Part Name"/>
+                        <TextBox Name="PivotPartTB" Height="50"  Margin="10 40 0 0" Padding="10 20 0 0" BorderBrush="Black" BorderThickness="1" Foreground="Black"  FontSize="15"  HorizontalAlignment="Center" Width="480"  Style="{StaticResource MaterialDesignOutlinedTextBox}"  materialDesign:HintAssist.Hint="Part Name" materialDesign:HintAssist.Foreground="Blue"/>
+
+                        <DatePicker Margin="10 50 0 0" Width="478" Height="50" Foreground="Black" Style="{StaticResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint="Date" materialDesign:HintAssist.Foreground="Blue" FontSize="15"     />
+                        <TextBox  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox  Name="pivotHegitTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Height" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox  Name="pivotwidthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Width" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox  Name="pivotlenghtTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Lenht" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox  Name="pivotWeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Weight" materialDesign:HintAssist.Foreground="Blue"/>
                     </StackPanel>
-                </StackPanel>
-                
-                
-                <!-- public int ID { get; set; }
-        public int InvoiceID { get; set; }
-        public string PivotCategory { get; set; }
-        public string PivotPart { get; set; }
-        public int Quantity { get; set; }
-        public decimal Cost { get; set; }
-        public decimal MarkupPercentage { get; set; }
-        public decimal Price { get; set; }
-        public DateTime Date { get; set; }-->
+
+                    <Button Content="Add Pivot" Style="{StaticResource  MaterialDesignPaperSecondaryDarkButton}" Foreground="White" Background="Green" Margin="310,780,283,12" >
+
+                    </Button>
+
+
+
+                </Grid>
+
+
+               
+                <Grid Margin="0,208,0,-2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsChecked,ElementName=SpinklersParts}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+
+
+
+
+
+                    <StackPanel VerticalAlignment="Top" Height="766" Margin="50,0,573,0">
+                        <TextBlock Text="SpinklersParts Category" Foreground="Black" Margin="12 40 0 0" HorizontalAlignment="Left" />
+                        <TextBlock Text="SpinklersParts Name" Foreground="Black"   Margin="12 70 0 0" HorizontalAlignment="Left" Height="40"  />
+                        <TextBlock Text="Date" Foreground="Black"   Margin="12 62 0 0" HorizontalAlignment="Left" Height="40"  />
+                        <TextBlock Text="Cost" Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="27"  />
+                        <TextBlock Text="Height " Foreground="Black"   Margin="12 70 0 0" HorizontalAlignment="Left" Height="40"  />
+                        <TextBlock Text="Width  " Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="40"  />
+                        <TextBlock Text="Length   " Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="40"  />
+                        <TextBlock Text="Weight   " Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="40"  />
+
+                    </StackPanel>
+
+
+                    <StackPanel Grid.Column="0"  Orientation="Vertical" Margin="295,0,0,85">
+                        <ComboBox Name="SpinklersPartsCategory" Height="50" Style="{StaticResource comboboxgreen}" Foreground="Black" BorderBrush="Black" BorderThickness="1" Margin="10 20 0 0" Padding="10 0 0 0" HorizontalAlignment="Center" Width="480" FontSize="15"  >
+                            <ComboBoxItem Content="Alice"/>
+                            <ComboBoxItem Content="Bob"/>
+                            <ComboBoxItem Content="Charlie"/>
+                        </ComboBox>
+                        <TextBox Name="SpinklersPartsname" Height="50"  Margin="10 40 0 0" Padding="10 20 0 0" BorderBrush="Black" BorderThickness="1" Foreground="Black"  FontSize="15"  HorizontalAlignment="Center" Width="480"  Style="{StaticResource MaterialDesignOutlinedTextBox}"  materialDesign:HintAssist.Hint="Part Name" materialDesign:HintAssist.Foreground="Blue"/>
+
+                        <DatePicker Name="SpinklersPartsDate" Margin="10 50 0 0" Width="478" Height="50" Foreground="Black" Style="{StaticResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint="Date" materialDesign:HintAssist.Foreground="Blue" FontSize="15"     />
+                        <TextBox  Name="SpinklersPartscost" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox Name="SpinklersPartsHeight"  Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Height" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox Name="SpinklersPartsWidth"  Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Width" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox  Name="SpinklersPartsLength"  Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Lenht" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox  Name="SpinklersPartsWeight" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Weight" materialDesign:HintAssist.Foreground="Blue"/>
+                    </StackPanel>
+
+                    <Button Content="Add Spinklers" Style="{StaticResource  MaterialDesignPaperSecondaryDarkButton}" Foreground="White" Background="Green" Margin="310,780,283,12" >
+
+                    </Button>
+
+
+
+                </Grid>
+
+
+
             </Grid>
-            
-        </Border>
+
+
+            <Grid Grid.Column="2" Margin="17,0,0,0">
+
+                <Border CornerRadius="35" BorderThickness="20" Margin="0,68,0,0" >
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#F0EB36" Offset="0.0"/>
+                            <GradientStop Color="#73C269" Offset="0.5"/>
+                            <GradientStop Color="#1E91A5" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                </Border>
+
+                <DataGrid Margin="35,97,29,29">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Pivot Category"/>
+                        <DataGridTextColumn Header="Pivot Part Name"/>
+                        <DataGridTextColumn  Header="Date" />
+                        <DataGridTextColumn Header="Cost"/>
+                        <DataGridTextColumn Header="Height"/>
+                        <DataGridTextColumn Header="Width"/>
+                        <DataGridTextColumn Header="Length"/>
+                        <DataGridTextColumn Header="Weight"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </Grid>
+
+
+
+
+
+
+
+            <Border CornerRadius="35" BorderThickness="28px" Margin="28px,140,0,37" Width="220"  >
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="White" Offset="0.0"/>
+                        <GradientStop Color="White" Offset="0.5"/>
+                        <GradientStop Color="White" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+
+
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+
+
+
+                    <StackPanel Margin="0,55,0,0">
+                        <RadioButton Content="DashBoard" Margin="10 25 0 0" Style="{StaticResource boo}" Width="99" IsChecked="True"   />
+
+
+                        <!--<RadioButton Content="Order" Margin="10 100 0 0" Style="{StaticResource boo}" Width="100" />
+                        <RadioButton Content="History" Margin="10 100 0 0" Style="{StaticResource boo}" Width="100" />
+                        <RadioButton Content="Fav" Margin="10 100 0 0" Style="{StaticResource boo}" Width="100" />
+                        <RadioButton Content="Settings" Margin="10 100 0 0" Style="{StaticResource boo}" Width="100" />
+                        <RadioButton Content="log out" Margin="10 220 0 0" Style="{StaticResource boo}" Width="100" />-->
+                    </StackPanel>
+
+
+
+
+
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="White" Offset="0.0"/>
+                            <GradientStop Color="White" Offset="0.5"/>
+                            <GradientStop Color="White" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+
+
+                </Grid>
+
+
+            </Border>
+
+
+
+
+
+        </Grid>
     </Grid>
 </Window>

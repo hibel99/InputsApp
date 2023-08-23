@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InputsApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,10 @@ namespace InputsApp
         public MainWindow()
         {
             InitializeComponent();
-        }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+		}
+
+		private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
@@ -32,5 +34,13 @@ namespace InputsApp
             this.WindowState = WindowState.Minimized;
         }
 
-    }
-}
+		
+		
+
+		
+	}
+
+	
+
+	}
+
