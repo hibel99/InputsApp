@@ -213,17 +213,116 @@
                     </Border.BorderBrush>
                 </Border>
 
-                <DataGrid Margin="35,97,29,29">
+                <DataGrid Margin="35,97,29,29" d:ItemsSource="{d:SampleData ItemCount=5}" Name="pivotPartsGrid" Loaded="pivotPartsGrid_Loaded" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                                                  GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" 
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Pivot Category"/>
-                        <DataGridTextColumn Header="Pivot Part Name"/>
-                        <DataGridTextColumn  Header="Date" />
-                        <DataGridTextColumn Header="Cost"/>
-                        <DataGridTextColumn Header="Height"/>
-                        <DataGridTextColumn Header="Width"/>
-                        <DataGridTextColumn Header="Length"/>
-                        <DataGridTextColumn Header="Weight"/>
+
+                        <DataGridTextColumn Header="ID"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding ID}" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Pivot Category"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding PivotCategory}" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Pivot Part Name"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding PivotPart}" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Cost"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding Cost}" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        
+                        <DataGridTextColumn Header="Height"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding Height}" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        
+                        <DataGridTextColumn Header="Width"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding Width}" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        
+                        <DataGridTextColumn Header="Length"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding Length}" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        
+                        <DataGridTextColumn Header="Weight"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding Weight}" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        
+
+                        <DataGridTextColumn Header="Date"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding Date, StringFormat=\{0:dd/MM/yyyy\}}" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        
                     </DataGrid.Columns>
+
+                    <DataGrid.Resources>
+                        <ResourceDictionary>
+                            <Style x:Key="{x:Type DataGridCell}" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="BorderBrush" Value="Transparent" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ResourceDictionary>
+                    </DataGrid.Resources>
                 </DataGrid>
 
             </Grid>
