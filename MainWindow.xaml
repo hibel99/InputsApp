@@ -29,70 +29,84 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid
-        >
+    <Grid>
 
-        <Border Background="Black" CornerRadius="10">
 
-            <Grid Name="PivotGrid">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top"  Grid.Column="1" Grid.Row="0">
-                    <Button Name="MinimizeButton" BorderBrush="Transparent" Click="MinimizeButton_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Cursor="Hand" Height="20" Margin="0,0,0,0">
-                        <icon:PackIconMaterial Kind="Minus" Width="10" Height="10" Margin="0 7 0 0"/>
-                    </Button>
 
-                    <Button Name="CloseButton"  BorderBrush="Transparent" Click="CloseButton_Click" HorizontalAlignment="Left" Cursor="Hand" VerticalAlignment="Bottom" Height="20" Margin="0,0,0,0" >
-                        <icon:PackIconMaterial Kind="Close" Width="10" Height="10"/>
-                    </Button>
+        <Grid Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="519*"/>
+                <ColumnDefinition Width="400*"/>
+            </Grid.ColumnDefinitions>
 
+
+            <Grid Grid.Column="1" Margin="0,0,4,0">
+                <StackPanel Orientation="Horizontal" Margin="0,16,0,1007">
+                    <TextBlock Text="Categories" FontSize="20" Height="29" VerticalAlignment="Top" Margin="10 20 0 0" Width="101"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
-                    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
-                        <TextBlock Text="Pivot Category" HorizontalAlignment="Center" Style="{StaticResource SettingsText}"/>
-                        <TextBlock Text="Pivot Part Name" Padding="0 50 0 0" HorizontalAlignment="Center" Style="{StaticResource SettingsText}"/>
-                    </StackPanel>
-
-                    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
-                        <ComboBox Name="PivotCategoryCB" Height="50" HorizontalAlignment="Center" Width="500" Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                            <ComboBoxItem Content="Alice"/>
-                            <ComboBoxItem Content="Bob"/>
-                            <ComboBoxItem Content="Charlie"/>
-                        </ComboBox>
-                        <TextBox Name="PivotPartTB" Height="50" HorizontalAlignment="Center" Width="500" Padding="0 50 0 0" Foreground="White" materialDesign:HintAssist.Hint="Part Name"/>
-                    </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,77,0,884">
+                    <RadioButton Content="Ahmed" Margin="8 20 0 0" Style="{StaticResource booo}"  Width="96" Height="40" BorderThickness="2" IsChecked="True"  />
+                    <RadioButton Content="Hakam" Margin="8 20 0 0" Style="{StaticResource booo}" Width="96" Height="40" BorderThickness="2" />
+                    <RadioButton Content="AHMED" Margin="8 20 0 0" Style="{StaticResource booo}" Width="96" Height="38" BorderThickness="2" />
+                    <RadioButton Content="Fav" Margin="8 20 0 0" Style="{StaticResource booo}" Width="96" Height="40" BorderThickness="2" />
+                    <RadioButton Content="Hind" Margin="8 20 0 0" Style="{StaticResource booo}" Width="96" Height="38" BorderThickness="2" />
+                    <RadioButton Content="look" Margin="8 20 0 0" Style="{StaticResource booo}" Width="96" Height="38" BorderThickness="2" />
                 </StackPanel>
 
 
-                <!-- public int ID { get; set; }
-        public int InvoiceID { get; set; }
-        public string PivotCategory { get; set; }
-        public string PivotPart { get; set; }
-        public int Quantity { get; set; }
-        public decimal Cost { get; set; }
-        public decimal MarkupPercentage { get; set; }
-        public decimal Price { get; set; }
-        public DateTime Date { get; set; }-->
+                <StackPanel Margin="0,211,0,760" Orientation="Horizontal">
+                    <TextBlock Text="we can saw you here" Height="29" Margin="20 0 0 0" Width="177" Foreground="Orange" FontSize="18" />
+                    <Button Content="ViewAll" Foreground="Orange" Background="Transparent" Width="168"  Margin="550 0 0 0" Height="27"/>
+                </StackPanel>
 
-                <ListView  Grid.Column="1" Margin="0,222,-2,6" Grid.Row="1" Background="Red" >
-                    <ListView.View>
-                        <GridView>
-                            <GridView.Columns>
-                                <GridViewColumn Header="Pivot type" DisplayMemberBinding="{Binding PivotPart}"/>
-                                <GridViewColumn Header="Spare Parts" DisplayMemberBinding="{Binding PivotCategory}"/>
-                                <GridViewColumn Header="price" DisplayMemberBinding="{Binding Cost}"/>
-                            </GridView.Columns>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <StackPanel VerticalAlignment="Top" Height="537" Margin="-2,302,545,0">
+                    <TextBlock Text="Pivot Category" Foreground="Black" Margin="20 50 0 0" HorizontalAlignment="Left" />
+                    <TextBlock Text="Pivot Part Name" Foreground="Black"   Margin="20 80 0 0" HorizontalAlignment="Left" Height="40"  />
+                    <TextBlock Text="Date" Foreground="Black"   Margin="20 70 0 0" HorizontalAlignment="Left" Height="40"  />
+                    <TextBlock Text="Cost" Foreground="Black"   Margin="20 80 0 0" HorizontalAlignment="Left" Height="40"  />
 
+                </StackPanel>
+                <StackPanel Grid.Column="0"  Orientation="Vertical" Margin="134,313,0,85">
+                    <ComboBox Name="PivotCategoryCB" Height="53" Foreground="Black" BorderBrush="Black" BorderThickness="1" Margin="10 20 0 0" Padding="10 0 0 0" HorizontalAlignment="Center" Width="480" FontSize="15" >
+                        <ComboBoxItem Content="Alice"/>
+                        <ComboBoxItem Content="Bob"/>
+                        <ComboBoxItem Content="Charlie"/>
+                    </ComboBox>
+                    <TextBox Name="PivotPartTB" Height="60"  Margin="10 50 0 0" Padding="10 20 0 0" BorderBrush="Black" BorderThickness="1" Foreground="Black"  FontSize="15"  HorizontalAlignment="Center" Width="480"  Style="{StaticResource MaterialDesignOutlinedTextBox}"  materialDesign:HintAssist.Hint="Part Name" materialDesign:HintAssist.Foreground="Blue"/>
+
+                    <DatePicker Margin="10 50 0 0" Width="480" Height="53" Foreground="Black" Style="{StaticResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint="Date" materialDesign:HintAssist.Foreground="Blue" FontSize="15"     />
+                    <TextBox  Name="Cost" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="64" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="Blue"/>
+                </StackPanel>
+
+                <Button Content="Add Pivot" Style="{StaticResource  MaterialDesignPaperSecondaryDarkButton}" Foreground="White" Background="Green" Margin="299,918,283,130" >
+
+                </Button>
+
+            </Grid>
+
+
+            <Grid Grid.Column="2" Margin="17,0,0,0">
+
+                <Border CornerRadius="35" BorderThickness="20" >
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#F0EB36" Offset="0.0"/>
+                            <GradientStop Color="#73C269" Offset="0.5"/>
+                            <GradientStop Color="#1E91A5" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                </Border>
+
+                <DataGrid Margin="35,33,29,29">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Pivot Category"/>
+                        <DataGridTextColumn Header="Pivot Part Name"/>
+                        <DataGridTextColumn  Header="Date" />
+                        <DataGridTextColumn Header="Cost"/>
+                    </DataGrid.Columns>
+                </DataGrid>
 
             </Grid>
 
@@ -102,9 +116,54 @@
 
 
 
-        </Border>
+            <Border CornerRadius="35" BorderThickness="20" >
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#F0EB36" Offset="0.0"/>
+                        <GradientStop Color="#73C269" Offset="0.5"/>
+                        <GradientStop Color="#1E91A5" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+
+
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Margin="0,55,0,0">
+                        <RadioButton Content="DashBoard" Margin="10 25 0 0" Style="{StaticResource boo}" Width="99" IsChecked="True"   />
+
+
+                        <RadioButton Content="Order" Margin="10 100 0 0" Style="{StaticResource boo}" Width="100" />
+                        <RadioButton Content="History" Margin="10 100 0 0" Style="{StaticResource boo}" Width="100" />
+                        <RadioButton Content="Fav" Margin="10 100 0 0" Style="{StaticResource boo}" Width="100" />
+                        <RadioButton Content="Settings" Margin="10 100 0 0" Style="{StaticResource boo}" Width="100" />
+                        <RadioButton Content="logout" Margin="10 350 0 0" Style="{StaticResource boo}" Width="100" />
+                    </StackPanel>
 
 
 
+
+
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="White" Offset="0.0"/>
+                            <GradientStop Color="White" Offset="0.5"/>
+                            <GradientStop Color="White" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+
+
+                </Grid>
+
+
+            </Border>
+
+
+
+
+
+        </Grid>
     </Grid>
 </Window>
