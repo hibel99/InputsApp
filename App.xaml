@@ -75,6 +75,33 @@
 
 
 
+        <Style x:Key="exitButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Foreground" Value="#868686" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="0" Opacity="0.8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#D13639" />
+                    <Setter Property="Foreground" Value="#F4F0F0" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+
 
     </Application.Resources>
     
