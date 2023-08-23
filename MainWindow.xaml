@@ -15,11 +15,12 @@
         Background="#f0f0f0"
         ResizeMode="NoResize"
         Height="1080"
-        Foreground="#f0f0f0"
+        Foreground="Black"
         Width="1920"
         FontFamily="Roboto"
-        WindowState="Maximized"
-        WindowStartupLocation="CenterScreen" >
+        WindowState="Normal"
+        WindowStartupLocation="CenterScreen">
+   
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -117,17 +118,15 @@
                         </ComboBox>
                         <TextBox Name="PivotPartTB" Height="50"  Margin="10 40 0 0" Padding="10 20 0 0" BorderBrush="Black" BorderThickness="1" Foreground="Black"  FontSize="15"  HorizontalAlignment="Center" Width="480"  Style="{StaticResource MaterialDesignOutlinedTextBox}"  materialDesign:HintAssist.Hint="Part Name" materialDesign:HintAssist.Foreground="Blue"/>
 
-                        <DatePicker Margin="10 50 0 0" Width="478" Height="50" Foreground="Black" Style="{StaticResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint="Date" materialDesign:HintAssist.Foreground="Blue" FontSize="15"     />
-                        <TextBox  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox  Name="pivotHegitTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Height" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox  Name="pivotwidthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Width" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox  Name="pivotlenghtTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Lenht" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox  Name="pivotWeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Weight" materialDesign:HintAssist.Foreground="Blue"/>
+                        <DatePicker  Margin="10 50 0 0" Width="478" Height="50" Foreground="Black"  Style="{StaticResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint="Date" materialDesign:HintAssist.Foreground="Blue" FontSize="15"     />
+                        <TextBox  Name="pivotCostTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox  Name="pivotHegitTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Height" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox  Name="pivotwidthTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Width" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox  Name="pivotlenghtTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Lenht" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox  Name="pivotWeightTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Weight" materialDesign:HintAssist.Foreground="Blue"/>
                     </StackPanel>
 
-                    <Button Content="Add Pivot" Style="{StaticResource  MaterialDesignPaperSecondaryDarkButton}" Foreground="White" Background="Green" Margin="310,780,283,12" >
-
-                    </Button>
+                    <Button Content="Add Pivot" Style="{StaticResource  MaterialDesignPaperSecondaryDarkButton}" Foreground="White" Background="Green" Margin="310,780,283,12" Click="AddPivot_Button_Click" />
 
 
 
@@ -180,17 +179,15 @@
                         </ComboBox>
                         <TextBox Name="SpinklersPartsname" Height="50"  Margin="10 40 0 0" Padding="10 20 0 0" BorderBrush="Black" BorderThickness="1" Foreground="Black"  FontSize="15"  HorizontalAlignment="Center" Width="480"  Style="{StaticResource MaterialDesignOutlinedTextBox}"  materialDesign:HintAssist.Hint="Part Name" materialDesign:HintAssist.Foreground="Blue"/>
 
-                        <DatePicker Name="SpinklersPartsDate" Margin="10 50 0 0" Width="478" Height="50" Foreground="Black" Style="{StaticResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint="Date" materialDesign:HintAssist.Foreground="Blue" FontSize="15"     />
-                        <TextBox  Name="SpinklersPartscost" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox Name="SpinklersPartsHeight"  Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Height" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox Name="SpinklersPartsWidth"  Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Width" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox  Name="SpinklersPartsLength"  Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Lenht" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox  Name="SpinklersPartsWeight" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Weight" materialDesign:HintAssist.Foreground="Blue"/>
+                        <DatePicker Name="SpinklersPartsDate"  Margin="10 50 0 0" Width="478" Height="50" Foreground="Black" Style="{StaticResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint="Date" materialDesign:HintAssist.Foreground="Blue" FontSize="15"     />
+                        <TextBox  Name="SpinklersPartscost"   PreviewTextInput="NumericTextBox_PreviewTextInput"   Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox Name="SpinklersPartsHeight"  PreviewTextInput="NumericTextBox_PreviewTextInput"  Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Height" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox Name="SpinklersPartsWidth"   PreviewTextInput="NumericTextBox_PreviewTextInput"   Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Width" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox  Name="SpinklersPartsLength"  PreviewTextInput="NumericTextBox_PreviewTextInput" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Lenht" materialDesign:HintAssist.Foreground="Blue"/>
+                        <TextBox  Name="SpinklersPartsWeight"  PreviewTextInput="NumericTextBox_PreviewTextInput" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Weight" materialDesign:HintAssist.Foreground="Blue"/>
                     </StackPanel>
 
-                    <Button Content="Add Spinklers" Style="{StaticResource  MaterialDesignPaperSecondaryDarkButton}" Foreground="White" Background="Green" Margin="310,780,283,12" >
-
-                    </Button>
+                    <Button Content="Add Spinklers" Style="{StaticResource  MaterialDesignPaperSecondaryDarkButton}" Foreground="White" Background="Green" Margin="310,780,283,12" Click="AddSpinkler_Button_Click" ></Button>
 
 
 
@@ -213,8 +210,8 @@
                     </Border.BorderBrush>
                 </Border>
 
-                <DataGrid Margin="35,97,29,29" d:ItemsSource="{d:SampleData ItemCount=5}" Name="pivotPartsGrid" Loaded="pivotPartsGrid_Loaded" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                                  GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" 
+                <DataGrid Margin="35,97,29,29" d:ItemsSource="{d:SampleData ItemCount=5}" Name="pivotPartsGrid" CanUserResizeColumns="True" Loaded="pivotPartsGrid_Loaded" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                                                  GridLinesVisibility="Vertical"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" 
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                     <DataGrid.Columns>
 
