@@ -132,7 +132,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Pivot Category" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Sprinkler Category" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Sprinkler Part Name" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Cost" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Height" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -141,15 +141,8 @@
                     <TextBlock Text="Weight" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Last Updated" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                    <ComboBox Name="SprinklerCategoryCB" Height="50" Style="{StaticResource MaterialDesignComboBox}" Width="380" Grid.Row="0" Grid.Column="1" >
-                        <ComboBoxItem Content="Center Small"/>
-                        <ComboBoxItem Content="Center Standard"/>
-                        <ComboBoxItem Content="Linear Water Feed by Hose"/>
-                        <ComboBoxItem Content="Linear Ditch Water Feed Delivery"/>
-                    </ComboBox>
-
+                    <TextBox  Name="SprinklerCategoryCB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="0" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Sprinkler Category" materialDesign:HintAssist.Foreground="#FD8207"/>
                     <TextBox Name="SprinklerPartTB" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="1" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Part Name" materialDesign:HintAssist.Foreground="#FD8207"/>
-
                     <TextBox  Name="SprinklerCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="2" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="#FD8207"/>
                     <TextBox  Name="SprinklerHeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Height" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="3" Grid.Column="1" Padding="14"/>
                     <TextBox  Name="SprinklerwidthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Width" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="4" Grid.Column="1" Padding="14"/>
@@ -306,7 +299,7 @@
                     </DataGrid>
 
                     <DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Name="SprinklerPartsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                   BorderThickness="0"               GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White" SelectionChanged="SprinklerPartsDG_SelectionChanged"
+                                   BorderThickness="0" FontSize="12" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White" SelectionChanged="SprinklerPartsDG_SelectionChanged"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                         <DataGrid.Columns>
 
@@ -444,8 +437,8 @@
                         <RowDefinition Height="*"/> 
                     </Grid.RowDefinitions>
 
-                    <RadioButton Name="Pivot" Content="Pivot" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="Pivot_Click" />
-                    <RadioButton Name="SpinklersParts" Grid.Row="1" Content="Spinklers Parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpinklersParts_Click" />
+                    <RadioButton Name="Pivot" Content="Pivot" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="Pivot_Click" />
+                    <RadioButton Name="SpinklersParts" Grid.Row="1" Content="Spinklers Parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="SpinklersParts_Click" />
 
 
 

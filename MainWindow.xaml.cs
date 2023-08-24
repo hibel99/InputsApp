@@ -120,7 +120,8 @@ namespace InputsApp
                 decimal.Parse(SprinklerHeightTB.Text),
                 decimal.Parse(SprinklerwidthTB.Text),
                 decimal.Parse(SprinklerlengthTB.Text),
-                decimal.Parse(SprinklerWeightTB.Text)
+                decimal.Parse(SprinklerWeightTB.Text),
+                7
                 );
 
                 await _sprinklerPartsRepository.AddSprinklerPart(sprinklerPart);
@@ -213,7 +214,7 @@ namespace InputsApp
                 decimal.Parse(SprinklerHeightTB.Text),
                 decimal.Parse(SprinklerwidthTB.Text),
                 decimal.Parse(SprinklerlengthTB.Text),
-                decimal.Parse(SprinklerWeightTB.Text)
+                decimal.Parse(SprinklerWeightTB.Text),7
                 );
 
             await _sprinklerPartsRepository.EditSprinklerPart( sprinklerPart );

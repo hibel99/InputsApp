@@ -52,7 +52,8 @@ public class SprinklerPartsRepository : ISprinklerPartsRepository
                   Height = sprinklerPart.Height,
                   Width = sprinklerPart.Width,
                   Length = sprinklerPart.Length,
-                  Weight = sprinklerPart.Weight
+                  Weight = sprinklerPart.Weight,
+                  PivotID = sprinklerPart.PivotID
               },
               AppConnection.ConnectionString);
         }
