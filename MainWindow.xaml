@@ -15,7 +15,8 @@
         Background="#f0f0f0"
         ResizeMode="NoResize"
         Height="1080"
-        Foreground="#f0f0f0"
+        Foreground="Black"
+        FontSize="16"
         Width="1920"
         FontFamily="Roboto"
         WindowState="Maximized"
@@ -32,53 +33,72 @@
     </Window.Resources>
 
     <Grid>
-
-
-
-
         <Grid Background="#F5F6F8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="800"/>
                 <ColumnDefinition Width="400*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="140"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <Image Height="118" VerticalAlignment="Top"  Margin="10,20,20,0" Source="./Image/1.png" />
+            <Image Margin="15 0 0 0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Source="./Image/1.png" />
 
-
-
-            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Top" Height="39" Margin="763,0,13,0">
-
-
+            <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="0" VerticalAlignment="Top" Height="39" HorizontalAlignment="Right">
                 <Button Style="{StaticResource exitButton}" Height="36" Click="MinimizeButton_Click" Width="48">
                     <icon:PackIconMaterial Kind="WindowMinimize" Width="10" Height="10"/>
-
                 </Button>
 
                 <Button Style="{StaticResource exitButton}" Height="36" Click="CloseButton_Click" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <icon:PackIconMaterial Kind="Close" Width="10" Height="10"/>
                 </Button>
-
             </StackPanel>
 
-            <Grid Grid.Column="1" Margin="0,0,4,0">
-                <StackPanel Orientation="Horizontal" Margin="0,16,0,1007"/>
-                <StackPanel Orientation="Horizontal" Margin="50,77,0,884">
-                    <RadioButton Name="Pivot" Content="Pivot" Margin="8 20 0 0" Style="{StaticResource booo}"  Width="124" Height="40" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False"  />
-                    <RadioButton Name="SpinklersParts" Content="Spinklers Parts" Margin="30 20 0 0" Style="{StaticResource booo}" Width="124" Height="40" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" />
-                </StackPanel>
-
-
-                <StackPanel Margin="0,211,0,760" Orientation="Horizontal"/>
-
-
-                <Grid Margin="0,208,0,-2">
+            <Border Grid.Column="1" Grid.Row="1" Margin="0 0 10 10" Background="White" CornerRadius="19" >
+                <Grid  Name="PivotGrid">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+
+                    <TextBlock Text="Pivot Category" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Pivot Part Name" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Cost" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Height" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Width" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Length" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Weight" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Last Updated" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <ComboBox Name="PivotCategoryCB" Height="50" Style="{StaticResource MaterialDesignComboBox}" Width="380" Grid.Row="0" Grid.Column="1" >
+                        <ComboBoxItem Content="Center Small"/>
+                        <ComboBoxItem Content="Center Standard"/>
+                        <ComboBoxItem Content="Linear Water Feed by Hose"/>
+                        <ComboBoxItem Content="Linear Ditch Water Feed Delivery"/>
+                    </ComboBox>
+
+                    <TextBox Name="PivotPartTB" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="1" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Part Name" materialDesign:HintAssist.Foreground="#FD8207"/>
+
+                    <TextBox  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="2" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="#FD8207"/>
+                    <TextBox  Name="pivotHegitTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Height" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="3" Grid.Column="1" Padding="14"/>
+                    <TextBox  Name="pivotwidthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput"  Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Width" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="4" Grid.Column="1" Padding="14"/>
+                    <TextBox  Name="pivotlenghtTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Length" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="5" Grid.Column="1" Padding="14"/>
+                    <TextBox  Name="pivotWeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Weight" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="6" Grid.Column="1" Padding="14"/>
+                    <DatePicker Name="pivotDatePicker" Width="380" Height="50" Style="{StaticResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint="Date" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="7" Grid.Column="1" Padding="14"/>
+                    <Button Content="Add Pivot" Name="AddPivot_Button" Click="AddPivot_Button_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="8" Grid.ColumnSpan="2" Padding="14" />
 
                     <Grid.Style>
                         <Style TargetType="Grid">
@@ -91,58 +111,46 @@
                         </Style>
                     </Grid.Style>
 
-
-
-
-
-
-                    <StackPanel VerticalAlignment="Top" Height="766" Margin="50,0,573,0">
-                        <TextBlock Text="Pivot Category" Foreground="Black" Margin="12 40 0 0" HorizontalAlignment="Left" />
-                        <TextBlock Text="Pivot Part Name" Foreground="Black"   Margin="12 70 0 0" HorizontalAlignment="Left" Height="40"  />
-                        <TextBlock Text="Date" Foreground="Black"   Margin="12 62 0 0" HorizontalAlignment="Left" Height="40"  />
-                        <TextBlock Text="Cost" Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="27"  />
-                        <TextBlock Text="Height " Foreground="Black"   Margin="12 70 0 0" HorizontalAlignment="Left" Height="40"  />
-                        <TextBlock Text="Width  " Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="40"  />
-                        <TextBlock Text="Length   " Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="40"  />
-                        <TextBlock Text="Weight   " Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="40"  />
-
-                    </StackPanel>
-
-
-                    <StackPanel Grid.Column="0"  Orientation="Vertical" Margin="295,0,0,85">
-                        <ComboBox Name="PivotCategoryCB" Height="50" Style="{StaticResource comboboxgreen}" Foreground="Black" BorderBrush="Black" BorderThickness="1" Margin="10 20 0 0" Padding="10 0 0 0" HorizontalAlignment="Center" Width="480" FontSize="15"  >
-                            <ComboBoxItem Content="Alice"/>
-                            <ComboBoxItem Content="Bob"/>
-                            <ComboBoxItem Content="Charlie"/>
-                        </ComboBox>
-                        <TextBox Name="PivotPartTB" Height="50"  Margin="10 40 0 0" Padding="10 20 0 0" BorderBrush="Black" BorderThickness="1" Foreground="Black"  FontSize="15"  HorizontalAlignment="Center" Width="480"  Style="{StaticResource MaterialDesignOutlinedTextBox}"  materialDesign:HintAssist.Hint="Part Name" materialDesign:HintAssist.Foreground="Blue"/>
-
-                        <DatePicker Margin="10 50 0 0" Width="478" Height="50" Foreground="Black" Style="{StaticResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint="Date" materialDesign:HintAssist.Foreground="Blue" FontSize="15"     />
-                        <TextBox  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox  Name="pivotHegitTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Height" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox  Name="pivotwidthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Width" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox  Name="pivotlenghtTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Lenht" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox  Name="pivotWeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Weight" materialDesign:HintAssist.Foreground="Blue"/>
-                    </StackPanel>
-
-                    <Button Content="Add Pivot" Style="{StaticResource  MaterialDesignPaperSecondaryDarkButton}" Foreground="White" Background="Green" Margin="310,780,283,12" >
-
-                    </Button>
-
-
-
                 </Grid>
+            </Border>
 
-
-               
-                <Grid Margin="0,208,0,-2">
+            <Border Grid.Column="1" Grid.Row="1" CornerRadius="19" Background="White" Margin="0 0 0 10">
+                <Grid Name="SprinklerGrid">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
+                    <TextBlock Text="Sprinkler Category" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Sprinkler Part Name" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Cost" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Height" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Width" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Length" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Weight" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Last Updated" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <TextBox  Name="SprinklerCategoryCB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="0" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Sprinkler Category" materialDesign:HintAssist.Foreground="#FD8207"/>
+                    <TextBox Name="SprinklerPartTB" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="1" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Part Name" materialDesign:HintAssist.Foreground="#FD8207"/>
+                    <TextBox  Name="SprinklerCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="2" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="#FD8207"/>
+                    <TextBox  Name="SprinklerHeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Height" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="3" Grid.Column="1" Padding="14"/>
+                    <TextBox  Name="SprinklerwidthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Width" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="4" Grid.Column="1" Padding="14"/>
+                    <TextBox  Name="SprinklerlengthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Length" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="5" Grid.Column="1" Padding="14"/>
+                    <TextBox  Name="SprinklerWeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Weight" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="6" Grid.Column="1" Padding="14"/>
+                    <DatePicker Name="SprinklerDatePicker" Width="380" Height="50" Style="{StaticResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint="Date" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="7" Grid.Column="1" Padding="14"/>
+                    <Button Content="Add Sprinkler" Name="AddSpinkler_Button" Click="AddSpinkler_Button_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="8" Grid.ColumnSpan="2"  Padding="14" />
+                    
                     <Grid.Style>
                         <Style TargetType="Grid">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -153,226 +161,287 @@
                             </Style.Triggers>
                         </Style>
                     </Grid.Style>
-
-
-
-
-
-
-                    <StackPanel VerticalAlignment="Top" Height="766" Margin="50,0,573,0">
-                        <TextBlock Text="SpinklersParts Category" Foreground="Black" Margin="12 40 0 0" HorizontalAlignment="Left" />
-                        <TextBlock Text="SpinklersParts Name" Foreground="Black"   Margin="12 70 0 0" HorizontalAlignment="Left" Height="40"  />
-                        <TextBlock Text="Date" Foreground="Black"   Margin="12 62 0 0" HorizontalAlignment="Left" Height="40"  />
-                        <TextBlock Text="Cost" Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="27"  />
-                        <TextBlock Text="Height " Foreground="Black"   Margin="12 70 0 0" HorizontalAlignment="Left" Height="40"  />
-                        <TextBlock Text="Width  " Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="40"  />
-                        <TextBlock Text="Length   " Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="40"  />
-                        <TextBlock Text="Weight   " Foreground="Black"   Margin="12 60 0 0" HorizontalAlignment="Left" Height="40"  />
-
-                    </StackPanel>
-
-
-                    <StackPanel Grid.Column="0"  Orientation="Vertical" Margin="295,0,0,85">
-                        <ComboBox Name="SpinklersPartsCategory" Height="50" Style="{StaticResource comboboxgreen}" Foreground="Black" BorderBrush="Black" BorderThickness="1" Margin="10 20 0 0" Padding="10 0 0 0" HorizontalAlignment="Center" Width="480" FontSize="15"  >
-                            <ComboBoxItem Content="Alice"/>
-                            <ComboBoxItem Content="Bob"/>
-                            <ComboBoxItem Content="Charlie"/>
-                        </ComboBox>
-                        <TextBox Name="SpinklersPartsname" Height="50"  Margin="10 40 0 0" Padding="10 20 0 0" BorderBrush="Black" BorderThickness="1" Foreground="Black"  FontSize="15"  HorizontalAlignment="Center" Width="480"  Style="{StaticResource MaterialDesignOutlinedTextBox}"  materialDesign:HintAssist.Hint="Part Name" materialDesign:HintAssist.Foreground="Blue"/>
-
-                        <DatePicker Name="SpinklersPartsDate" Margin="10 50 0 0" Width="478" Height="50" Foreground="Black" Style="{StaticResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint="Date" materialDesign:HintAssist.Foreground="Blue" FontSize="15"     />
-                        <TextBox  Name="SpinklersPartscost" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox Name="SpinklersPartsHeight"  Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Height" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox Name="SpinklersPartsWidth"  Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Width" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox  Name="SpinklersPartsLength"  Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Lenht" materialDesign:HintAssist.Foreground="Blue"/>
-                        <TextBox  Name="SpinklersPartsWeight" Style="{StaticResource MaterialDesignOutlinedTextBox }" FontSize="15" BorderBrush="Black" BorderThickness="1"    Height="50" Margin="10 50 0 0" HorizontalAlignment="Center" Width="480"   materialDesign:HintAssist.Hint="Weight" materialDesign:HintAssist.Foreground="Blue"/>
-                    </StackPanel>
-
-                    <Button Content="Add Spinklers" Style="{StaticResource  MaterialDesignPaperSecondaryDarkButton}" Foreground="White" Background="Green" Margin="310,780,283,12" >
-
-                    </Button>
-
-
-
                 </Grid>
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChecked,ElementName=SpinklersParts}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
 
 
+            <Border Grid.Column="2" Grid.Row="1" Margin="10 0 10 10" Padding="14" CornerRadius="19" Background="White">
+                <Grid Name="DataGridGrid">
 
-            </Grid>
-
-
-            <Grid Grid.Column="2" Margin="17,0,0,0">
-
-                <Border CornerRadius="35" BorderThickness="20" Margin="0,68,0,0" >
-                    <Border.BorderBrush>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#F0EB36" Offset="0.0"/>
-                            <GradientStop Color="#73C269" Offset="0.5"/>
-                            <GradientStop Color="#1E91A5" Offset="1.0"/>
-                        </LinearGradientBrush>
-                    </Border.BorderBrush>
-                </Border>
-
-                <DataGrid Margin="35,97,29,29" d:ItemsSource="{d:SampleData ItemCount=5}" Name="pivotPartsGrid" Loaded="pivotPartsGrid_Loaded" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                                  GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" 
+                    <DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Name="pivotPartsGrid" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                                 BorderThickness="0"    SelectionChanged="pivotPartsGrid_SelectionChanged"             GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
-                    <DataGrid.Columns>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotCategory}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="ID"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding ID}" >
-                            <DataGridTextColumn.ElementStyle>
-                                <Style>
-                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                            <DataGridTextColumn Header="Part Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Cost"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Cost}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Height"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Height}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Width"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Width}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Length"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Length}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Weight"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Weight}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+                            <DataGridTextColumn Header="Date"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Date, StringFormat=\{0:dd/MM/yyyy\}}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTemplateColumn Header="Delete">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Name="DeleteButtoninDG" Click="DeleteButtoninDG_Click" Style="{StaticResource NewAdminPanelDeleteButton}">
+                                            <icon:PackIconMaterial Kind="Delete" Width="16" Height="16"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                        </DataGrid.Columns>
+
+                        <DataGrid.Resources>
+                            <ResourceDictionary>
+                                <Style x:Key="{x:Type DataGridCell}" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="BorderBrush" Value="Transparent" />
+                                        </Trigger>
+                                    </Style.Triggers>
                                 </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-
-                        <DataGridTextColumn Header="Pivot Category"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding PivotCategory}" >
-                            <DataGridTextColumn.ElementStyle>
-                                <Style>
-                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                <Style TargetType="DataGrid">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked,ElementName=Pivot}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
                                 </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
+                            </ResourceDictionary>
+                        </DataGrid.Resources>
+                    </DataGrid>
 
-                        <DataGridTextColumn Header="Pivot Part Name"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding PivotPart}" >
-                            <DataGridTextColumn.ElementStyle>
-                                <Style>
-                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                    <DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Name="SprinklerPartsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                                   BorderThickness="0" FontSize="12" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White" SelectionChanged="SprinklerPartsDG_SelectionChanged"
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
+                        <DataGrid.Columns>
 
+                            <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding SprinklerCategory}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Part Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding SprinklerPart}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Cost"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Cost}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Height"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Height}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Width"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Width}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Length"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Length}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Weight"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Weight}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+                            <DataGridTextColumn Header="Date"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Date, StringFormat=\{0:dd/MM/yyyy\}}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTemplateColumn Header="Delete">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Name="DeleteButtoninSPrinklerDG" Click="DeleteButtoninSPrinklerDG_Click"  Style="{StaticResource NewAdminPanelDeleteButton}">
+                                            <icon:PackIconMaterial Kind="Delete" Width="16" Height="16"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                        </DataGrid.Columns>
+
+                        <DataGrid.Resources>
+                            <ResourceDictionary>
+                                <Style x:Key="{x:Type DataGridCell}" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="BorderBrush" Value="Transparent" />
+                                        </Trigger>
+                                    </Style.Triggers>
                                 </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-
-                        <DataGridTextColumn Header="Cost"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding Cost}" >
-                            <DataGridTextColumn.ElementStyle>
-                                <Style>
-                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-
+                                <Style TargetType="DataGrid">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked,ElementName=SpinklersParts}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
                                 </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        
-                        <DataGridTextColumn Header="Height"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding Height}" >
-                            <DataGridTextColumn.ElementStyle>
-                                <Style>
-                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                            </ResourceDictionary>
+                        </DataGrid.Resources>
+                    </DataGrid>
+                </Grid>
+            </Border>
 
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        
-                        <DataGridTextColumn Header="Width"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding Width}" >
-                            <DataGridTextColumn.ElementStyle>
-                                <Style>
-                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
 
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        
-                        <DataGridTextColumn Header="Length"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding Length}" >
-                            <DataGridTextColumn.ElementStyle>
-                                <Style>
-                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+            <Border CornerRadius="19" BorderThickness="2" Grid.Column="0" Grid.Row="1" Margin="0 0 0 10"  Width="220" Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/> 
+                        <RowDefinition Height="*"/> 
+                        <RowDefinition Height="*"/> 
+                        <RowDefinition Height="*"/> 
+                        <RowDefinition Height="*"/> 
+                        <RowDefinition Height="*"/> 
+                        <RowDefinition Height="*"/> 
+                        <RowDefinition Height="*"/> 
+                        <RowDefinition Height="*"/> 
+                        <RowDefinition Height="*"/> 
+                    </Grid.RowDefinitions>
 
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        
-                        <DataGridTextColumn Header="Weight"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding Weight}" >
-                            <DataGridTextColumn.ElementStyle>
-                                <Style>
-                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        
-
-                        <DataGridTextColumn Header="Date"  IsReadOnly="True"  CanUserResize ="False"  Width="*" Binding="{Binding Date, StringFormat=\{0:dd/MM/yyyy\}}" >
-                            <DataGridTextColumn.ElementStyle>
-                                <Style>
-                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-
-                        
-                    </DataGrid.Columns>
-
-                    <DataGrid.Resources>
-                        <ResourceDictionary>
-                            <Style x:Key="{x:Type DataGridCell}" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
-                                <Setter Property="Background" Value="Transparent" />
-                                <Setter Property="BorderBrush" Value="Transparent" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Background" Value="Transparent" />
-                                        <Setter Property="BorderBrush" Value="Transparent" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ResourceDictionary>
-                    </DataGrid.Resources>
-                </DataGrid>
-
-            </Grid>
+                    <RadioButton Name="Pivot" Content="Pivot" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="Pivot_Click" />
+                    <RadioButton Name="SpinklersParts" Grid.Row="1" Content="Spinklers Parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="SpinklersParts_Click" />
 
 
 
-
-
-
-
-            <Border CornerRadius="35" BorderThickness="28px" Margin="28px,140,0,37" Width="220"  >
-                <Border.BorderBrush>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="White" Offset="0.0"/>
-                        <GradientStop Color="White" Offset="0.5"/>
-                        <GradientStop Color="White" Offset="1.0"/>
-                    </LinearGradientBrush>
-                </Border.BorderBrush>
-
-
-                <Grid >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-
-
-
-                    <StackPanel Margin="0,55,0,0">
-                        <RadioButton Content="DashBoard" Margin="10 25 0 0" Style="{StaticResource boo}" Width="99" IsChecked="True"   />
-
-
-                        <!--<RadioButton Content="Order" Margin="10 100 0 0" Style="{StaticResource boo}" Width="100" />
-                        <RadioButton Content="History" Margin="10 100 0 0" Style="{StaticResource boo}" Width="100" />
-                        <RadioButton Content="Fav" Margin="10 100 0 0" Style="{StaticResource boo}" Width="100" />
-                        <RadioButton Content="Settings" Margin="10 100 0 0" Style="{StaticResource boo}" Width="100" />
-                        <RadioButton Content="log out" Margin="10 220 0 0" Style="{StaticResource boo}" Width="100" />-->
-                    </StackPanel>
-
-
-
-
-
-                    <Grid.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="White" Offset="0.0"/>
-                            <GradientStop Color="White" Offset="0.5"/>
-                            <GradientStop Color="White" Offset="1.0"/>
-                        </LinearGradientBrush>
-                    </Grid.Background>
 
 
                 </Grid>

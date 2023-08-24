@@ -25,7 +25,7 @@
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="#ffb38a"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
                             </Trigger>
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter Property="Foreground" Value="#ff9248"/>
@@ -102,6 +102,60 @@
 
 
 
+        <!--#region Toggle Button -->
+        <Style x:Key="ToggleButtonTextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="#AAAAAA"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+
+            <!--to change fore ground on MouseOver and Menu Item Selection-->
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" Value="True">
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" Value="True">
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}}" Value="True">
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}}" Value="True">
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ToggleButtonBorderStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10 10 10 10"/>
+            <Setter Property="Padding" Value="10 10 10 10"/>
+
+            <Setter Property="CornerRadius" Value="10"/>
+
+
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" Value="True">
+                    <Setter Property="Background" Value="#FD8207"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" Value="True">
+                    <Setter Property="Background" Value="#FD8207"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}}" Value="True">
+                    <Setter Property="Background" Value="#FD8207"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}}" Value="True">
+                    <Setter Property="Background" Value="#FD8207"/>
+                </DataTrigger>
+            </Style.Triggers>
+
+            <!--to change fore ground on MouseOver and Menu Item Selection-->
+
+        </Style>
+
         <Style x:Key="ToggleButtonButtonStyle" TargetType="{x:Type ToggleButton}">
 
             <Setter Property="BorderThickness" Value="0"/>
@@ -121,7 +175,7 @@
 
 
                                 <!--Menu Text-->
-                                
+                                <TextBlock  Style="{StaticResource ToggleButtonTextStyle}" Grid.Column="1" Text="{TemplateBinding Content}"  />
 
 
 
@@ -137,39 +191,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-
-
-
-        <Style x:Key="ToggleButtonBorderStyle" TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="10 10 10 10"/>
-            <Setter Property="Padding" Value="10 10 10 10"/>
-
-            <Setter Property="CornerRadius" Value="10"/>
-
-
-
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" Value="True">
-                    <Setter Property="Background" Value="White"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" Value="True">
-                    <Setter Property="Background" Value="Orange"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}}" Value="True">
-                    <Setter Property="Background" Value="#404040"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}}" Value="True">
-                    <Setter Property="Background" Value="#404040"/>
-                </DataTrigger>
-            </Style.Triggers>
-
-            <!--to change fore ground on MouseOver and Menu Item Selection-->
-
-        </Style>
-
+        <!--#endregion-->
 
 
 
@@ -394,7 +416,7 @@
 
 
         <ControlTemplate x:Key="ComboBoxTemplateLONG" TargetType="{x:Type ComboBox}">
-            <Grid x:Name="templateRoot" SnapsToDevicePixels="true" Height="34" Width="250">
+            <Grid x:Name="templateRoot" SnapsToDevicePixels="true" Height="50" Width="380">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Width="0"/>
@@ -445,8 +467,66 @@
         </Style>
 
 
+        <Style x:Key="NewAdminPanelDeleteButton" TargetType="Button" >
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Background" Value="#FFFFFF" />
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="#FD8207" />
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Margin" Value="5 0 0 0" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10" Padding="10 0 10 0" >
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FDAD07" />
+                    <Setter Property="Foreground" Value="#f0f0f0" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
 
+        <Style x:Key="NewAdminPanelApproveButton" TargetType="Button" >
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="#b8b8b8" />
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="Margin" Value="5 0 0 0" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10" Padding="10 0 10 0" >
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1B5923" />
+                    <Setter Property="Foreground" Value="#f0f0f0" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
 
 
