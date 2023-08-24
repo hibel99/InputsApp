@@ -189,16 +189,6 @@
                                  BorderThickness="0"    SelectionChanged="pivotPartsGrid_SelectionChanged"             GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                         <DataGrid.Columns>
-
-                            <DataGridTextColumn Header="ID"  IsReadOnly="True"  CanUserResize ="True"  Width="0.6*" Binding="{Binding ID}" >
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-
                             <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotCategory}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
@@ -319,15 +309,6 @@
                                    BorderThickness="0"               GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White" SelectionChanged="SprinklerPartsDG_SelectionChanged"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                         <DataGrid.Columns>
-
-                            <DataGridTextColumn Header="ID"  IsReadOnly="True"  CanUserResize ="True"  Width="0.6*" Binding="{Binding ID}" >
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
 
                             <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding SprinklerCategory}" >
                                 <DataGridTextColumn.ElementStyle>
