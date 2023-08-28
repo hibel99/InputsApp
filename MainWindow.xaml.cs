@@ -25,6 +25,8 @@ namespace InputsApp
         private readonly IPivotRepository _pivotRepository;
         private readonly IPivotPartsRepository _pivotPartsRepository;
         private readonly ISprinklerPartsRepository _sprinklerPartsRepository;
+        private readonly ISpanRepository _spanRepository;
+
         private SprinklerParts sprinklerEdit = null;
         private PivotParts pivotEdit = null;
 
@@ -36,7 +38,7 @@ namespace InputsApp
             _pivotRepository = new PivotRepository(_sqlDataAccess);
             _pivotPartsRepository = new PivotPartsRepository(_sqlDataAccess);
             _sprinklerPartsRepository = new SprinklerPartsRepository(_sqlDataAccess);
-
+            _spanRepository = new SpanRepository(_sqlDataAccess);
             UpdateGrid();
         }
 
