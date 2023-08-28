@@ -22,6 +22,7 @@ namespace InputsApp
     {
         private readonly ISqlDataAccess _sqlDataAccess;
 
+        private readonly IPivotRepository _pivotRepository;
         private readonly IPivotPartsRepository _pivotPartsRepository;
         private readonly ISprinklerPartsRepository _sprinklerPartsRepository;
         private SprinklerParts sprinklerEdit = null;
@@ -32,8 +33,10 @@ namespace InputsApp
         {
             InitializeComponent();
             _sqlDataAccess = new SqlDataAccess();
+            _pivotRepository = new PivotRepository(_sqlDataAccess);
             _pivotPartsRepository = new PivotPartsRepository(_sqlDataAccess);
             _sprinklerPartsRepository = new SprinklerPartsRepository(_sqlDataAccess);
+
             UpdateGrid();
         }
 
@@ -65,6 +68,7 @@ namespace InputsApp
 
         async private void UpdateGrid()
         {
+
             if ((bool)Pivot.IsChecked)
             {
                 var result = await _pivotPartsRepository.GetPivotParts();
@@ -75,11 +79,23 @@ namespace InputsApp
                 var result = await _sprinklerPartsRepository.GetSprinklerParts();
                 SprinklerPartsDG.ItemsSource = result;
             }
-            
         }
 
+            //PivotCategoryTB
+            //PivotPartTB
+            //pivotCostTB
+            //pivotwidthTB
+            //pivotlenghtTB
+            //pivotWeightTB
+            //AddPivot_Button
         private async void AddPivot_Button_Click(object sender, RoutedEventArgs e)
         {
+            if (IsAnyFieldEmpty(PivotCategoryTB, PivotPartTB, pivotCostTB,
+                 pivotwidthTB, pivotlenghtTB, pivotWeightTB))
+            {
+                return;
+            }
+
             if (pivotEdit != null)
             {
                 UpdateItemFromTextBoxes_Pivots(pivotEdit);
@@ -87,7 +103,7 @@ namespace InputsApp
             else
             {
                 var pivotPart = new PivotParts(
-                PivotCategoryCB.Text,
+                PivotCategoryTB.Text,
                 PivotPartTB.Text,
                 decimal.Parse(pivotCostTB.Text),
                 DateTime.UtcNow,
@@ -104,8 +120,38 @@ namespace InputsApp
             ClearTextBoxes();
         }
 
+
+
+
+        private bool IsAnyFieldEmpty(params TextBox[] fields)
+        {
+           var emptyFields = fields.Where((field) => (field.Text.Length == 0)).ToList();
+            if(emptyFields.Count() > 0)
+            {
+                emptyFields.ForEach(field => field.BorderBrush = new SolidColorBrush(Colors.LightGreen));
+                return true;
+            }
+            return false;
+        }
+
+        //      SprinklerCategoryTB
+        //      SprinklerPartTB
+        //      SprinklerCostTB
+        //      SprinklerHeightTB
+        //      SprinklerwidthTB
+        //      SprinklerlengthTB
+        //      SprinklerWeightTB
+        //      AddSpinkler_Button
+
         private async void AddSpinkler_Button_Click(object sender, RoutedEventArgs e)
         {
+            if (IsAnyFieldEmpty(SprinklerCategoryTB, SprinklerPartTB, SprinklerCostTB, SprinklerHeightTB, 
+                SprinklerwidthTB, SprinklerlengthTB, SprinklerWeightTB))
+            {
+                return;
+            }
+
+
             if (sprinklerEdit != null)
             {
                 UpdateItemFromTextBoxes_Sprinklers(sprinklerEdit);
@@ -113,7 +159,7 @@ namespace InputsApp
             else
             {
                 var sprinklerPart = new SprinklerParts(
-                SprinklerCategoryCB.Text,
+                SprinklerCategoryTB.Text,
                 SprinklerPartTB.Text,
                 decimal.Parse(SprinklerCostTB.Text),
                 DateTime.UtcNow,
@@ -121,7 +167,7 @@ namespace InputsApp
                 decimal.Parse(SprinklerwidthTB.Text),
                 decimal.Parse(SprinklerlengthTB.Text),
                 decimal.Parse(SprinklerWeightTB.Text),
-                7
+                8
                 );
 
                 await _sprinklerPartsRepository.AddSprinklerPart(sprinklerPart);
@@ -193,7 +239,7 @@ namespace InputsApp
         }
         private void UpdateTextBoxesFromItem_Sprinklers(SprinklerParts sprinklerEdit)
         {
-            SprinklerCategoryCB.Text = sprinklerEdit.SprinklerCategory;
+            SprinklerCategoryTB.Text = sprinklerEdit.SprinklerCategory;
             SprinklerPartTB.Text = sprinklerEdit.SprinklerPart;
             SprinklerCostTB.Text = sprinklerEdit.Cost.ToString();
             SprinklerDatePicker.SelectedDate = sprinklerEdit.Date;
@@ -207,7 +253,7 @@ namespace InputsApp
         {
             var sprinklerPart = new SprinklerParts(
                 sprinklerEdit.ID,
-                SprinklerCategoryCB.Text,
+                SprinklerCategoryTB.Text,
                 SprinklerPartTB.Text,
                 decimal.Parse(SprinklerCostTB.Text),
                 DateTime.UtcNow,
@@ -225,7 +271,7 @@ namespace InputsApp
         {
             if ((bool)SpinklersParts.IsChecked)
             {
-                SprinklerCategoryCB.Text = string.Empty;
+                SprinklerCategoryTB.Text = string.Empty;
                 SprinklerPartTB.Text = string.Empty;
                 SprinklerCostTB.Text = string.Empty;
                 SprinklerDatePicker.SelectedDate = DateTime.Now;
@@ -236,7 +282,7 @@ namespace InputsApp
             }
             if ((bool)Pivot.IsChecked)
             {
-                PivotCategoryCB.Text = string.Empty;
+                PivotCategoryTB.Text = string.Empty;
                 PivotPartTB.Text = string.Empty;
                 pivotCostTB.Text = string.Empty;
                 pivotDatePicker.SelectedDate = DateTime.Now;
@@ -267,7 +313,7 @@ namespace InputsApp
 
         private void UpdateTextBoxesFromItem_Pivots(PivotParts pivotEdit)
         {
-            PivotCategoryCB.Text = pivotEdit.PivotCategory;
+            PivotCategoryTB.Text = pivotEdit.PivotCategory;
             PivotPartTB.Text = pivotEdit.PivotPart;
             pivotCostTB.Text = pivotEdit.Cost.ToString();
             pivotDatePicker.SelectedDate = pivotEdit.Date;
@@ -281,7 +327,7 @@ namespace InputsApp
         {
             var pivotPart = new PivotParts(
                 pivotEdit.ID,
-                PivotCategoryCB.Text,
+                PivotCategoryTB.Text,
                 PivotPartTB.Text,
                 decimal.Parse(pivotCostTB.Text),
                 DateTime.UtcNow,
@@ -293,5 +339,22 @@ namespace InputsApp
             await _pivotPartsRepository.EditPivotPart(pivotPart);
             UpdateGrid();
         }
+
+        private void TextBlock_KeyDown_DefaultColor(object sender, KeyEventArgs e)
+        {
+            
+            //Color defaultColor = (Color)ColorConverter.ConvertFromString("#434343");
+
+            //((TextBox)sender).BorderBrush = new SolidColorBrush(defaultColor);
+        }
+
+        private void TextBox_GotFocus_DefaultColor(object sender, RoutedEventArgs e)
+        {
+            Color defaultColor = (Color)ColorConverter.ConvertFromString("#434343");
+
+            ((TextBox)sender).BorderBrush = new SolidColorBrush(defaultColor);
+        }
+
+
     }
 }

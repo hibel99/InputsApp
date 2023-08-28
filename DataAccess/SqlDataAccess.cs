@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 
+
 namespace InputsApp.DataAccess;
 
 public class SqlDataAccess : ISqlDataAccess
