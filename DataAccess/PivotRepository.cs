@@ -50,8 +50,8 @@ public class PivotRepository : IPivotRepository
             await _sqlDataAccess.SaveData<dynamic>("dbo.spAddNewPivot",
                new
                {
-                 pivotname = pivot.pivotname,
-                 pivotcategory = pivot.pivotcategory
+                   pivotname = pivot.pivotname,
+                   pivotcategory = pivot.pivotcategory
                },
                AppConnection.ConnectionString);
 
@@ -69,11 +69,11 @@ public class PivotRepository : IPivotRepository
     {
         await _sqlDataAccess.SaveData<dynamic>("dbo.spEditPivot",
      new
-             {
-                 ID=pivot.ID,
-                 pivotname = pivot.pivotname,
-                 pivotcategory = pivot.pivotcategory
-             },
+     {
+         ID = pivot.ID,
+         pivotname = pivot.pivotname,
+         pivotcategory = pivot.pivotcategory
+     },
     AppConnection.ConnectionString);
     }
 
