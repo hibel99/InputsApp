@@ -18,9 +18,10 @@ public class PivotParts
     public decimal Width { get; set; }
     public decimal Length { get; set; }
     public decimal Weight { get; set; }
+    public int pivotcode { get; set; }
 
 
-    public PivotParts(string pivotCategory, string pivotPart, decimal cost, DateTime date, decimal height, decimal width, decimal length, decimal weight)
+    public PivotParts(string pivotCategory, string pivotPart, decimal cost, DateTime date, decimal height, decimal width, decimal length, decimal weight, int PivotCode)
     {
         PivotCategory = pivotCategory;
         PivotPart = pivotPart;
@@ -30,9 +31,10 @@ public class PivotParts
         Width = width;
         Length = length;
         Weight = weight;
+        pivotcode = PivotCode;
     }
 
-    public PivotParts(int iD, string pivotCategory, string pivotPart, decimal cost, DateTime date, decimal height, decimal width, decimal length, decimal weight)
+    public PivotParts(int iD, string pivotCategory, string pivotPart, decimal cost, DateTime date, decimal height, decimal width, decimal length, decimal weight, int PivotCode)
     {
         ID = iD;
         PivotCategory = pivotCategory;
@@ -43,6 +45,7 @@ public class PivotParts
         Width = width;
         Length = length;
         Weight = weight;
+        pivotcode = PivotCode;
     }
 
 }

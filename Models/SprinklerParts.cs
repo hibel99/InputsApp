@@ -8,7 +8,7 @@ namespace InputsApp.Models
 {
     public class SprinklerParts
     {
-        public SprinklerParts(string sprinklerCategory, string sprinklerPart, decimal cost, DateTime date, decimal height, decimal width, decimal length, decimal weight, int pivotID)
+        public SprinklerParts(string sprinklerCategory, string sprinklerPart, decimal cost, DateTime date, decimal height, decimal width, decimal length, decimal weight, int pivotCode)
         {
             SprinklerCategory = sprinklerCategory;
             SprinklerPart = sprinklerPart;
@@ -18,11 +18,11 @@ namespace InputsApp.Models
             Width = width;
             Length = length;
             Weight = weight;
-            PivotID = pivotID;
+            pivotcode = pivotCode;
         }
 
 
-        public SprinklerParts(int iD, string sprinklerCategory, string sprinklerPart, decimal cost, DateTime date, decimal height, decimal length, decimal width, decimal weight, int pivotID)
+        public SprinklerParts(int iD, string sprinklerCategory, string sprinklerPart, decimal cost, DateTime date, decimal height, decimal length, decimal width, decimal weight, int pivotCode)
         {
             ID = iD;
             SprinklerCategory = sprinklerCategory;
@@ -33,7 +33,7 @@ namespace InputsApp.Models
             Width = width;
             Length = length;
             Weight = weight;
-            PivotID = pivotID;
+            pivotcode = pivotCode;
         }
 
         public int ID { get; set; }
@@ -45,6 +45,6 @@ namespace InputsApp.Models
         public decimal Width { get; set; }
         public decimal Length { get; set; }
         public decimal Weight { get; set; }
-        public int PivotID { get; set; }
+        public int pivotcode { get; set; }
     }
 }

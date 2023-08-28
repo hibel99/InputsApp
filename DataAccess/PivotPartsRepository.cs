@@ -57,7 +57,8 @@ public class PivotPartsRepository : IPivotPartsRepository
                    Height = pivotPart.Height,
                    Length = pivotPart.Length,
                    Width = pivotPart.Width,
-                   Weight = pivotPart.Weight
+                   Weight = pivotPart.Weight,
+                   PivotCode = pivotPart.pivotcode
                },
                AppConnection.ConnectionString);
 
@@ -84,7 +85,8 @@ public class PivotPartsRepository : IPivotPartsRepository
      Height = pivotPart.Height,
      Length = pivotPart.Length,
      Width = pivotPart.Width,
-     Weight = pivotPart.Weight
+     Weight = pivotPart.Weight,
+     PivotCode = pivotPart.pivotcode
  },
     AppConnection.ConnectionString);
     }

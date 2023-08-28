@@ -24,6 +24,8 @@ namespace InputsApp
 
         private readonly IPivotPartsRepository _pivotPartsRepository;
         private readonly ISprinklerPartsRepository _sprinklerPartsRepository;
+        private readonly IPivotRepository _PivotRepository;
+        private PivotTable Editpivot = null;
         private SprinklerParts sprinklerEdit = null;
         private PivotParts pivotEdit = null;
 
@@ -34,7 +36,8 @@ namespace InputsApp
             _sqlDataAccess = new SqlDataAccess();
             _pivotPartsRepository = new PivotPartsRepository(_sqlDataAccess);
             _sprinklerPartsRepository = new SprinklerPartsRepository(_sqlDataAccess);
-            UpdateGrid();
+            _PivotRepository = new PivotRepository(_sqlDataAccess);
+            UpdateGridandCB();
         }
 
 
@@ -59,23 +62,30 @@ namespace InputsApp
 
                 await _pivotPartsRepository.DeletePivotPart(part.ID);
 
-                UpdateGrid();
+                UpdateGridandCB();
             }
         }
 
-        async private void UpdateGrid()
+        async private void UpdateGridandCB()
         {
-            if ((bool)Pivot.IsChecked)
+            var PivotNames = await _PivotRepository.GetPivots();
+
+            if ((bool)PivotParts.IsChecked)
             {
                 var result = await _pivotPartsRepository.GetPivotParts();
                 pivotPartsGrid.ItemsSource = result;
+                PivotNameCB.ItemsSource = PivotNames.Select(x => x.pivotname);
             }
             if ((bool)SpinklersParts.IsChecked)
             {
                 var result = await _sprinklerPartsRepository.GetSprinklerParts();
                 SprinklerPartsDG.ItemsSource = result;
+                PivotforSprinklerCB.ItemsSource = PivotNames.Select(x => x.pivotname);
             }
-            
+            if ((bool)Pivots.IsChecked)
+            {
+                PivotsDG.ItemsSource = PivotNames;
+            }
         }
 
         private async void AddPivot_Button_Click(object sender, RoutedEventArgs e)
@@ -86,6 +96,9 @@ namespace InputsApp
             }
             else
             {
+                var selectedPivot = await _PivotRepository.GetPivots();
+                var PivCat = selectedPivot.FirstOrDefault(x => x.pivotname == PivotNameCB.Text);
+
                 var pivotPart = new PivotParts(
                 PivotCategoryCB.Text,
                 PivotPartTB.Text,
@@ -94,11 +107,11 @@ namespace InputsApp
                 decimal.Parse(pivotHegitTB.Text),
                 decimal.Parse(pivotwidthTB.Text),
                 decimal.Parse(pivotlenghtTB.Text),
-                decimal.Parse(pivotWeightTB.Text));
-
+                decimal.Parse(pivotWeightTB.Text),
+                PivCat.ID );
 
                 await _pivotPartsRepository.AddPivotPart(pivotPart);
-                UpdateGrid();
+                UpdateGridandCB();
             }
 
             ClearTextBoxes();
@@ -112,6 +125,9 @@ namespace InputsApp
             }
             else
             {
+                var selectedPivot = await _PivotRepository.GetPivots();
+                var Pivotid = selectedPivot.FirstOrDefault(x => x.pivotname == PivotforSprinklerCB.Text);
+
                 var sprinklerPart = new SprinklerParts(
                 SprinklerCategoryCB.Text,
                 SprinklerPartTB.Text,
@@ -121,11 +137,11 @@ namespace InputsApp
                 decimal.Parse(SprinklerwidthTB.Text),
                 decimal.Parse(SprinklerlengthTB.Text),
                 decimal.Parse(SprinklerWeightTB.Text),
-                7
+                Pivotid.ID
                 );
 
                 await _sprinklerPartsRepository.AddSprinklerPart(sprinklerPart);
-                UpdateGrid();
+                UpdateGridandCB();
             }
 
             ClearTextBoxes();
@@ -160,22 +176,22 @@ namespace InputsApp
 
             if (result == MessageBoxResult.Yes)
             {
-                PivotParts part = (PivotParts)((Button)sender).DataContext;
+                SprinklerParts part = (SprinklerParts)((Button)sender).DataContext;
 
                 await _sprinklerPartsRepository.DeleteSprinklerPart(part.ID);
 
-                UpdateGrid();
+                UpdateGridandCB();
             }
         }
 
         private void Pivot_Click(object sender, RoutedEventArgs e)
         {
-            UpdateGrid();
+            UpdateGridandCB();
         }
 
         private void SpinklersParts_Click(object sender, RoutedEventArgs e)
         {
-            UpdateGrid();
+            UpdateGridandCB();
         }
 
         private void SprinklerPartsDG_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -205,6 +221,9 @@ namespace InputsApp
 
         async private void UpdateItemFromTextBoxes_Sprinklers(SprinklerParts sprinklerEdit)
         {
+            var selectedPivot = await _pivotPartsRepository.GetPivotParts();
+            var Pivotid = selectedPivot.FirstOrDefault(x => x.PivotCategory == PivotforSprinklerCB.Text);
+
             var sprinklerPart = new SprinklerParts(
                 sprinklerEdit.ID,
                 SprinklerCategoryCB.Text,
@@ -214,11 +233,11 @@ namespace InputsApp
                 decimal.Parse(SprinklerHeightTB.Text),
                 decimal.Parse(SprinklerwidthTB.Text),
                 decimal.Parse(SprinklerlengthTB.Text),
-                decimal.Parse(SprinklerWeightTB.Text),7
+                decimal.Parse(SprinklerWeightTB.Text), Pivotid.ID
                 );
 
             await _sprinklerPartsRepository.EditSprinklerPart( sprinklerPart );
-            UpdateGrid();
+            UpdateGridandCB();
         }
 
         private void ClearTextBoxes()
@@ -234,7 +253,7 @@ namespace InputsApp
                 SprinklerlengthTB.Text = string.Empty;
                 SprinklerWeightTB.Text = string.Empty;
             }
-            if ((bool)Pivot.IsChecked)
+            if ((bool)PivotParts.IsChecked)
             {
                 PivotCategoryCB.Text = string.Empty;
                 PivotPartTB.Text = string.Empty;
@@ -245,7 +264,11 @@ namespace InputsApp
                 pivotlenghtTB.Text = string.Empty;
                 pivotWeightTB.Text = string.Empty;
             }
-
+            if((bool)Pivots.IsChecked)
+            {
+                PivotCategory.Text = string.Empty;
+                PivotName.Text  = string.Empty;
+            }
             sprinklerEdit = null;
             pivotEdit = null;
             
@@ -279,6 +302,9 @@ namespace InputsApp
 
         async private void UpdateItemFromTextBoxes_Pivots(PivotParts pivotEdit)
         {
+            var selectedPivot = await _PivotRepository.GetPivots();
+            var PivCat = selectedPivot.FirstOrDefault(x => x.pivotname == PivotNameCB.Text);
+
             var pivotPart = new PivotParts(
                 pivotEdit.ID,
                 PivotCategoryCB.Text,
@@ -288,10 +314,56 @@ namespace InputsApp
                 decimal.Parse(pivotHegitTB.Text),
                 decimal.Parse(pivotwidthTB.Text),
                 decimal.Parse(pivotlenghtTB.Text),
-                decimal.Parse(pivotWeightTB.Text));
+                decimal.Parse(pivotWeightTB.Text),
+                PivCat.ID
+                );
 
             await _pivotPartsRepository.EditPivotPart(pivotPart);
-            UpdateGrid();
+            UpdateGridandCB();
+        }
+
+        private void PivotParts_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateGridandCB();
+        }
+
+        async private void AddNewPivotBT_Click(object sender, RoutedEventArgs e)
+        {
+            var Pivot = new PivotTable(
+                PivotName.Text,
+                PivotCategory.Text);
+
+            await _PivotRepository.AddPivot(Pivot);
+            UpdateGridandCB();
+            ClearTextBoxes();
+        }
+
+        async private void PivotNameCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedPivot = await _PivotRepository.GetPivots();
+            var PivCat = selectedPivot.FirstOrDefault(x => x.pivotname == PivotNameCB.Text);
+
+            PivotCategoryCB.Text = PivCat.pivotcategory;
+        }
+
+        async private void DeleteButtoninPivotDG_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this item?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                PivotTable part = (PivotTable)((Button)sender).DataContext;
+
+                await _PivotRepository.DeletePivot(part.ID);
+
+                UpdateGridandCB();
+            }
+            ClearTextBoxes();
+        }
+
+        private void SpanParts_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateGridandCB();
         }
     }
 }
