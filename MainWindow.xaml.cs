@@ -25,7 +25,7 @@ namespace InputsApp
         private readonly IPivotPartsRepository _pivotPartsRepository;
         private readonly ISprinklerPartsRepository _sprinklerPartsRepository;
         private readonly IPivotRepository _PivotRepository;
-        private PivotTable Editpivot = null;
+        private readonly ISpanRepository _spanRepository;
         private SprinklerParts sprinklerEdit = null;
         private PivotParts pivotEdit = null;
 
@@ -37,6 +37,7 @@ namespace InputsApp
             _pivotPartsRepository = new PivotPartsRepository(_sqlDataAccess);
             _sprinklerPartsRepository = new SprinklerPartsRepository(_sqlDataAccess);
             _PivotRepository = new PivotRepository(_sqlDataAccess);
+            _spanRepository = new SpanRepository(_sqlDataAccess);
             UpdateGridandCB();
         }
 
@@ -85,6 +86,11 @@ namespace InputsApp
             if ((bool)Pivots.IsChecked)
             {
                 PivotsDG.ItemsSource = PivotNames;
+            }
+            if((bool)SpanParts.IsChecked)
+            {
+                var result = await _spanRepository.GetSpans();
+                SpansDG.ItemsSource = result;
             }
         }
 
@@ -269,6 +275,12 @@ namespace InputsApp
                 PivotCategory.Text = string.Empty;
                 PivotName.Text  = string.Empty;
             }
+            if((bool)SpanParts.IsChecked)
+            {
+                LengthTB.Text = string.Empty;
+                DiameterTB.Text = string.Empty;
+                SpanCategoryCB.Text = string.Empty;
+            }
             sprinklerEdit = null;
             pivotEdit = null;
             
@@ -364,6 +376,33 @@ namespace InputsApp
         private void SpanParts_Click(object sender, RoutedEventArgs e)
         {
             UpdateGridandCB();
+        }
+
+        async private void DeleteButtoninSpansDG_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this item?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Spans part = (Spans)((Button)sender).DataContext;
+
+                await _spanRepository.DeleteSpan(part.ID);
+
+                UpdateGridandCB();
+            }
+            ClearTextBoxes();
+        }
+
+        async private void AddSpanBT_Click(object sender, RoutedEventArgs e)
+        {
+            var Span = new Spans(
+                decimal.Parse(LengthTB.Text),
+                decimal.Parse(DiameterTB.Text),
+                SpanCategoryCB.Text);
+
+            await _spanRepository.AddSpan(Span);
+            UpdateGridandCB();
+            ClearTextBoxes();
         }
     }
 }
