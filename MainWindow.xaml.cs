@@ -127,7 +127,7 @@ namespace InputsApp
         {
             if (sprinklerEdit != null)
             {
-                UpdateItemFromTextBoxes_Sprinklers(sprinklerEdit);
+                await UpdateItemFromTextBoxes_Sprinklers(sprinklerEdit);
             }
             else
             {
@@ -225,7 +225,7 @@ namespace InputsApp
             SprinklerWeightTB.Text = sprinklerEdit.Weight.ToString();
         }
 
-        async private void UpdateItemFromTextBoxes_Sprinklers(SprinklerParts sprinklerEdit)
+        async private Task UpdateItemFromTextBoxes_Sprinklers(SprinklerParts sprinklerEdit)
         {
             var selectedPivot = await _pivotPartsRepository.GetPivotParts();
             var Pivotid = selectedPivot.FirstOrDefault(x => x.PivotCategory == PivotforSprinklerCB.Text);
@@ -239,7 +239,8 @@ namespace InputsApp
                 decimal.Parse(SprinklerHeightTB.Text),
                 decimal.Parse(SprinklerwidthTB.Text),
                 decimal.Parse(SprinklerlengthTB.Text),
-                decimal.Parse(SprinklerWeightTB.Text), Pivotid.ID
+                decimal.Parse(SprinklerWeightTB.Text),
+                 (Pivotid is not null ? Pivotid.ID : sprinklerEdit.pivotcode) 
                 );
 
             await _sprinklerPartsRepository.EditSprinklerPart( sprinklerPart );
@@ -328,7 +329,7 @@ namespace InputsApp
                        decimal.Parse(pivotwidthTB.Text),
                        decimal.Parse(pivotlenghtTB.Text),
                        decimal.Parse(pivotWeightTB.Text),
-                       (PivCat is not null ? PivCat.ID : -1)
+                       (PivCat is not null ? PivCat.ID : pivotEdit.pivotcode)
                        );
         
 
