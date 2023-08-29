@@ -98,7 +98,7 @@ namespace InputsApp
         {
             if (pivotEdit != null)
             {
-                UpdateItemFromTextBoxes_Pivots(pivotEdit);
+                await UpdateItemFromTextBoxes_Pivots(pivotEdit);
             }
             else
             {
@@ -312,25 +312,27 @@ namespace InputsApp
             pivotWeightTB.Text = pivotEdit.Weight.ToString();
         }
 
-        async private void UpdateItemFromTextBoxes_Pivots(PivotParts pivotEdit)
+        async private Task UpdateItemFromTextBoxes_Pivots(PivotParts pivotEdit)
         {
+
+
             var selectedPivot = await _PivotRepository.GetPivots();
             var PivCat = selectedPivot.FirstOrDefault(x => x.pivotname == PivotNameCB.Text);
-
             var pivotPart = new PivotParts(
-                pivotEdit.ID,
-                PivotCategoryCB.Text,
-                PivotPartTB.Text,
-                decimal.Parse(pivotCostTB.Text),
-                DateTime.UtcNow,
-                decimal.Parse(pivotHegitTB.Text),
-                decimal.Parse(pivotwidthTB.Text),
-                decimal.Parse(pivotlenghtTB.Text),
-                decimal.Parse(pivotWeightTB.Text),
-                PivCat.ID
-                );
+                       pivotEdit.ID,
+                       PivotCategoryCB.Text,
+                       PivotPartTB.Text,
+                       decimal.Parse(pivotCostTB.Text),
+                       DateTime.UtcNow,
+                       decimal.Parse(pivotHegitTB.Text),
+                       decimal.Parse(pivotwidthTB.Text),
+                       decimal.Parse(pivotlenghtTB.Text),
+                       decimal.Parse(pivotWeightTB.Text),
+                       (PivCat is not null ? PivCat.ID : -1)
+                       );
+        
 
-            await _pivotPartsRepository.EditPivotPart(pivotPart);
+               await _pivotPartsRepository.EditPivotPart(pivotPart);
             UpdateGridandCB();
         }
 
