@@ -55,6 +55,7 @@ public class SpanRepository : ISpanRepository
                    Length = span.Length,
                    Diameter = span.Diameter,
                    Category = span.Category,
+                   Name = span.Name,
                },
                AppConnection.ConnectionString);
 

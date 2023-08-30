@@ -394,7 +394,8 @@ namespace InputsApp
             var Span = new Spans(
                 decimal.Parse(LengthTB.Text),
                 decimal.Parse(DiameterTB.Text),
-                SpanCategoryCB.Text);
+                SpanCategoryCB.Text,
+                SpanNameTB.Text);
 
             await _spanRepository.AddSpan(Span);
             UpdateGridandCB();
