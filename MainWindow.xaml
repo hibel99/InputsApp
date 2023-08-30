@@ -590,7 +590,16 @@
                                     </Style>
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
-                            
+
+                            <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Category}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
                             <DataGridTextColumn Header="Length"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Length}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
@@ -610,16 +619,6 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
                             
-                            <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Category}" >
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-
                             <DataGridTemplateColumn Header="">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
