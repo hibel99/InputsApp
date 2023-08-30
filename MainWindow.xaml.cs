@@ -69,10 +69,9 @@ namespace InputsApp
 
         async private void UpdateGridandCB()
         {
-            var PivotNames = await _PivotRepository.GetPivots();
-
             if ((bool)PivotParts.IsChecked)
             {
+                var PivotNames = await _PivotRepository.GetPivots();
                 var result = await _pivotPartsRepository.GetPivotParts();
                 pivotPartsGrid.ItemsSource = result;
                 PivotNameCB.ItemsSource = PivotNames.Select(x => x.pivotname);
@@ -81,10 +80,10 @@ namespace InputsApp
             {
                 var result = await _sprinklerPartsRepository.GetSprinklerParts();
                 SprinklerPartsDG.ItemsSource = result;
-                PivotforSprinklerCB.ItemsSource = PivotNames.Select(x => x.pivotname);
             }
             if ((bool)Pivots.IsChecked)
             {
+                var PivotNames = await _PivotRepository.GetPivots();
                 PivotsDG.ItemsSource = PivotNames;
             }
             if((bool)SpanParts.IsChecked)
@@ -132,7 +131,7 @@ namespace InputsApp
             else
             {
                 var selectedPivot = await _PivotRepository.GetPivots();
-                var Pivotid = selectedPivot.FirstOrDefault(x => x.pivotname == PivotforSprinklerCB.Text);
+                //var Pivotid = selectedPivot.FirstOrDefault(x => x.pivotname == PivotforSprinklerCB.Text);
 
                 var sprinklerPart = new SprinklerParts(
                 SprinklerCategoryCB.Text,
@@ -142,8 +141,7 @@ namespace InputsApp
                 decimal.Parse(SprinklerHeightTB.Text),
                 decimal.Parse(SprinklerwidthTB.Text),
                 decimal.Parse(SprinklerlengthTB.Text),
-                decimal.Parse(SprinklerWeightTB.Text),
-                Pivotid.ID
+                decimal.Parse(SprinklerWeightTB.Text)
                 );
 
                 await _sprinklerPartsRepository.AddSprinklerPart(sprinklerPart);
@@ -218,7 +216,6 @@ namespace InputsApp
             SprinklerCategoryCB.Text = sprinklerEdit.SprinklerCategory;
             SprinklerPartTB.Text = sprinklerEdit.SprinklerPart;
             SprinklerCostTB.Text = sprinklerEdit.Cost.ToString();
-            SprinklerDatePicker.SelectedDate = sprinklerEdit.Date;
             SprinklerHeightTB.Text = sprinklerEdit.Height.ToString();
             SprinklerwidthTB.Text = sprinklerEdit.Width.ToString(); 
             SprinklerlengthTB.Text = sprinklerEdit.Length.ToString();
@@ -228,7 +225,7 @@ namespace InputsApp
         async private Task UpdateItemFromTextBoxes_Sprinklers(SprinklerParts sprinklerEdit)
         {
             var selectedPivot = await _pivotPartsRepository.GetPivotParts();
-            var Pivotid = selectedPivot.FirstOrDefault(x => x.PivotCategory == PivotforSprinklerCB.Text);
+            //var Pivotid = selectedPivot.FirstOrDefault(x => x.PivotCategory == PivotforSprinklerCB.Text);
 
             var sprinklerPart = new SprinklerParts(
                 sprinklerEdit.ID,
@@ -239,8 +236,7 @@ namespace InputsApp
                 decimal.Parse(SprinklerHeightTB.Text),
                 decimal.Parse(SprinklerwidthTB.Text),
                 decimal.Parse(SprinklerlengthTB.Text),
-                decimal.Parse(SprinklerWeightTB.Text),
-                 (Pivotid is not null ? Pivotid.ID : sprinklerEdit.pivotcode) 
+                decimal.Parse(SprinklerWeightTB.Text)
                 );
 
             await _sprinklerPartsRepository.EditSprinklerPart( sprinklerPart );
@@ -254,7 +250,6 @@ namespace InputsApp
                 SprinklerCategoryCB.Text = string.Empty;
                 SprinklerPartTB.Text = string.Empty;
                 SprinklerCostTB.Text = string.Empty;
-                SprinklerDatePicker.SelectedDate = DateTime.Now;
                 SprinklerHeightTB.Text = string.Empty;
                 SprinklerwidthTB.Text = string.Empty;
                 SprinklerlengthTB.Text = string.Empty;
@@ -265,7 +260,6 @@ namespace InputsApp
                 PivotCategoryCB.Text = string.Empty;
                 PivotPartTB.Text = string.Empty;
                 pivotCostTB.Text = string.Empty;
-                pivotDatePicker.SelectedDate = DateTime.Now;
                 pivotHegitTB.Text = string.Empty;
                 pivotwidthTB.Text = string.Empty;
                 pivotlenghtTB.Text = string.Empty;
@@ -306,7 +300,6 @@ namespace InputsApp
             PivotCategoryCB.Text = pivotEdit.PivotCategory;
             PivotPartTB.Text = pivotEdit.PivotPart;
             pivotCostTB.Text = pivotEdit.Cost.ToString();
-            pivotDatePicker.SelectedDate = pivotEdit.Date;
             pivotHegitTB.Text = pivotEdit.Height.ToString();
             pivotwidthTB.Text = pivotEdit.Width.ToString();
             pivotlenghtTB.Text = pivotEdit.Length.ToString();

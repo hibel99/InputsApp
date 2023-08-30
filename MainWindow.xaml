@@ -72,7 +72,6 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Pivot Name" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -83,7 +82,6 @@
                     <TextBlock Text="Width" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Length" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Weight" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Last Updated" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                     <ComboBox Name="PivotNameCB" Style="{StaticResource MaterialDesignComboBox}" Height="50" Width="380" Grid.Row="0" Grid.Column="1" SelectionChanged="PivotNameCB_SelectionChanged"/>
                     <TextBlock Name="PivotCategoryCB" Height="50" Width="380" Grid.Row="1" Grid.Column="1" materialDesign:HintAssist.Hint="Part Name" materialDesign:HintAssist.Foreground="#FD8207" />
@@ -94,7 +92,6 @@
                     <TextBox  Name="pivotwidthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput"  Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Width" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="5" Grid.Column="1" Padding="14"/>
                     <TextBox  Name="pivotlenghtTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Length" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="6" Grid.Column="1" Padding="14"/>
                     <TextBox  Name="pivotWeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Weight" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="7" Grid.Column="1" Padding="14"/>
-                    <DatePicker Name="pivotDatePicker" Width="380" Height="50" Grid.Row="8" Grid.Column="1" Padding="14"/>
                     <Button Content="Add Pivot" Name="AddPivot_Button" Click="AddPivot_Button_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="9" Grid.ColumnSpan="2" Padding="14" />
 
                     <Grid.Style>
@@ -126,30 +123,24 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Pivot" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Sprinkler Category" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Sprinkler Part Name" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Cost" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Height" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Width" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Length" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Weight" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Last Updated" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Sprinkler Category" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Sprinkler Part Name" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Cost" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Height" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Width" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Length" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Weight" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                    <ComboBox Name="PivotforSprinklerCB" Style="{StaticResource MaterialDesignComboBox}" Height="50" Width="380" Grid.Row="0" Grid.Column="1"/>
-                    <TextBox  Name="SprinklerCategoryCB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="1" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Sprinkler Category" materialDesign:HintAssist.Foreground="#FD8207"/>
-                    <TextBox Name="SprinklerPartTB" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="2" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Part Name" materialDesign:HintAssist.Foreground="#FD8207"/>
-                    <TextBox  Name="SprinklerCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="3" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="#FD8207"/>
-                    <TextBox  Name="SprinklerHeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Height" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="4" Grid.Column="1" Padding="14"/>
-                    <TextBox  Name="SprinklerwidthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Width" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="5" Grid.Column="1" Padding="14"/>
-                    <TextBox  Name="SprinklerlengthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Length" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="6" Grid.Column="1" Padding="14"/>
-                    <TextBox  Name="SprinklerWeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Weight" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="7" Grid.Column="1" Padding="14"/>
-                    <DatePicker Name="SprinklerDatePicker" Width="380" Height="50" Grid.Row="8" Grid.Column="1" Padding="14"/>
-                    <Button Content="Add Sprinkler" Name="AddSpinkler_Button" Click="AddSpinkler_Button_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="9" Grid.ColumnSpan="2"  Padding="14" />
+                    <TextBox  Name="SprinklerCategoryCB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="0" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Sprinkler Category" materialDesign:HintAssist.Foreground="#FD8207"/>
+                    <TextBox Name="SprinklerPartTB" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="1" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Part Name" materialDesign:HintAssist.Foreground="#FD8207"/>
+                    <TextBox  Name="SprinklerCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="2" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="#FD8207"/>
+                    <TextBox  Name="SprinklerHeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Height" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="3" Grid.Column="1" Padding="14"/>
+                    <TextBox  Name="SprinklerwidthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Width" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="4" Grid.Column="1" Padding="14"/>
+                    <TextBox  Name="SprinklerlengthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Length" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="5" Grid.Column="1" Padding="14"/>
+                    <TextBox  Name="SprinklerWeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Weight" materialDesign:HintAssist.Foreground="#FD8207" Grid.Row="6" Grid.Column="1" Padding="14"/>
+                    <Button Content="Add Sprinkler" Name="AddSpinkler_Button" Click="AddSpinkler_Button_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="7" Grid.ColumnSpan="2"  Padding="14" />
                     
                     <Grid.Style>
                         <Style TargetType="Grid">
@@ -285,7 +276,7 @@
                 <Grid Name="DataGridGrid">
 
                     <DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Name="pivotPartsGrid" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0"    SelectionChanged="pivotPartsGrid_SelectionChanged"             GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0"    SelectionChanged="pivotPartsGrid_SelectionChanged"  FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotCategory}" >
@@ -367,7 +358,7 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTemplateColumn Header="Delete">
+                            <DataGridTemplateColumn Header="">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button Name="DeleteButtoninDG" Click="DeleteButtoninDG_Click" Style="{StaticResource NewAdminPanelDeleteButton}">
@@ -488,7 +479,7 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTemplateColumn Header="Delete">
+                            <DataGridTemplateColumn Header="">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button Name="DeleteButtoninSPrinklerDG" Click="DeleteButtoninSPrinklerDG_Click"  Style="{StaticResource NewAdminPanelDeleteButton}">
@@ -526,7 +517,7 @@
                     </DataGrid>
 
                     <DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Name="PivotsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0"    SelectionChanged="pivotPartsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0" FontSize="12"    SelectionChanged="pivotPartsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding pivotcategory}" >
@@ -548,7 +539,7 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTemplateColumn Header="Delete">
+                            <DataGridTemplateColumn Header="">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button Name="DeleteButtoninPivotDG" Click="DeleteButtoninPivotDG_Click"  Style="{StaticResource NewAdminPanelDeleteButton}">
@@ -586,7 +577,7 @@
                     </DataGrid>
 
                     <DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Name="SpansDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0"    SelectionChanged="pivotPartsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0" FontSize="12"   SelectionChanged="pivotPartsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Length"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Length}" >
@@ -618,7 +609,7 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTemplateColumn Header="Delete">
+                            <DataGridTemplateColumn Header="">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button Name="DeleteButtoninSpansDG" Click="DeleteButtoninSpansDG_Click"  Style="{StaticResource NewAdminPanelDeleteButton}">
@@ -675,9 +666,9 @@
                     </Grid.RowDefinitions>
 
                     <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="Pivot_Click" />
-                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="1" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="PivotParts_Click" />
+                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="1" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="PivotParts_Click" />
                     <RadioButton Name="SpinklersParts" Grid.Row="2" Content="Spinklers Parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpinklersParts_Click" />
-                    <RadioButton Name="SpanParts" Grid.Row="3" Content="Spans" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="SpanParts_Click" />
+                    <RadioButton Name="SpanParts" Grid.Row="3" Content="Spans" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
                 </Grid>
 
 

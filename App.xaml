@@ -470,7 +470,7 @@
         <Style x:Key="NewAdminPanelDeleteButton" TargetType="Button" >
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="Background" Value="#FFFFFF" />
+            <Setter Property="Background" Value="Transparent" />
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Foreground" Value="#FD8207" />
             <Setter Property="Width" Value="auto" />
