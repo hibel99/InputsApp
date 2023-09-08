@@ -90,6 +90,8 @@ namespace InputsApp
             {
                 var result = await _spanRepository.GetSpans();
                 SpansDG.ItemsSource = result;
+                var PivotNames = await _PivotRepository.GetPivots();
+                SpanPivotNameCB.ItemsSource = PivotNames.Select(x => x.pivotname);
             }
         }
 
@@ -275,6 +277,8 @@ namespace InputsApp
                 LengthTB.Text = string.Empty;
                 DiameterTB.Text = string.Empty;
                 SpanCategoryCB.Text = string.Empty;
+                SpanPivotNameCB.Text = string.Empty;
+                SpanCostTB.Text = string.Empty;
             }
             sprinklerEdit = null;
             pivotEdit = null;
@@ -395,7 +399,8 @@ namespace InputsApp
                 decimal.Parse(LengthTB.Text),
                 decimal.Parse(DiameterTB.Text),
                 SpanCategoryCB.Text,
-                SpanNameTB.Text);
+                SpanNameTB.Text,
+                decimal.Parse(SpanCostTB.Text));
 
             await _spanRepository.AddSpan(Span);
             UpdateGridandCB();

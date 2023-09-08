@@ -238,17 +238,20 @@
                     <TextBlock Text="Span Length" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Span Diameter" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Span Category" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Cost" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
 
                     <TextBox Name="SpanNameTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="0" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Span Name" materialDesign:HintAssist.Foreground="#FD8207"/>
                     <TextBox Name="LengthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="1" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Span Length" materialDesign:HintAssist.Foreground="#FD8207"/>
                     <TextBox  Name="DiameterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="2" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Span Diameter" materialDesign:HintAssist.Foreground="#FD8207"/>
+                    <TextBox  Name="SpanCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="4" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost" materialDesign:HintAssist.Foreground="#FD8207"/>
                     <ComboBox Name="SpanCategoryCB" Grid.Row="3" Grid.Column="1" Style="{StaticResource MaterialDesignComboBox}" Height="50" Width="380" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <ComboBoxItem Content="Span"/>
+                        <ComboBoxItem Content="Corner"/>
                         <ComboBoxItem Content="Overhang"/>
                         <ComboBoxItem Content="End Gun"/>
                     </ComboBox>
-                    <Button Content="Add Span" Name="AddSpanBT" Click="AddSpanBT_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="4" Grid.ColumnSpan="2"  Padding="14" />
+                    <Button Content="Add Span" Name="AddSpanBT" Click="AddSpanBT_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="5" Grid.ColumnSpan="2"  Padding="14" />
 
                     <Grid.Style>
                         <Style TargetType="Grid">
@@ -610,6 +613,16 @@
                             </DataGridTextColumn>
 
                             <DataGridTextColumn Header="Diameter"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Diameter}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            
+                            <DataGridTextColumn Header="Cost"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Cost}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
                                         <Setter Property="TextBlock.TextWrapping" Value="Wrap" />

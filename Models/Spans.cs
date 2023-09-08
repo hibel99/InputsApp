@@ -9,22 +9,28 @@ namespace InputsApp.Models
 {
     public class Spans
     {
-        public Spans(decimal length, decimal diameter, string category, string name)
+        public Spans()
+        {
+        }
+
+        public Spans(decimal length, decimal diameter, string category, string name, decimal cost)
         {
             Length = length;
             Diameter = diameter;
             Category = category;
             Name = name;
+            Cost = cost;
         }
 
 
-        public Spans(int iD, decimal length, decimal diameter, string category, string name)
+        public Spans(int iD, decimal length, decimal diameter, string category, string name, decimal cost)
         {
             ID = iD;
             Length = length;
             Diameter = diameter;
             Category = category;
             Name = name;
+            Cost = cost;
         }
 
         public int ID { get; set; }
@@ -32,5 +38,6 @@ namespace InputsApp.Models
         public decimal Diameter { get; set; }
         public string Category { get; set; }
         public string Name { get; set; }
+        public decimal Cost { get; set; }
     }
 }
