@@ -90,8 +90,6 @@ namespace InputsApp
             {
                 var result = await _spanRepository.GetSpans();
                 SpansDG.ItemsSource = result;
-                var PivotNames = await _PivotRepository.GetPivots();
-                SpanPivotNameCB.ItemsSource = PivotNames.Select(x => x.pivotname);
             }
         }
 
@@ -271,13 +269,13 @@ namespace InputsApp
             {
                 PivotCategory.Text = string.Empty;
                 PivotName.Text  = string.Empty;
+                PivotLength.Text = string.Empty;
             }
             if((bool)SpanParts.IsChecked)
             {
                 LengthTB.Text = string.Empty;
                 DiameterTB.Text = string.Empty;
                 SpanCategoryCB.Text = string.Empty;
-                SpanPivotNameCB.Text = string.Empty;
                 SpanCostTB.Text = string.Empty;
             }
             sprinklerEdit = null;
@@ -343,7 +341,8 @@ namespace InputsApp
         {
             var Pivot = new PivotTable(
                 PivotName.Text,
-                PivotCategory.Text);
+                PivotCategory.Text,
+                decimal.Parse(PivotLength.Text));
 
             await _PivotRepository.AddPivot(Pivot);
             UpdateGridandCB();

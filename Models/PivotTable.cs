@@ -8,16 +8,17 @@ namespace InputsApp.Models
 {
     public class PivotTable
     {
-        public PivotTable(string pivotName, string pivotCategory)
+        public PivotTable(string pivotName, string pivotCategory, decimal pivotLength)
         {
             pivotname = pivotName;
             pivotcategory = pivotCategory;
+            pivotlength = pivotLength;
         }
 
 
-        public PivotTable(string pivotName, string pivotCategory, int iD)
+        public PivotTable(decimal pivotLength, string pivotName, string pivotCategory, int iD)
         {
-            
+            pivotlength = pivotLength;
             pivotname = pivotName;
             pivotcategory = pivotCategory;
             ID = iD;
@@ -26,5 +27,6 @@ namespace InputsApp.Models
         public string pivotname { get; set; }
         public string pivotcategory { get; set; }
         public int ID { get; set; }
+        public decimal pivotlength { get; set; }
     }
 }

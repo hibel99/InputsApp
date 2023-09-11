@@ -187,9 +187,11 @@
 
                     <TextBlock Text="Pivot Name" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Pivot Category" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Pivot Length" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                     <TextBox Name="PivotCategory" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="0" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Pivot Category" materialDesign:HintAssist.Foreground="#FD8207"/>
                     <TextBox  Name="PivotName" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="1" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Pivot Name" materialDesign:HintAssist.Foreground="#FD8207"/>
+                    <TextBox  Name="PivotLength" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="2" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Pivot Length" materialDesign:HintAssist.Foreground="#FD8207"/>
                     <Button Content="Add Pivot" Name="AddNewPivotBT" Click="AddNewPivotBT_Click"  Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="9" Grid.ColumnSpan="2"  Padding="14" />
 
                     <Grid.Style>
@@ -534,12 +536,20 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTextColumn Header="Part Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding pivotname}" >
+                            <DataGridTextColumn Header="Pivot Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding pivotname}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
                                         <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
                                         <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            
+                            <DataGridTextColumn Header="Pivot Length"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding pivotlength}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
                                     </Style>
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
@@ -688,10 +698,10 @@
                         <RowDefinition Height="*"/> 
                     </Grid.RowDefinitions>
 
-                    <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="Pivot_Click" />
+                    <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="Pivot_Click" />
                     <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="1" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="PivotParts_Click" />
                     <RadioButton Name="SpinklersParts" Grid.Row="2" Content="Spinklers Parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpinklersParts_Click" />
-                    <RadioButton Name="SpanParts" Grid.Row="3" Content="Spans" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="SpanParts_Click" />
+                    <RadioButton Name="SpanParts" Grid.Row="3" Content="Spans" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
                 </Grid>
 
 
