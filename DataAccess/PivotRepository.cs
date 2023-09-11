@@ -50,7 +50,8 @@ public class PivotRepository : IPivotRepository
                new
                {
                    pivotname = pivot.pivotname,
-                   pivotcategory = pivot.pivotcategory
+                   pivotcategory = pivot.pivotcategory,
+                   pivotlength = pivot.pivotlength
                },
                AppConnection.ConnectionString);
 
@@ -71,7 +72,8 @@ public class PivotRepository : IPivotRepository
      {
          ID = pivot.ID,
          pivotname = pivot.pivotname,
-         pivotcategory = pivot.pivotcategory
+         pivotcategory = pivot.pivotcategory,
+         pivotlength = pivot.pivotlength
      },
     AppConnection.ConnectionString);
     }
