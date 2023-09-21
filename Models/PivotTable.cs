@@ -8,6 +8,10 @@ namespace InputsApp.Models
 {
     public class PivotTable
     {
+        public PivotTable()
+        {
+        }
+
         public PivotTable(string pivotName, string pivotCategory, decimal pivotLength)
         {
             pivotname = pivotName;

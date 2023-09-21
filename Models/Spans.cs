@@ -13,17 +13,19 @@ namespace InputsApp.Models
         {
         }
 
-        public Spans(decimal length, decimal diameter, string category, string name, decimal cost)
+        public Spans(decimal length, decimal diameter, string category, string name, decimal cost, string pipeType, string overhangType)
         {
             Length = length;
             Diameter = diameter;
             Category = category;
             Name = name;
             Cost = cost;
+            PipeType = pipeType;
+            OverhangType = overhangType;
         }
 
 
-        public Spans(int iD, decimal length, decimal diameter, string category, string name, decimal cost)
+        public Spans(int iD, decimal length, decimal diameter, string category, string name, decimal cost, string pipeType, string overhangType)
         {
             ID = iD;
             Length = length;
@@ -31,6 +33,8 @@ namespace InputsApp.Models
             Category = category;
             Name = name;
             Cost = cost;
+            PipeType = pipeType;
+            OverhangType = overhangType;
         }
 
         public int ID { get; set; }
@@ -39,5 +43,7 @@ namespace InputsApp.Models
         public string Category { get; set; }
         public string Name { get; set; }
         public decimal Cost { get; set; }
+        public string PipeType { get; set; }
+        public string OverhangType { get; set; }
     }
 }

@@ -57,6 +57,8 @@ public class SpanRepository : ISpanRepository
                    Category = span.Category,
                    Name = span.Name,
                    Cost = span.Cost,
+                   PipeType = span.PipeType,
+                   OverhangType = span.OverhangType,
                },
                AppConnection.ConnectionString);
 

@@ -69,6 +69,7 @@ namespace InputsApp
 
         async private void UpdateGridandCB()
         {
+
             if ((bool)PivotParts.IsChecked)
             {
                 var PivotNames = await _PivotRepository.GetPivots();
@@ -89,7 +90,15 @@ namespace InputsApp
             if((bool)SpanParts.IsChecked)
             {
                 var result = await _spanRepository.GetSpans();
-                SpansDG.ItemsSource = result;
+                var spans = result.Where(x=>x.Category=="Span");
+                SpansDG.ItemsSource = spans;
+            }
+            
+            if((bool)OverhangParts.IsChecked)
+            {
+                var result = await _spanRepository.GetSpans();
+                var overhang = result.Where(x => x.Category == "Overhang");
+                OverhangDG.ItemsSource = overhang;
             }
         }
 
@@ -275,8 +284,18 @@ namespace InputsApp
             {
                 LengthTB.Text = string.Empty;
                 DiameterTB.Text = string.Empty;
-                SpanCategoryCB.Text = string.Empty;
                 SpanCostTB.Text = string.Empty;
+                PipeTypeCBCB.SelectedIndex = 0;
+                SpanNameTB.Text = string.Empty; 
+            }
+            if ((bool)OverhangParts.IsChecked)
+            {
+                OHLengthTB.Text = string.Empty;
+                OHDiameterTB.Text = string.Empty;
+                OHCostTB.Text = string.Empty;
+                OHNameTB.Text = string.Empty;
+                OHTypeCBCB.SelectedIndex = 0;
+
             }
             sprinklerEdit = null;
             pivotEdit = null;
@@ -397,12 +416,50 @@ namespace InputsApp
             var Span = new Spans(
                 decimal.Parse(LengthTB.Text),
                 decimal.Parse(DiameterTB.Text),
-                SpanCategoryCB.Text,
+                "Span",
                 SpanNameTB.Text,
-                decimal.Parse(SpanCostTB.Text));
+                decimal.Parse(SpanCostTB.Text),
+                PipeTypeCBCB.Text,""
+                );
 
             await _spanRepository.AddSpan(Span);
             UpdateGridandCB();
+            ClearTextBoxes();
+        }
+
+        private void Overhang_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateGridandCB();
+        }
+
+        private async void AddOverhangBT_Click_1(object sender, RoutedEventArgs e)
+        {
+            var Overhang = new Spans(
+               decimal.Parse(OHLengthTB.Text),
+               decimal.Parse(OHDiameterTB.Text),
+               "Overhang",
+               OHNameTB.Text,
+               decimal.Parse(OHCostTB.Text),
+               "", OHTypeCBCB.Text
+               );
+
+            await _spanRepository.AddSpan(Overhang);
+            UpdateGridandCB();
+            ClearTextBoxes();
+        }
+
+        private async void DeleteButtoninOHDG_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this item?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Spans part = (Spans)((Button)sender).DataContext;
+
+                await _spanRepository.DeleteSpan(part.ID);
+
+                UpdateGridandCB();
+            }
             ClearTextBoxes();
         }
     }
