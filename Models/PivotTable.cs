@@ -10,6 +10,7 @@ namespace InputsApp.Models
     {
         public PivotTable()
         {
+
         }
 
         public PivotTable(string pivotName, string pivotCategory, decimal pivotLength)
@@ -29,6 +30,7 @@ namespace InputsApp.Models
         }
 
         public string pivotname { get; set; }
+        public string Name => pivotname;
         public string pivotcategory { get; set; }
         public int ID { get; set; }
         public decimal pivotlength { get; set; }

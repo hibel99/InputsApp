@@ -57,8 +57,7 @@ public class SpanRepository : ISpanRepository
                    Category = span.Category,
                    Name = span.Name,
                    Cost = span.Cost,
-                   PipeType = span.PipeType,
-                   OverhangType = span.OverhangType,
+                   PivotID = span.PivotID,
                },
                AppConnection.ConnectionString);
 
@@ -74,13 +73,18 @@ public class SpanRepository : ISpanRepository
 
     public async Task EditSpan(Spans span)
     {
-        //    await _sqlDataAccess.SaveData<dynamic>("dbo.spEditSpan",
-        // new
-        // {
-        //     ID = span.ID,
-        //     Length = span.Length
-        // },
-        //AppConnection.ConnectionString);
+        await _sqlDataAccess.SaveData<dynamic>("dbo.spEditSpan",
+     new
+     {
+         ID = span.ID,
+         Length = span.Length,
+         Diameter = span.Diameter,
+         Category = span.Category,
+         Name = span.Name,
+         Cost = span.Cost,
+         PivotID = span.PivotID,
+     },
+    AppConnection.ConnectionString);
     }
 
 

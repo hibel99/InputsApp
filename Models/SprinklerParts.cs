@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,6 +10,12 @@ namespace InputsApp.Models
 {
     public class SprinklerParts
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public SprinklerParts(string sprinklerCategory, string sprinklerPart, decimal cost, DateTime date, decimal height, decimal width, decimal length, decimal weight)
         {
             SprinklerCategory = sprinklerCategory;

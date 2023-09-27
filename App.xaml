@@ -15,6 +15,33 @@
             <Setter Property="FontSize" Value="25"/>
         </Style>
 
+        <Style x:Key="OrangeButton" TargetType="Button" >
+
+            <Setter Property="Background" Value="#FD8207" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="Margin" Value="5 0 0 0" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="10 0 10 0" >
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E87C00" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
         <Style x:Key="boo" TargetType="RadioButton">
             <Setter Property="FontSize" Value="16"/>

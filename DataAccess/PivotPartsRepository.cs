@@ -27,11 +27,11 @@ public class PivotPartsRepository : IPivotPartsRepository
         _sqlDataAccess = sqlDataAccess;
     }
 
-    public async Task<List<PivotParts>> GetPivotParts()
+    public async Task<List<SpareParts>> GetPivotParts()
     {
         try
         {
-            var result = await _sqlDataAccess.LoadData<PivotParts, dynamic>("dbo.spSelectPivotParts",
+            var result = await _sqlDataAccess.LoadData<SpareParts, dynamic>("dbo.spSelectPivotParts",
                 new { },
                 AppConnection.ConnectionString);
 
@@ -43,7 +43,7 @@ public class PivotPartsRepository : IPivotPartsRepository
         }
     }
 
-    public async Task AddPivotPart(PivotParts pivotPart)
+    public async Task AddPivotPart(SpareParts pivotPart)
     {
         try
         {
@@ -58,7 +58,14 @@ public class PivotPartsRepository : IPivotPartsRepository
                    Length = pivotPart.Length,
                    Width = pivotPart.Width,
                    Weight = pivotPart.Weight,
-                   PivotCode = pivotPart.pivotcode
+                   PivotCode = pivotPart.pivotcode,
+                   PartLevel = pivotPart.PartLevel,
+                   SetID = pivotPart.SetID,
+                   SpareID = pivotPart.SpareID,
+                   Quantity = pivotPart.Quantity,
+                   SpanID = pivotPart.SpanID,
+                   NameAR = pivotPart.NameAR,
+                   section = pivotPart.Section
                },
                AppConnection.ConnectionString);
 
@@ -72,7 +79,7 @@ public class PivotPartsRepository : IPivotPartsRepository
 
 
 
-    public async Task EditPivotPart(PivotParts pivotPart)
+    public async Task EditPivotPart(SpareParts pivotPart)
     {
         await _sqlDataAccess.SaveData<dynamic>("dbo.spEditPivotPart",
  new
@@ -86,7 +93,13 @@ public class PivotPartsRepository : IPivotPartsRepository
      Length = pivotPart.Length,
      Width = pivotPart.Width,
      Weight = pivotPart.Weight,
-     PivotCode = pivotPart.pivotcode
+     PivotCode = pivotPart.pivotcode,
+     PartLevel = pivotPart.PartLevel,
+     SetID = pivotPart.SetID,
+     SpareID = pivotPart.SpareID,
+     Quantity = pivotPart.Quantity,
+     SpanID = pivotPart.SpanID,
+     NameAR = pivotPart.NameAR,
  },
     AppConnection.ConnectionString);
     }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -9,23 +11,29 @@ namespace InputsApp.Models
 {
     public class Spans
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public Spans()
         {
         }
 
-        public Spans(decimal length, decimal diameter, string category, string name, decimal cost, string pipeType, string overhangType)
+        public Spans(decimal length, decimal diameter, string category, string name, decimal cost,  string pivotID)
         {
             Length = length;
             Diameter = diameter;
             Category = category;
             Name = name;
             Cost = cost;
-            PipeType = pipeType;
-            OverhangType = overhangType;
+            PivotID = pivotID;
+
         }
 
 
-        public Spans(int iD, decimal length, decimal diameter, string category, string name, decimal cost, string pipeType, string overhangType)
+        public Spans(int iD, decimal length, decimal diameter, string category, string name, decimal cost,   string pivotID)
         {
             ID = iD;
             Length = length;
@@ -33,8 +41,7 @@ namespace InputsApp.Models
             Category = category;
             Name = name;
             Cost = cost;
-            PipeType = pipeType;
-            OverhangType = overhangType;
+            PivotID = pivotID;
         }
 
         public int ID { get; set; }
@@ -43,7 +50,7 @@ namespace InputsApp.Models
         public string Category { get; set; }
         public string Name { get; set; }
         public decimal Cost { get; set; }
-        public string PipeType { get; set; }
-        public string OverhangType { get; set; }
+        public string PivotID { get; set; }
+        public List<PivotTable> ParentPivots { get; set; }
     }
 }
