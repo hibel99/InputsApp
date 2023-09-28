@@ -11,7 +11,7 @@ namespace InputsApp.DataAccess
     public interface ISpanRepository
     {
         Task<List<Spans>> GetSpans();
-        Task AddSpan(Spans pivot);
+        Task<int> AddSpan(Spans pivot);
         Task EditSpan(Spans pivot);
         Task DeleteSpan(int pivotId);
     }

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation;
@@ -29,6 +30,7 @@ namespace InputsApp
         private readonly IPivotRepository _PivotRepository;
         private readonly ISpanRepository _spanRepository;
         private readonly ICatergoryRepository _catergoryRepository;
+        private readonly IBrandRepository _brandRepository;
         private SprinklerParts sprinklerEdit = null;
         private SpareParts pivotEdit = null;
         ObservableCollection<Categories> CategoriesListOBS = new ObservableCollection<Categories>();
@@ -41,6 +43,7 @@ namespace InputsApp
         ObservableCollection<PivotTable> PivotSpanParentOBS = new ObservableCollection<PivotTable>();
         ObservableCollection<Spans> SpanParentOBS = new ObservableCollection<Spans>();
         ObservableCollection<SpareParts> SpareParentOBS = new ObservableCollection<SpareParts>();
+        ObservableCollection<Brands> BrandsOBS = new ObservableCollection<Brands>();
 
         public MainWindow()
         {
@@ -54,6 +57,7 @@ namespace InputsApp
             _PivotRepository = new PivotRepository(_sqlDataAccess);
             _spanRepository = new SpanRepository(_sqlDataAccess);
             _catergoryRepository = new CatergoryRepository(_sqlDataAccess);
+            _brandRepository = new BrandRepository(_sqlDataAccess);
             GetDataOBS();
         }
 
@@ -146,10 +150,16 @@ namespace InputsApp
                 SpansDG.ItemsSource = SpansOBS;
                 SpanNameCB.ItemsSource = SpansOBS;
             
+            var brands = await _brandRepository.GetBrands();
+            foreach (var item in brands)
+            {
+                BrandsOBS.Add(item);
+            }
+            BrandsDG.ItemsSource = BrandsOBS;
+            ListCollectionView lcv = new ListCollectionView(BrandsOBS);
+            lcv.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
 
-           
-               
-
+            PivotBrandCB.ItemsSource = lcv;
 
 
             #region Categories
@@ -163,6 +173,7 @@ namespace InputsApp
             }
             CategoriesDG.ItemsSource = CategoriesListOBS;
             PivotCategoryCB.ItemsSource = CategoriesListOBS;
+            CategoryNewBrand.ItemsSource = CategoriesListOBS;
 
 
             foreach (var item in CategoriesList.Where(x => x.Type == "Section"))
@@ -317,7 +328,7 @@ namespace InputsApp
                     );
                     pivotPart.ParentPivots = pivotParents;
 
-                    await _pivotPartsRepository.AddPivotPart(pivotPart);
+                    pivotPart.ID= await _pivotPartsRepository.AddPivotPart(pivotPart);
                     SparePartsOBS.Add(pivotPart);
                 }
 
@@ -344,7 +355,7 @@ namespace InputsApp
                    );
                     pivotPart.ParentSpans = SpansParents;
 
-                    await _pivotPartsRepository.AddPivotPart(pivotPart);
+                    pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
                     SparePartsOBS.Add(pivotPart);
                 }
 
@@ -378,7 +389,7 @@ namespace InputsApp
                          PivotSectionCB.Text
                          );
                         pivotPart.ParentSpares = itemsAtLevel;
-                        await _pivotPartsRepository.AddPivotPart(pivotPart);
+                        pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
                         SparePartsOBS.Add(pivotPart);
                     }
                 }
@@ -736,9 +747,9 @@ namespace InputsApp
                 SpanNameTB.Text,
                 decimal.Parse(SpanCostTB.Text),
                 string.Join(",", PivotSpanParentOBS.Select(x=>x.ID).ToList())
-                );
+            );
 
-            await _spanRepository.AddSpan(Span);
+            Span.ID = await _spanRepository.AddSpan(Span);
             SpansOBS.Add(Span);
             //UpdateGridandCB();
             ClearTextBoxes();
@@ -780,24 +791,41 @@ namespace InputsApp
             ClearTextBoxes();
         }
 
-        private void DeleteCategory_Click(object sender, RoutedEventArgs e)
+        private async void DeleteCategory_Click(object sender, RoutedEventArgs e)
         {
-
+            if (MessageBox.Show("Are you sure you want to delete this category?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                if (CategoriesDG.SelectedItem is Categories cate)
+                {
+                    await _catergoryRepository.DeleteCategories(cate);
+                    CategoriesListOBS.Remove(cate);
+                } 
+            }
         }
 
-        private void DeleteSection_Click(object sender, RoutedEventArgs e)
+        private async void DeleteSection_Click(object sender, RoutedEventArgs e)
         {
-
+            if (MessageBox.Show("Are you sure you want to delete this category?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                if (SectionsDG.SelectedItem is Categories cate)
+                {
+                    await _catergoryRepository.DeleteCategories(cate);
+                    SectionsListOBS.Remove(cate);
+                }
+            }
         }
 
         private async void AddNewCategory_Click(object sender, RoutedEventArgs e)
         {
-            if (NameNewCategory.Text != "" && NameARNewCategory.Text != "")
+            if (CategoriesListOBS.Where(x => x.Name == NameNewCategory.Text && x.NameAR == NameARNewCategory.Text).FirstOrDefault() is null)
             {
-                Categories categories = new Categories("Category", NameNewCategory.Text, NameARNewCategory.Text);
-                await _catergoryRepository.AddCategories(categories);
-                CategoriesListOBS.Add(categories);
+                if (NameNewCategory.Text != "" && NameARNewCategory.Text != "")
+                {
+                    Categories categories = new Categories("Category", NameNewCategory.Text, NameARNewCategory.Text);
+                    await _catergoryRepository.AddCategories(categories);
+                    CategoriesListOBS.Add(categories);
 
+                } 
             }
         }
 
@@ -914,5 +942,44 @@ namespace InputsApp
                 }
             }
         }
+
+        private async void AddNewBrand_Click(object sender, RoutedEventArgs e)
+        {
+            if (CategoryNewBrand.SelectedItem is not null && NewBrandTB.Text != "")
+            {
+
+                if (BrandsOBS.Where(x => x.Brand == NewBrandTB.Text && x.Category == CategoryNewBrand.Text).FirstOrDefault() is null)
+                {
+                    Categories categories = CategoryNewBrand.SelectedItem as Categories;
+                    Brands brands = new Brands(categories.Name, NewBrandTB.Text);
+
+                    brands.ID = await _brandRepository.AddBrands(brands);
+                    BrandsOBS.Add(brands);  
+                }
+                
+            }
+        }
+
+        private async void DeleteBrand_Click(object sender, RoutedEventArgs e)
+        {
+            if (BrandsDG.SelectedItem is Brands brands)
+            {
+                if (MessageBox.Show("Are you sure you want to delete this brand?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    await _brandRepository.DeleteBrands(brands);
+                    BrandsOBS.Remove(brands);
+                } 
+            }
+        }
+
+        private void BrandsDG_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (BrandsDG.SelectedItem is Brands brands)
+            {
+                NewBrandTB.Text = brands.Brand;
+                CategoryNewBrand.SelectedItem = CategoriesListOBS.Where(x => x.Name == brands.Category).FirstOrDefault();
+
+
+    }       }
     }
 }

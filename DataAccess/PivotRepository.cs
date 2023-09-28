@@ -42,11 +42,11 @@ public class PivotRepository : IPivotRepository
         }
     }
 
-    public async Task AddPivot(PivotTable pivot)
+    public async Task<int> AddPivot(PivotTable pivot)
     {
         try
         {
-            await _sqlDataAccess.SaveData<dynamic>("dbo.spAddNewPivot",
+            var result = await _sqlDataAccess.LoadData<int,dynamic>("dbo.spAddNewPivot",
                new
                {
                    pivotname = pivot.pivotname,
@@ -54,7 +54,7 @@ public class PivotRepository : IPivotRepository
                    pivotlength = pivot.pivotlength
                },
                AppConnection.ConnectionString);
-
+            return result.FirstOrDefault();
         }
         catch (Exception ex)
         {

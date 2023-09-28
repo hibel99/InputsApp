@@ -10,7 +10,7 @@ namespace InputsApp.DataAccess
     public interface ISprinklerPartsRepository
     {
         Task<List<SprinklerParts>> GetSprinklerParts();
-        Task AddSprinklerPart(SprinklerParts sprinklerPart);
+        Task<int> AddSprinklerPart(SprinklerParts sprinklerPart);
         Task EditSprinklerPart(SprinklerParts sprinklerPart);
         Task DeleteSprinklerPart(int sprinklerPartId);
     }

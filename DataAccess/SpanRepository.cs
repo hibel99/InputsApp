@@ -45,11 +45,11 @@ public class SpanRepository : ISpanRepository
         }
     }
 
-    public async Task AddSpan(Spans span)
+    public async Task<int> AddSpan(Spans span)
     {
         try
         {
-            await _sqlDataAccess.SaveData<dynamic>("dbo.spAddSpan",
+            var result = await _sqlDataAccess.LoadData<int, dynamic>("dbo.spAddSpan",
                new
                {
                    Length = span.Length,
@@ -60,6 +60,7 @@ public class SpanRepository : ISpanRepository
                    PivotID = span.PivotID,
                },
                AppConnection.ConnectionString);
+            return result.FirstOrDefault();
 
         }
         catch (Exception ex)

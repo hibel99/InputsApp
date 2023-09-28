@@ -10,7 +10,7 @@ namespace InputsApp.DataAccess
     public interface IPivotRepository
     {
         Task<List<PivotTable>> GetPivots();
-        Task AddPivot(PivotTable pivot);
+        Task<int> AddPivot(PivotTable pivot);
         Task EditPivot(PivotTable pivot);
         Task DeletePivot(int pivotId);
     }

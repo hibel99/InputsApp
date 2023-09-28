@@ -19,7 +19,7 @@ public class SqlDataAccess : ISqlDataAccess
          )
     {
         using IDbConnection connection = new SqlConnection(connectionString);
-        var rows = await connection.QueryAsync<T>(StoredProcedure, null, commandType: CommandType.StoredProcedure);
+        var rows = await connection.QueryAsync<T>(StoredProcedure, parameters, commandType: CommandType.StoredProcedure);
         return rows.ToList();
 
     }

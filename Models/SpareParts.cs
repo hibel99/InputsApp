@@ -36,6 +36,7 @@ public class SpareParts
     public double Quantity { get; set; }
     public string SpanID { get; set; }
     public string NameAR { get; set; }
+    public string Brand { get; set; }
     public List<PivotTable> ParentPivots { get; set; }
     public List<SpareParts> ParentSpares { get; set; }
     public List<Spans> ParentSpans { get; set; }

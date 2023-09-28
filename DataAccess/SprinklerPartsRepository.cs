@@ -38,11 +38,11 @@ public class SprinklerPartsRepository : ISprinklerPartsRepository
         }
     }
 
-    public async Task AddSprinklerPart(SprinklerParts sprinklerPart)
+    public async Task<int> AddSprinklerPart(SprinklerParts sprinklerPart)
     {
         try
         {
-            await _sqlDataAccess.SaveData<dynamic>("dbo.spAddNewSprinklerParts",
+            var result = await _sqlDataAccess.LoadData<int, dynamic>("dbo.spAddNewSprinklerParts",
               new
               {
                   SprinklerCategory = sprinklerPart.SprinklerCategory,
@@ -55,6 +55,8 @@ public class SprinklerPartsRepository : ISprinklerPartsRepository
                   Weight = sprinklerPart.Weight
               },
               AppConnection.ConnectionString);
+            return result.FirstOrDefault();
+
         }
         catch (Exception ex)
         {

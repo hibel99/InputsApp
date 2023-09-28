@@ -10,7 +10,7 @@ namespace InputsApp.DataAccess
     public interface IPivotPartsRepository
     {
         Task<List<SpareParts>> GetPivotParts();
-        Task AddPivotPart(SpareParts pivotPart);
+        Task<int> AddPivotPart(SpareParts pivotPart);
         Task EditPivotPart(SpareParts pivotPart);
         Task DeletePivotPart(int pivotPartId);
     }

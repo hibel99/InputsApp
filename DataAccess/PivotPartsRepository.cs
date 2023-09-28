@@ -43,11 +43,11 @@ public class PivotPartsRepository : IPivotPartsRepository
         }
     }
 
-    public async Task AddPivotPart(SpareParts pivotPart)
+    public async Task<int> AddPivotPart(SpareParts pivotPart)
     {
         try
         {
-            await _sqlDataAccess.SaveData<dynamic>("dbo.spAddNewPivotPart",
+            var result = await _sqlDataAccess.LoadData<int,dynamic>("dbo.spAddNewPivotPart",
                new
                {
                    PivotCategory = pivotPart.PivotCategory,
@@ -65,9 +65,11 @@ public class PivotPartsRepository : IPivotPartsRepository
                    Quantity = pivotPart.Quantity,
                    SpanID = pivotPart.SpanID,
                    NameAR = pivotPart.NameAR,
-                   section = pivotPart.Section
+                   section = pivotPart.Section,
+                   Brand = pivotPart.Brand
                },
                AppConnection.ConnectionString);
+            return result.FirstOrDefault();
 
         }
         catch (Exception ex)
@@ -100,6 +102,8 @@ public class PivotPartsRepository : IPivotPartsRepository
      Quantity = pivotPart.Quantity,
      SpanID = pivotPart.SpanID,
      NameAR = pivotPart.NameAR,
+     Brand = pivotPart.Brand
+
  },
     AppConnection.ConnectionString);
     }
