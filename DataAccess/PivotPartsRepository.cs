@@ -102,7 +102,8 @@ public class PivotPartsRepository : IPivotPartsRepository
      Quantity = pivotPart.Quantity,
      SpanID = pivotPart.SpanID,
      NameAR = pivotPart.NameAR,
-     Brand = pivotPart.Brand
+     Brand = pivotPart.Brand,
+     Section = pivotPart.Section
 
  },
     AppConnection.ConnectionString);

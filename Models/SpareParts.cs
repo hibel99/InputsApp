@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -40,6 +41,7 @@ public class SpareParts
     public List<PivotTable> ParentPivots { get; set; }
     public List<SpareParts> ParentSpares { get; set; }
     public List<Spans> ParentSpans { get; set; }
+    public string ParentType { get; set; }
     public string Name => NameAR;
 
 
@@ -48,10 +50,11 @@ public class SpareParts
 
     }
 
+  
     public SpareParts(string pivotCategory, string pivotPart, decimal cost, 
         DateTime date, decimal height, decimal width, decimal length, 
         decimal weight, string PivotCode,int partLevel, string setID, 
-        string spareID, double quantity, string spanID, string nameAR,string section)
+        string spareID, double quantity, string spanID, string nameAR,string section,string brand)
     {
         PivotCategory = pivotCategory;
         PivotPart = pivotPart;
@@ -69,11 +72,12 @@ public class SpareParts
         SpanID = spanID;
         NameAR = nameAR;
         Section = section;
+        Brand = brand;
     }
 
     public SpareParts(int iD, string pivotCategory, string pivotPart, decimal cost, 
         DateTime date, decimal height, decimal width, decimal length, decimal weight,
-        string PivotCode, int partLevel, string setID, string spareID, double quantity, string spanID, string nameAR, string section)
+        string PivotCode, int partLevel, string setID, string spareID, double quantity, string spanID, string nameAR, string section, string brand)
     {
         ID = iD;
         PivotCategory = pivotCategory;
@@ -92,6 +96,55 @@ public class SpareParts
         SpanID = spanID;
         NameAR = nameAR;
         Section = section;
+        Brand = brand;
+
+    }
+
+}
+
+
+public static class SparePartsExtensions
+{
+
+    public static ObservableCollection<SpareParts> JoinSpanIdPivotCodeSpareId(this IEnumerable<SpareParts> spareParts)
+    {
+        var groupedSpareParts = spareParts.GroupBy(s => new
+        {
+            s.PivotCategory,
+            s.Date,
+            s.Section,
+            s.PivotPart,
+            s.NameAR,
+            s.Cost,
+            s.Height,
+            s.Width,
+            s.Length,
+            s.Weight
+        });
+
+        var joinedSpareParts = groupedSpareParts.Select(g => new SpareParts
+        {
+
+            PivotCategory = g.Key.PivotCategory,
+            Date = g.Key.Date,
+            Section = g.Key.Section,
+            PivotPart = g.Key.PivotPart,
+            Cost = g.Key.Cost,
+            Height = g.Key.Height,
+            Width = g.Key.Width,
+            Length = g.Key.Length,
+            Weight = g.Key.Weight,
+            NameAR = g.Key.NameAR,
+            SpanID = string.Join(",", g.Where(x => x.SpanID != "").Select(s => s.SpanID)),
+            pivotcode = string.Join(",", g.Where(x => x.pivotcode != "").Select(s => s.pivotcode)),
+            SpareID = string.Join(",", g.Where(x => x.SpareID != "").Select(s => s.SpareID))
+        });
+        ObservableCollection<SpareParts> values = new ObservableCollection<SpareParts>();
+        foreach (var item in joinedSpareParts)
+        {
+            values.Add(item);
+        }
+        return values;
 
     }
 
