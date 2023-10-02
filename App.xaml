@@ -14,6 +14,13 @@
             <Setter Property="Margin" Value="200 0 0 0"/>
             <Setter Property="FontSize" Value="25"/>
         </Style>
+        <Style x:Key="CardsText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FD8207"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+
+            <Setter Property="FontSize" Value="25"/>
+        </Style>
 
         <Style x:Key="OrangeButton" TargetType="Button" >
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace InputsApp.Models
 {
-    public class Categories
+    public class Categories: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,6 +36,7 @@ namespace InputsApp.Models
         public string Type { get; set; }
         public string Name { get; set; }
         public string NameAR { get; set; }
+        public bool IsSelect { get; set; }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

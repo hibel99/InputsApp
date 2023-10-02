@@ -1421,14 +1421,14 @@
                     </Grid.RowDefinitions>
 
                     <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="Pivot_Click" />
-                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="1" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="PivotParts_Click" />
+                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="1" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="PivotParts_Click" />
                     <!--<RadioButton Name="SpinklersParts" Grid.Row="2" Content="Spinklers Parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpinklersParts_Click" />-->
                     <RadioButton Name="SpanParts" Grid.Row="2" Content="Spans" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
                     <!--<RadioButton Name="OverhangParts" Grid.Row="3" Content="Overhang" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
                     <RadioButton Name="CategoriesRD" Grid.Row="3" Content="Categories" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
                     <!--<RadioButton Name="BrandsRD" Grid.Row="6" Content="Brands" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
                     <RadioButton Name="SetsRD" Grid.Row="4" Content="Sets" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
-                    <RadioButton Name="ALLSparesRD" Grid.Row="5" Content="All spare parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
+                    <RadioButton Name="ALLSparesRD" Grid.Row="5" Content="All spare parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="SpanParts_Click" />
                     
                     <!--<RadioButton Name="SectionsRD" Grid.Row="6" Content="Sections" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
                 </Grid>
@@ -1442,6 +1442,12 @@
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+                    <CheckBox Name="OpenFilter"  Content="Filter" IsChecked="True" Style="{StaticResource ToggleButtonButtonStyle}" HorizontalAlignment="Left" Margin="10,0,10,0" VerticalAlignment="Center">
+
+                    </CheckBox>
+
+
+
                     <DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Name="ALLpivotPartsGrid" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
                                  BorderThickness="0" Margin="10"  Grid.Row="1" SelectionChanged="pivotPartsGrid_SelectionChanged"  FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
@@ -1560,6 +1566,321 @@
                         </DataGrid.Columns>
 
                     </DataGrid>
+                    <Grid Grid.Row="1" Name="UsersFilterBorder" Margin="0,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border  CornerRadius="10" Background="White" Grid.Row="1">
+                            <ScrollViewer Style="{StaticResource MaterialDesignScrollViewer}" VerticalScrollBarVisibility="Auto" >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition MinHeight="100" Height="auto"/>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition MinHeight="100" Height="auto"/>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition MinHeight="100" Height="auto"/>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition MinHeight="100" Height="auto"/>
+
+                                        <!--<RowDefinition Height="75"/>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition MinHeight="100" Height="auto"/>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition MinHeight="100" Height="auto"/>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition MinHeight="100" Height="auto"/>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition MinHeight="100" Height="auto"/>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition MinHeight="100" Height="auto"/>-->
+
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Text="Category" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0 0 0"/>
+                                    <CheckBox HorizontalAlignment="Right" Checked="UsersFilterSelectAll_Checked" Unchecked="UsersFilterSelectAll_Unchecked" Margin="0 0 40 0" Name="UsersFilterSelectAll" Style="{StaticResource MaterialDesignActionLightCheckBox}">
+                                        <icon:PackIconMaterial Kind="CheckboxMarkedOutline"/>
+                                    </CheckBox>
+                                    <Separator VerticalAlignment="Bottom" BorderBrush="#FD8207"  Foreground="#FD8207" Margin="25 0"/>
+
+                                    <ItemsControl x:Name="CategoriesFilterIC"  Grid.Row="1" Margin="25 0" VerticalAlignment="Center"  d:ItemsSource="{d:SampleData ItemCount=5}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Content="{Binding NameAR}" Margin="10" IsChecked="{Binding IsSelect,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl >
+
+                                    <TextBlock Text="Sections" Style="{StaticResource CardsText}" Grid.Row="2" HorizontalAlignment="Left" Margin="25 0 0 0"/>
+                                    <CheckBox HorizontalAlignment="Right" Checked="UsersFilterTitleSelectAll_Checked" Unchecked="UsersFilterTitleSelectAll_Unchecked" Grid.Row="2" Margin="0 0 40 0" Name="UsersFilterTitleSelectAll" Style="{StaticResource MaterialDesignActionLightCheckBox}">
+                                        <icon:PackIconMaterial Kind="CheckboxMarkedOutline"/>
+                                    </CheckBox>
+                                    <Separator VerticalAlignment="Bottom"  BorderBrush="#FD8207" Foreground="#FD8207" Margin="25 0"  Grid.Row="2"/>
+
+                                    <ItemsControl x:Name="SectionsFilterIC" Grid.Row="3" Margin="25 0" VerticalAlignment="Center"  d:ItemsSource="{d:SampleData ItemCount=5}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Content="{Binding NameAR}" Margin="10" IsChecked="{Binding IsSelect,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl >
+
+
+                                    <TextBlock Text="Brand" Style="{StaticResource CardsText}" Grid.Row="4" HorizontalAlignment="Left" Margin="25 0 0 0"/>
+                                    <CheckBox HorizontalAlignment="Right" Checked="checkAllbrands_Checked" Unchecked="checkAllbrands_Unchecked" Grid.Row="4" Margin="0 0 40 0" Name="checkAllbrands" Style="{StaticResource MaterialDesignActionLightCheckBox}">
+                                        <icon:PackIconMaterial Kind="CheckboxMarkedOutline"/>
+                                    </CheckBox>
+                                    <Separator VerticalAlignment="Bottom" BorderBrush="#FD8207" Foreground="#FD8207" Margin="25 0"  Grid.Row="4"/>
+
+                                    <ItemsControl x:Name="BrandsFilterIC" Grid.Row="5" Margin="25 0" VerticalAlignment="Center"  d:ItemsSource="{d:SampleData ItemCount=5}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Content="{Binding Brand}" Margin="10" IsChecked="{Binding IsSelect,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl >
+
+
+                                    <Button x:Name="ApplyFilters" Grid.Row="6" Content="Apply" HorizontalAlignment="Right" Margin="0 0 25 0" Style="{StaticResource OrangeButton}" Click="ApplyFilters_Click"/>
+                                    <!--<Grid Grid.Row="4" Grid.RowSpan="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="75"/>
+                                            <RowDefinition MinHeight="100" Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+
+
+
+
+
+                                        <TextBlock Text="التأمين الصحي" Style="{StaticResource CardsText}" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 25 0" Grid.Column="1"/>
+                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Row="0" Grid.Column="1"/>
+
+                                        <Grid x:Name="usersFilterSigorta" Grid.Row="7" Margin="0 0 0 0" VerticalAlignment="Center"  Grid.Column="1">
+
+
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 15 0">
+                                                <RadioButton x:Name="usersFilterSocialSigortaYes" Margin="10"  Content="موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}" HorizontalAlignment="Center" FontSize="15" Grid.Column="0" GroupName="UsersFiltersigora"/>
+                                                <RadioButton x:Name="usersFilterSocialSigortaNo" Margin="10" Content="غير موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" Grid.Column="1" GroupName="UsersFiltersigora"/>
+                                                <RadioButton x:Name="usersFilterSigortaND" IsChecked="True" Margin="10"  Content="غير محدد" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" Grid.Column="2" GroupName="UsersFiltersigora"/>
+
+                                            </StackPanel>
+                                        </Grid >
+
+                                    </Grid>
+
+
+                                    -->
+                                    <!--<TextBlock Text="العمر الأدنى" Style="{StaticResource CardsText}" Grid.Row="8" HorizontalAlignment="Right" Margin="0 0 25 0"/>
+                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Row="8"/>
+
+                                        <Slider Name="UsersFilterMinAge" Grid.Row="9" VerticalAlignment="Center" Margin="50 0" Minimum="18" Maximum="{Binding Value,ElementName=UsersFilterMaxAge}" TickFrequency="1" IsSelectionRangeEnabled="True" Style="{StaticResource MaterialDesignDiscreteHorizontalSlider}"/>
+
+                                        <TextBlock Text="العمر الأقصى" Style="{StaticResource CardsText}" Grid.Row="10" HorizontalAlignment="Right" Margin="0 0 25 0"/>
+                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Row="8"/>
+
+                                        <Slider Name="UsersFilterMaxAge" Grid.Row="11" VerticalAlignment="Center" Margin="50 0" Minimum="{Binding Value,ElementName=UsersFilterMinAge}" Maximum="100" TickFrequency="1" IsSelectionRangeEnabled="True" Style="{StaticResource MaterialDesignDiscreteHorizontalSlider}"/>-->
+                                    <!--
+
+                                    <TextBlock Text="المستوى الوظيفي" Style="{StaticResource CardsText}" Grid.Row="6" HorizontalAlignment="Right" Margin="0 0 25 0"/>
+                                    <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Row="6"/>
+
+                                    <ItemsControl x:Name="usersFilterJobGrades" FlowDirection="RightToLeft" Grid.Row="7" Margin="0 0 0 0" VerticalAlignment="Center"  d:ItemsSource="{d:SampleData ItemCount=5}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Content="{Binding Name}" Margin="10" IsChecked="{Binding IsSelect,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl >
+
+
+                                    <Grid Grid.Row="9" Grid.RowSpan="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="75"/>
+                                            <RowDefinition MinHeight="100" Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Text="الحالة الاجتماعية" Style="{StaticResource CardsText}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 25 0"/>
+                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Column="1"  Grid.Row="0"/>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 15 0">
+                                            <RadioButton x:Name="usersFilterSocialMarried" Margin="10"  Content="متزوج" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}" HorizontalAlignment="Center" FontSize="15"  GroupName="UsersFilterSocial"/>
+                                            <RadioButton x:Name="usersFilterSocialSingle" Margin="10"  Content="عازب" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterSocial"/>
+                                            <RadioButton x:Name="usersFilterSocialND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterSocial"/>
+
+                                        </StackPanel>
+
+                                        <TextBlock Text="الأطفال" Style="{StaticResource CardsText}" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 25 0"/>
+                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0" Grid.Row="0"/>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 15 0">
+                                            -->
+                                    <!--<CheckBox x:Name="usersFilterKidsND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"  HorizontalAlignment="Center" FontSize="15"/>-->
+                                    <!--
+
+                                            <CheckBox x:Name="usersFilterKids4" Margin="10"  Content="4+" IsChecked="True" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}" HorizontalAlignment="Center" FontSize="15" />
+                                            <CheckBox x:Name="usersFilterKids3" Margin="10"  Content="3" IsChecked="True" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}" HorizontalAlignment="Center" FontSize="15" />
+                                            <CheckBox x:Name="usersFilterKids2" Margin="10"  Content="2" IsChecked="True" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"  HorizontalAlignment="Center" FontSize="15"/>
+                                            <CheckBox x:Name="usersFilterKids1" Margin="10"  IsChecked="True" Content="1" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"  HorizontalAlignment="Center" FontSize="15"/>
+                                            <CheckBox x:Name="usersFilterKids0" Margin="10"  IsChecked="True" Content="0" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"  HorizontalAlignment="Center" FontSize="15"/>
+
+                                        </StackPanel>
+
+
+
+
+                                    </Grid>
+
+
+                                    <TextBlock Text="زمرة الدم" Style="{StaticResource CardsText}" Grid.Row="12" HorizontalAlignment="Right" Margin="0 0 25 0"/>
+                                    <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Row="12"/>
+
+                                    <ItemsControl x:Name="usersFilterBlood" FlowDirection="RightToLeft" Grid.Row="13" Margin="0 0 0 0" VerticalAlignment="Center"  d:ItemsSource="{d:SampleData ItemCount=5}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Content="{Binding BloodType}" Margin="10" IsChecked="{Binding IsSelect,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl >
+
+                                    <Grid Grid.Row="14" Grid.RowSpan="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="75"/>
+                                            <RowDefinition MinHeight="100" Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Text="امراض مزمنة" Style="{StaticResource CardsText}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 25 0"/>
+                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Column="1"  Grid.Row="0"/>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 15 0">
+                                            <RadioButton x:Name="usersFilterChronicYes" Margin="10"  Content="موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}" HorizontalAlignment="Center" FontSize="15"  GroupName="UsersFilterChronic"/>
+                                            <RadioButton x:Name="usersFilterChronicNo" Margin="10"  Content="غير موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterChronic"/>
+                                            <RadioButton x:Name="usersFilterChronicND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterChronic"/>
+
+                                        </StackPanel>
+
+                                        <TextBlock Text="التدخين" Style="{StaticResource CardsText}" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 25 0"/>
+                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0" Grid.Row="0"/>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 15 0">
+                                            -->
+                                    <!--<CheckBox x:Name="usersFilterKidsND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"  HorizontalAlignment="Center" FontSize="15"/>-->
+                                    <!--
+
+                                            <RadioButton x:Name="usersFilterSmokeYes" Margin="10"  Content="مدخن" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}" HorizontalAlignment="Center" FontSize="15"  GroupName="UsersFilterSmoke"/>
+                                            <RadioButton x:Name="usersFilterSmokeNo" Margin="10"  Content="غير مدخن" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterSmoke"/>
+                                            <RadioButton x:Name="usersFilterSmokeND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterSmoke"/>
+
+                                        </StackPanel>
+
+
+
+
+                                    </Grid>
+
+
+                                    <Grid Grid.Row="16" Grid.RowSpan="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="75"/>
+                                            <RowDefinition MinHeight="100" Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Text="تاريخ مرضي" Style="{StaticResource CardsText}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 25 0"/>
+                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Column="1"  Grid.Row="0"/>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 15 0">
+                                            <RadioButton x:Name="usersFilterHistoryYes" Margin="10"  Content="موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}" HorizontalAlignment="Center" FontSize="15"  GroupName="UsersFilterHistory"/>
+                                            <RadioButton x:Name="usersFilterHistoryNo" Margin="10"  Content="غير موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterHistory"/>
+                                            <RadioButton x:Name="usersFilterHistoryND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterHistory"/>
+
+                                        </StackPanel>
+
+                                        <TextBlock Text="مخدرات" Style="{StaticResource CardsText}" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 25 0"/>
+                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0" Grid.Row="0"/>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 15 0">
+                                            -->
+                                    <!--<CheckBox x:Name="usersFilterKidsND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"  HorizontalAlignment="Center" FontSize="15"/>-->
+                                    <!--
+
+                                            <RadioButton x:Name="usersFilterDrugsYes" Margin="10"  Content="موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}" HorizontalAlignment="Center" FontSize="15"  GroupName="UsersFilterDrugs"/>
+                                            <RadioButton x:Name="usersFilterDrugsNo" Margin="10"  Content="غير موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterDrugs"/>
+                                            <RadioButton x:Name="usersFilterDrugsND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterDrugs"/>
+
+                                        </StackPanel>
+
+
+
+
+                                    </Grid>-->
+
+
+                                </Grid>
+                            </ScrollViewer>
+
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked,ElementName=OpenFilter}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked,ElementName=OpenFilter}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                    </Grid>
 
                 </Grid>
                 <Border.Style>

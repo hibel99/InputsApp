@@ -12,7 +12,7 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace InputsApp.Models;
 
-public class SpareParts
+public class SpareParts:INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
 
