@@ -1,13 +1,14 @@
 ﻿using InputsApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace InputsApp.FunctionsLibrary
 {
-    public class HelperFunctions
+    public static class HelperFunctions
     {
         public static bool CompareSpareParts(SpareParts x, SpareParts y)
         {
@@ -38,5 +39,14 @@ namespace InputsApp.FunctionsLibrary
                    x.Weight == y.Weight;
         }
 
+        public static ObservableCollection<T> ToObservableCollection<T>(this List<T> list)
+        {
+            if (list == null)
+            {
+                throw new ArgumentNullException(nameof(list));
+            }
+
+            return new ObservableCollection<T>(list);
+        }
     }
 }

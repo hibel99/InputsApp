@@ -5,10 +5,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace InputsApp.Models
 {
-    public class Brands
+    public class Brands: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -33,6 +34,11 @@ namespace InputsApp.Models
         public int ID { get; set; }
         public string Category { get; set; }
         public string Brand { get; set; }
+
+       
+
+       
+        public bool IsSelect { get; set; }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

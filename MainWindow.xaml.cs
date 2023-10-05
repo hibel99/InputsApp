@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace InputsApp
 {
     public partial class MainWindow : Window
@@ -40,6 +41,7 @@ namespace InputsApp
         ObservableCollection<Spans> SpansOBS = new ObservableCollection<Spans>();
         ObservableCollection<SpareParts> SparePartsOBS = new ObservableCollection<SpareParts>();
         ObservableCollection<SpareParts> JoinedSparePartsOBS = new ObservableCollection<SpareParts>();
+        ObservableCollection<SpareParts> FilteredSparePartsOBS = new ObservableCollection<SpareParts>();
         ObservableCollection<SprinklerParts> SprinklerPartsOBS = new ObservableCollection<SprinklerParts>();
         ObservableCollection<SpareRelationship> RelationstOBS = new ObservableCollection<SpareRelationship>();
 
@@ -200,6 +202,7 @@ namespace InputsApp
                 BrandsOBS.Add(item);
             }
             BrandsDG.ItemsSource = BrandsOBS;
+            BrandsFilterIC.ItemsSource = BrandsOBS.Distinct();
             ListCollectionView lcv = new ListCollectionView(BrandsOBS);
             lcv.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
 
@@ -218,6 +221,7 @@ namespace InputsApp
             CategoriesDG.ItemsSource = CategoriesListOBS;
             PivotCategoryCB.ItemsSource = CategoriesListOBS;
             CategoryNewBrand.ItemsSource = CategoriesListOBS;
+            CategoriesFilterIC.ItemsSource = CategoriesListOBS;
 
 
             foreach (var item in CategoriesList.Where(x => x.Type == "Section"))
@@ -226,6 +230,7 @@ namespace InputsApp
             }
             SectionsDG.ItemsSource = SectionsListOBS;
             PivotSectionCB.ItemsSource = SectionsListOBS;
+            SectionsFilterIC.ItemsSource = SectionsListOBS;
             #endregion
 
             #region parents stuff
@@ -1294,6 +1299,94 @@ namespace InputsApp
                 //    }
                 //}
             }
+                       
+
+                    }
+                }
+            }
+        }
+
+        private void UsersFilterSelectAll_Checked(object sender, RoutedEventArgs e)
+        {
+
+            foreach (var item in CategoriesListOBS)
+            {
+                
+                    item.IsSelect = true;
+
+            }
+            CategoriesFilterIC.Items.Refresh();
+
+        }
+
+        private void UsersFilterSelectAll_Unchecked(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in CategoriesListOBS)
+            {
+                
+                    item.IsSelect = false; 
+                
+            }
+            CategoriesFilterIC.Items.Refresh();
+        }
+
+        private void UsersFilterTitleSelectAll_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in SectionsListOBS)
+            {
+                
+                    item.IsSelect = true;
+                
+            }
+            SectionsFilterIC.Items.Refresh();
+
+        }
+
+        private void UsersFilterTitleSelectAll_Unchecked(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in SectionsListOBS)
+            {
+                
+                    item.IsSelect = false;
+                
+            }
+            SectionsFilterIC.Items.Refresh();
+
+        }
+
+        private void checkAllbrands_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in BrandsOBS)
+            {
+                item.IsSelect = true;
+            }
+            BrandsFilterIC.Items.Refresh();
+        }
+
+        private void checkAllbrands_Unchecked(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in BrandsOBS)
+            {
+                item.IsSelect = false;
+            }
+            BrandsFilterIC.Items.Refresh();
+        }
+
+        private void ApplyFilters_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> Targetbrands = BrandsFilterIC.ItemsSource.Cast<Brands>().Where(x => x.IsSelect).Select(x => x.Brand).ToList();
+            List<string> Targetsections = SectionsFilterIC.ItemsSource.Cast<Categories>().Where(x => x.IsSelect).Select(x => x.NameAR).ToList();
+            List<string> Targetcategories = CategoriesFilterIC.ItemsSource.Cast<Categories>().Where(x => x.IsSelect).Select(x => x.NameAR).ToList();
+
+            JoinedSparePartsOBS = HelperFunctions.ToObservableCollection( JoinedSparePartsOBS.Where(x => Targetbrands.Contains(x.Brand)
+           //&& TargetTitles.Contains(x.Title)
+           //&& TargetGrades.Contains(x.JobGrades)
+           && Targetcategories.Contains(x.PivotCategory.ToLower())
+           && Targetsections.Contains(x.Section)).ToList());
+            //ALLpivotPartsGrid.ItemsSource = FilteredSparePartsOBS;
+
+            OpenFilter.IsChecked = false;
+
         }
     }
 }
