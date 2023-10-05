@@ -1479,14 +1479,14 @@
                     </Grid.RowDefinitions>
 
                     <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="Pivot_Click" />
-                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="1" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="PivotParts_Click" />
+                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="1" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="PivotParts_Click" />
                     <!--<RadioButton Name="SpinklersParts" Grid.Row="2" Content="Spinklers Parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpinklersParts_Click" />-->
                     <RadioButton Name="SpanParts" Grid.Row="2" Content="Spans" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
                     <!--<RadioButton Name="OverhangParts" Grid.Row="3" Content="Overhang" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
                     <RadioButton Name="CategoriesRD" Grid.Row="3" Content="Categories" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
                     <!--<RadioButton Name="BrandsRD" Grid.Row="6" Content="Brands" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
                     <RadioButton Name="SetsRD" Grid.Row="4" Content="Sets" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
-                    <RadioButton Name="ALLSparesRD" Grid.Row="5" Content="All spare parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="SpanParts_Click" />
+                    <RadioButton Name="ALLSparesRD" Grid.Row="5" Content="All spare parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
                     
                     <!--<RadioButton Name="SectionsRD" Grid.Row="6" Content="Sections" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
                 </Grid>
@@ -1500,7 +1500,7 @@
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <CheckBox Name="OpenFilter"  Content="Filter" IsChecked="True" Style="{StaticResource ToggleButtonButtonStyle}" HorizontalAlignment="Left" Margin="10,0,10,0" VerticalAlignment="Center">
+                    <CheckBox Name="OpenFilter"  Content="Filter" IsChecked="False" Style="{StaticResource ToggleButtonButtonStyle}" HorizontalAlignment="Left" Margin="10,0,10,0" VerticalAlignment="Center">
 
                     </CheckBox>
 

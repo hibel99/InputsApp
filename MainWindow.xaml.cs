@@ -85,17 +85,14 @@ namespace InputsApp
             {
                 List<SpareRelationship> relations = RelationstOBS.Where(x => x.PivotPartID == item.ID).ToList();
 
-                List<int> pivotsIDs = relations.Select(x=>x.pivotcode).ToList();
-                item.ParentPivots = relations.Where(x => pivotsIDs.Contains(x.ID)).ToList();
-                item.ParentType = "Pivot";
-                
-                List<int> SpanIDs = relations.Select(x => x.SpanID).ToList();
-                item.ParentSpans = relations.Where(x => SpanIDs.Contains(x.ID)).ToList();
-                item.ParentType = "Span";
+                if (relations.Count > 0)
+                {
+                    item.ParentPivots = relations.Where(x => x.ParentType == "Pivot").ToList();
 
-                List<int> SparesIDs = relations.Select(x => x.SpareID).ToList();
-                item.ParentSpares = relations.Where(x => SparesIDs.Contains(x.ID)).ToList();
-                item.ParentType = "Spare";
+                    item.ParentSpans = relations.Where(x => x.ParentType == "Span").ToList();
+
+                    item.ParentSpares = relations.Where(x => x.ParentType == "Spare").ToList();
+                }
             }
 
             //foreach (var item in JoinedSparePartsOBS)
@@ -1374,7 +1371,7 @@ namespace InputsApp
             List<string> Targetsections = SectionsFilterIC.ItemsSource.Cast<Categories>().Where(x => x.IsSelect).Select(x => x.NameAR).ToList();
             List<string> Targetcategories = CategoriesFilterIC.ItemsSource.Cast<Categories>().Where(x => x.IsSelect).Select(x => x.NameAR).ToList();
 
-            JoinedSparePartsOBS = HelperFunctions.ToObservableCollection(JoinedSparePartsOBS.Where(x => Targetbrands.Contains(x.Brand)
+            JoinedSparePartsOBS = HelperFunctions.ToObservableCollection(SparePartsOBS.Where(x => Targetbrands.Contains(x.Brand)
            //&& TargetTitles.Contains(x.Title)
            //&& TargetGrades.Contains(x.JobGrades)
            && Targetcategories.Contains(x.PivotCategory.ToLower())
