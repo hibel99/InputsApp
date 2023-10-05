@@ -1301,18 +1301,14 @@ namespace InputsApp
             }
                        
 
-                    }
-                }
-            }
         }
-
         private void UsersFilterSelectAll_Checked(object sender, RoutedEventArgs e)
         {
 
             foreach (var item in CategoriesListOBS)
             {
-                
-                    item.IsSelect = true;
+
+                item.IsSelect = true;
 
             }
             CategoriesFilterIC.Items.Refresh();
@@ -1323,9 +1319,9 @@ namespace InputsApp
         {
             foreach (var item in CategoriesListOBS)
             {
-                
-                    item.IsSelect = false; 
-                
+
+                item.IsSelect = false;
+
             }
             CategoriesFilterIC.Items.Refresh();
         }
@@ -1334,9 +1330,9 @@ namespace InputsApp
         {
             foreach (var item in SectionsListOBS)
             {
-                
-                    item.IsSelect = true;
-                
+
+                item.IsSelect = true;
+
             }
             SectionsFilterIC.Items.Refresh();
 
@@ -1346,9 +1342,9 @@ namespace InputsApp
         {
             foreach (var item in SectionsListOBS)
             {
-                
-                    item.IsSelect = false;
-                
+
+                item.IsSelect = false;
+
             }
             SectionsFilterIC.Items.Refresh();
 
@@ -1378,7 +1374,7 @@ namespace InputsApp
             List<string> Targetsections = SectionsFilterIC.ItemsSource.Cast<Categories>().Where(x => x.IsSelect).Select(x => x.NameAR).ToList();
             List<string> Targetcategories = CategoriesFilterIC.ItemsSource.Cast<Categories>().Where(x => x.IsSelect).Select(x => x.NameAR).ToList();
 
-            JoinedSparePartsOBS = HelperFunctions.ToObservableCollection( JoinedSparePartsOBS.Where(x => Targetbrands.Contains(x.Brand)
+            JoinedSparePartsOBS = HelperFunctions.ToObservableCollection(JoinedSparePartsOBS.Where(x => Targetbrands.Contains(x.Brand)
            //&& TargetTitles.Contains(x.Title)
            //&& TargetGrades.Contains(x.JobGrades)
            && Targetcategories.Contains(x.PivotCategory.ToLower())
@@ -1390,3 +1386,6 @@ namespace InputsApp
         }
     }
 }
+
+
+
