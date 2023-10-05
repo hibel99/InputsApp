@@ -30,18 +30,19 @@ public class SpareParts
     public decimal Width { get; set; }
     public decimal Length { get; set; }
     public decimal Weight { get; set; }
-    public string pivotcode { get; set; }
+    public int pivotcode { get; set; }
     public int PartLevel { get; set; }
-    public string SetID { get; set; }
-    public string SpareID { get; set; }
+    public int SetID { get; set; }
+    public int SpareID { get; set; }
     public double Quantity { get; set; }
-    public string SpanID { get; set; }
+    public int SpanID { get; set; }
     public string NameAR { get; set; }
     public string Brand { get; set; }
-    public List<PivotTable> ParentPivots { get; set; }
-    public List<SpareParts> ParentSpares { get; set; }
-    public List<Spans> ParentSpans { get; set; }
+    public List<SpareRelationship> ParentPivots { get; set; }
+    public List<SpareRelationship> ParentSpares { get; set; }
+    public List<SpareRelationship> ParentSpans { get; set; }
     public string ParentType { get; set; }
+    public bool HasChild { get; set; }
     public string Name => NameAR;
 
 
@@ -53,8 +54,8 @@ public class SpareParts
   
     public SpareParts(string pivotCategory, string pivotPart, decimal cost, 
         DateTime date, decimal height, decimal width, decimal length, 
-        decimal weight, string PivotCode,int partLevel, string setID, 
-        string spareID, double quantity, string spanID, string nameAR,string section,string brand)
+        decimal weight, int PivotCode,int partLevel, int setID,
+        int spareID, double quantity, int spanID, string nameAR,string section,string brand,bool haschild = false)
     {
         PivotCategory = pivotCategory;
         PivotPart = pivotPart;
@@ -73,11 +74,12 @@ public class SpareParts
         NameAR = nameAR;
         Section = section;
         Brand = brand;
+        HasChild = haschild;
     }
 
     public SpareParts(int iD, string pivotCategory, string pivotPart, decimal cost, 
         DateTime date, decimal height, decimal width, decimal length, decimal weight,
-        string PivotCode, int partLevel, string setID, string spareID, double quantity, string spanID, string nameAR, string section, string brand)
+        int PivotCode, int partLevel, int setID, int spareID, double quantity, int spanID, string nameAR, string section, string brand, bool haschild = false)
     {
         ID = iD;
         PivotCategory = pivotCategory;
@@ -97,6 +99,7 @@ public class SpareParts
         NameAR = nameAR;
         Section = section;
         Brand = brand;
+        HasChild = haschild;
 
     }
 
@@ -106,46 +109,46 @@ public class SpareParts
 public static class SparePartsExtensions
 {
 
-    public static ObservableCollection<SpareParts> JoinSpanIdPivotCodeSpareId(this IEnumerable<SpareParts> spareParts)
-    {
-        var groupedSpareParts = spareParts.GroupBy(s => new
-        {
-            s.PivotCategory,
-            s.Date,
-            s.Section,
-            s.PivotPart,
-            s.NameAR,
-            s.Cost,
-            s.Height,
-            s.Width,
-            s.Length,
-            s.Weight
-        });
+    //public static ObservableCollection<SpareParts> JoinSpanIdPivotCodeSpareId(this IEnumerable<SpareParts> spareParts)
+    //{
+    //    var groupedSpareParts = spareParts.GroupBy(s => new
+    //    {
+    //        s.PivotCategory,
+    //        s.Date,
+    //        s.Section,
+    //        s.PivotPart,
+    //        s.NameAR,
+    //        s.Cost,
+    //        s.Height,
+    //        s.Width,
+    //        s.Length,
+    //        s.Weight
+    //    });
 
-        var joinedSpareParts = groupedSpareParts.Select(g => new SpareParts
-        {
+    //    var joinedSpareParts = groupedSpareParts.Select(g => new SpareParts
+    //    {
 
-            PivotCategory = g.Key.PivotCategory,
-            Date = g.Key.Date,
-            Section = g.Key.Section,
-            PivotPart = g.Key.PivotPart,
-            Cost = g.Key.Cost,
-            Height = g.Key.Height,
-            Width = g.Key.Width,
-            Length = g.Key.Length,
-            Weight = g.Key.Weight,
-            NameAR = g.Key.NameAR,
-            SpanID = string.Join(",", g.Where(x => x.SpanID != "").Select(s => s.SpanID)),
-            pivotcode = string.Join(",", g.Where(x => x.pivotcode != "").Select(s => s.pivotcode)),
-            SpareID = string.Join(",", g.Where(x => x.SpareID != "").Select(s => s.SpareID))
-        });
-        ObservableCollection<SpareParts> values = new ObservableCollection<SpareParts>();
-        foreach (var item in joinedSpareParts)
-        {
-            values.Add(item);
-        }
-        return values;
+    //        PivotCategory = g.Key.PivotCategory,
+    //        Date = g.Key.Date,
+    //        Section = g.Key.Section,
+    //        PivotPart = g.Key.PivotPart,
+    //        Cost = g.Key.Cost,
+    //        Height = g.Key.Height,
+    //        Width = g.Key.Width,
+    //        Length = g.Key.Length,
+    //        Weight = g.Key.Weight,
+    //        NameAR = g.Key.NameAR,
+    //        SpanID = string.Join(",", g.Where(x => x.SpanID != null).Select(s => s.SpanID)),
+    //        pivotcode = string.Join(",", g.Where(x => x.pivotcode != "").Select(s => s.pivotcode)),
+    //        SpareID = string.Join(",", g.Where(x => x.SpareID != "").Select(s => s.SpareID))
+    //    });
+    //    ObservableCollection<SpareParts> values = new ObservableCollection<SpareParts>();
+    //    foreach (var item in joinedSpareParts)
+    //    {
+    //        values.Add(item);
+    //    }
+    //    return values;
 
-    }
+    //}
 
 }

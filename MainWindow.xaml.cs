@@ -41,10 +41,15 @@ namespace InputsApp
         ObservableCollection<SpareParts> SparePartsOBS = new ObservableCollection<SpareParts>();
         ObservableCollection<SpareParts> JoinedSparePartsOBS = new ObservableCollection<SpareParts>();
         ObservableCollection<SprinklerParts> SprinklerPartsOBS = new ObservableCollection<SprinklerParts>();
-        ObservableCollection<PivotTable> PivotParentOBS = new ObservableCollection<PivotTable>();
+        ObservableCollection<SpareRelationship> RelationstOBS = new ObservableCollection<SpareRelationship>();
+
+
+        ObservableCollection<SpareRelationship> PivotParentOBS = new ObservableCollection<SpareRelationship>();
+        ObservableCollection<SpareRelationship> SpanParentOBS = new ObservableCollection<SpareRelationship>();
+        ObservableCollection<SpareRelationship> SpareParentOBS = new ObservableCollection<SpareRelationship>();
+
         ObservableCollection<PivotTable> PivotSpanParentOBS = new ObservableCollection<PivotTable>();
-        ObservableCollection<Spans> SpanParentOBS = new ObservableCollection<Spans>();
-        ObservableCollection<SpareParts> SpareParentOBS = new ObservableCollection<SpareParts>();
+
         ObservableCollection<Brands> BrandsOBS = new ObservableCollection<Brands>();
 
         public MainWindow()
@@ -76,50 +81,41 @@ namespace InputsApp
 
             foreach (var item in SparePartsOBS)
             {
-                if (item.pivotcode is not null && item.pivotcode != "")
-                {
-                    List<int> pivotsIDs = item.pivotcode.Split(",").Select(int.Parse).ToList();
-                    item.ParentPivots = PivotsOBS.Where(x => pivotsIDs.Contains(x.ID)).ToList();
-                    item.ParentType = "Pivot";
-                }
+                List<SpareRelationship> relations = RelationstOBS.Where(x => x.PivotPartID == item.ID).ToList();
 
-                if (item.SpanID is not null && item.SpanID != "")
-                {
-                    List<int> pivotsIDs = item.SpanID.Split(",").Select(int.Parse).ToList();
-                    item.ParentSpans = SpansOBS.Where(x => pivotsIDs.Contains(x.ID)).ToList();
-                    item.ParentType = "Span";
+                List<int> pivotsIDs = relations.Select(x=>x.pivotcode).ToList();
+                item.ParentPivots = relations.Where(x => pivotsIDs.Contains(x.ID)).ToList();
+                item.ParentType = "Pivot";
+                
+                List<int> SpanIDs = relations.Select(x => x.SpanID).ToList();
+                item.ParentSpans = relations.Where(x => SpanIDs.Contains(x.ID)).ToList();
+                item.ParentType = "Span";
 
-                }
-
-                if (item.SpareID is not null && item.SpareID != "")
-                {
-                    List<int> pivotsIDs = item.SpareID.Split(",").Select(int.Parse).ToList();
-                    item.ParentSpares = SparePartsOBS.Where(x => pivotsIDs.Contains(x.ID)).ToList();
-                    item.ParentType = "Spare";
-
-                }
+                List<int> SparesIDs = relations.Select(x => x.SpareID).ToList();
+                item.ParentSpares = relations.Where(x => SparesIDs.Contains(x.ID)).ToList();
+                item.ParentType = "Spare";
             }
 
-            foreach (var item in JoinedSparePartsOBS)
-            {
-                if (item.pivotcode is not null && item.pivotcode != "")
-                {
-                    List<int> pivotsIDs = item.pivotcode.Split(",").Select(int.Parse).ToList();
-                    item.ParentPivots = PivotsOBS.Where(x => pivotsIDs.Contains(x.ID)).ToList();
-                }
+            //foreach (var item in JoinedSparePartsOBS)
+            //{
+            //    if (item.pivotcode is not null && item.pivotcode != "")
+            //    {
+            //        List<int> pivotsIDs = item.pivotcode.Split(",").Select(int.Parse).ToList();
+            //        item.ParentPivots = PivotsOBS.Where(x => pivotsIDs.Contains(x.ID)).ToList();
+            //    }
 
-                if (item.SpanID is not null && item.SpanID != "")
-                {
-                    List<int> pivotsIDs = item.SpanID.Split(",").Select(int.Parse).ToList();
-                    item.ParentSpans = SpansOBS.Where(x => pivotsIDs.Contains(x.ID)).ToList();
-                }
+            //    if (item.SpanID is not null && item.SpanID != "")
+            //    {
+            //        List<int> pivotsIDs = item.SpanID.Split(",").Select(int.Parse).ToList();
+            //        item.ParentSpans = SpansOBS.Where(x => pivotsIDs.Contains(x.ID)).ToList();
+            //    }
 
-                if (item.SpareID is not null && item.SpareID != "")
-                {
-                    List<int> pivotsIDs = item.SpareID.Split(",").Select(int.Parse).ToList();
-                    item.ParentSpares = SparePartsOBS.Where(x => pivotsIDs.Contains(x.ID)).ToList();
-                }
-            }
+            //    if (item.SpareID is not null && item.SpareID != "")
+            //    {
+            //        List<int> pivotsIDs = item.SpareID.Split(",").Select(int.Parse).ToList();
+            //        item.ParentSpares = SparePartsOBS.Where(x => pivotsIDs.Contains(x.ID)).ToList();
+            //    }
+            //}
 
         }
 
@@ -135,18 +131,31 @@ namespace InputsApp
 
         private async void GetDataOBS()
         {
-          
-           var Parts = await _pivotPartsRepository.GetPivotParts();
-           foreach (var item in Parts)
-           {
+
+            #region pivot parts
+            var Parts = await _pivotPartsRepository.GetPivotParts();
+            var PartsR = await _pivotPartsRepository.GetPivotPartsRelationsJoined();
+            foreach (var item in Parts)
+            {
                 SparePartsOBS.Add(item);
-           }
+            }
+            foreach (var item in PartsR)
+            {
+                JoinedSparePartsOBS.Add(item);
+            }
 
-            JoinedSparePartsOBS = SparePartsOBS.JoinSpanIdPivotCodeSpareId();
             ALLpivotPartsGrid.ItemsSource = JoinedSparePartsOBS;
-           pivotPartsGrid.ItemsSource = SparePartsOBS;
-           PartNameCB.ItemsSource = SparePartsOBS;
+            pivotPartsGrid.ItemsSource = SparePartsOBS;
+            PartNameCB.ItemsSource = SparePartsOBS; 
 
+            var relations = await _pivotPartsRepository.GetPivotPartsRelations();
+            foreach (var rel in relations)
+            {
+                RelationstOBS.Add(rel);
+            }
+            #endregion
+
+            #region pivots
             var pivots = await _PivotRepository.GetPivots();
             foreach (var piv in pivots)
             {
@@ -155,7 +164,9 @@ namespace InputsApp
             PivotNameCB.ItemsSource = PivotsOBS;
             PivotsDG.ItemsSource = PivotsOBS;
             PivotTypeCB.ItemsSource = PivotsOBS;
+            #endregion
 
+            #region To delete
 
             var overhang = Parts.Where(x => x.PivotCategory == "Overhang");
             OverhangDG.ItemsSource = overhang;
@@ -163,25 +174,26 @@ namespace InputsApp
 
 
             var sprinklerParts = await _sprinklerPartsRepository.GetSprinklerParts();
-                foreach (var sps in sprinklerParts)
-                {
-                    SprinklerPartsOBS.Add(sps);
-                }
-                    SprinklerPartsDG.ItemsSource = SprinklerPartsOBS;
-            
-           
+            foreach (var sps in sprinklerParts)
+            {
+                SprinklerPartsOBS.Add(sps);
+            }
+            SprinklerPartsDG.ItemsSource = SprinklerPartsOBS;
+            #endregion
 
+            #region Spans
 
-            
-            
-                var result = await _spanRepository.GetSpans();
-                foreach (var item in result)
-                {
-                    SpansOBS.Add(item);
-                }
-                SpansDG.ItemsSource = SpansOBS;
-                SpanNameCB.ItemsSource = SpansOBS;
-            
+            var result = await _spanRepository.GetSpans();
+            foreach (var item in result)
+            {
+                SpansOBS.Add(item);
+            }
+            SpansDG.ItemsSource = SpansOBS;
+            SpanNameCB.ItemsSource = SpansOBS;
+            #endregion
+
+            #region Brands
+
             var brands = await _brandRepository.GetBrands();
             foreach (var item in brands)
             {
@@ -191,8 +203,8 @@ namespace InputsApp
             ListCollectionView lcv = new ListCollectionView(BrandsOBS);
             lcv.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
 
-            PivotBrandCB.ItemsSource = lcv;
-
+            PivotBrandCB.ItemsSource = lcv; 
+            #endregion
 
             #region Categories
             List<Categories> CategoriesList = await _catergoryRepository.GetCategories();
@@ -216,17 +228,15 @@ namespace InputsApp
             PivotSectionCB.ItemsSource = SectionsListOBS;
             #endregion
 
-
-
             #region parents stuff
             NewPivotConnectionsGrid.ItemsSource = PivotParentOBS;
             NewSpanConnectionsGrid.ItemsSource = SpanParentOBS;
             NewPartConnectionsGrid.ItemsSource = SpareParentOBS;
+
             NewPivotForSpansConnectionsGrid.ItemsSource = PivotSpanParentOBS;
             #endregion
 
             ArrangeConnections();
-
 
         }
         async private void DeleteButtoninDG_Click(object sender, RoutedEventArgs e)
@@ -329,66 +339,15 @@ namespace InputsApp
         private async void AddPivot_Button_Click(object sender, RoutedEventArgs e)
         {
 
-                List<PivotTable> pivotParents = NewPivotConnectionsGrid.ItemsSource.Cast<PivotTable>().ToList();
-                List<Spans> SpansParents = NewSpanConnectionsGrid.ItemsSource.Cast<Spans>().ToList();
-                List<SpareParts> SparesParents = NewPartConnectionsGrid.ItemsSource.Cast<SpareParts>().ToList();
+            List<SpareParts> sparesToChild = new List<SpareParts>();
+
             string Brand = "";
             if (PivotBrandCB.SelectedItem is Brands selectedBrand)
             {
                 Brand = selectedBrand.Brand;
             }
-                if (pivotParents is not null)
-                {
-                SpareParts spareParts = new SpareParts();
 
-                var pivotPart = new SpareParts(
-                    PivotCategoryCB.Text,
-                    PivotPartTB.Text,
-                    decimal.Parse(pivotCostTB.Text),
-                    DateTime.UtcNow,
-                    decimal.Parse(pivotHegitTB.Text),
-                    decimal.Parse(pivotwidthTB.Text),
-                    decimal.Parse(pivotlenghtTB.Text),
-                    decimal.Parse(pivotWeightTB.Text),
-                    string.Join(",",pivotParents.Select(x=>x.ID).ToList()),
-                    2,
-                    "",
-                    "",
-                    double.Parse(pivotQTYTB.Text),
-                    "",
-                    PivotPartARTB.Text,
-                    PivotSectionCB.Text,
-                    Brand
-
-                    );
-                    pivotPart.ParentPivots = pivotParents;
-
-                    if (SparePartsOBS.Any(s => HelperFunctions.CompareSpareParts(s, pivotPart)))
-                    {
-                        spareParts = SparePartsOBS.Where(s => HelperFunctions.CompareSpareParts(s, pivotPart)).First();
-                        List <PivotTable> pvs = spareParts.ParentPivots;
-                        pvs.AddRange(pivotParents);
-                        spareParts.pivotcode = string.Join(",", pvs.Distinct().Select(x=>x.ID).ToList());
-                        spareParts.ParentPivots = pvs.Distinct().ToList();
-                    }
-                if (spareParts.ID != 0)
-                {
-                    await _pivotPartsRepository.EditPivotPart(spareParts);
-                }
-                else
-                {
-                    pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
-                    SparePartsOBS.Add(pivotPart);
-                }
-                   
-                }
-
-
-                if (SpansParents.Count > 0)
-                {
-                SpareParts spareParts = new SpareParts();
-
-                var pivotPart = new SpareParts(
+            var pivotPart = new SpareParts(
                    PivotCategoryCB.Text,
                    PivotPartTB.Text,
                    decimal.Parse(pivotCostTB.Text),
@@ -397,101 +356,196 @@ namespace InputsApp
                    decimal.Parse(pivotwidthTB.Text),
                    decimal.Parse(pivotlenghtTB.Text),
                    decimal.Parse(pivotWeightTB.Text),
-                   "",
-                   3,
-                   "",
-                   "",
+                   0,
+                   0,
+                   0,
+                   0,
                    double.Parse(pivotQTYTB.Text),
-                   string.Join(",", SpansParents.Select(x => x.ID).ToList()),
+                   0,
                    PivotPartARTB.Text,
                    PivotSectionCB.Text,
                    Brand
+
                    );
-                    pivotPart.ParentSpans = SpansParents;
-
-                if (SparePartsOBS.Any(s => HelperFunctions.CompareSpareParts(s, pivotPart)))
-                {
-                    spareParts = SparePartsOBS.Where(s => HelperFunctions.CompareSpareParts(s, pivotPart)).First();
-                    List<Spans> pvs = spareParts.ParentSpans;
-                    pvs.AddRange(SpansParents);
-                    spareParts.SpanID = string.Join(",", pvs.Distinct().Select(x => x.ID).ToList());
-                    spareParts.ParentSpans = pvs.Distinct().ToList();
-                }
-                if (spareParts.ID != 0)
-                {
-                    await _pivotPartsRepository.EditPivotPart(spareParts);
-                }
-                else
-                {
-                    pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
-                    SparePartsOBS.Add(pivotPart);
-                }
-
-
+            if (SparePartsOBS.Where(x=>x.Name == PivotPartTB.Text).FirstOrDefault() is not null)
+            {
+                MessageBox.Show("يوجد قطعة أخرى بنفس الاسم, يرجى تغيير الاسم");
+            }
+            pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
+            #region set spare IDs
+            foreach (var item in PivotParentOBS)
+            {
+                item.PivotPartID = pivotPart.ID;
+                item.Quantity = pivotPart.Quantity;
+            }
+            foreach (var item in SpanParentOBS)
+            {
+                item.PivotPartID = pivotPart.ID;
+                item.Quantity = pivotPart.Quantity;
 
 
             }
-
-
-                if (SparesParents.Count > 0)
+            foreach (var item in SpareParentOBS)
+            {
+                SpareParts sp = SparePartsOBS.Where(x => x.ID == item.SpareID).FirstOrDefault();
+                sp.HasChild = true;
+                sparesToChild.Add(sp);
+                item.PivotPartID = pivotPart.ID;
+                if (item.Quantity == 0)
                 {
-                    var groupedLists = SparesParents.GroupBy(item => item.PartLevel);
-
-                    // Iterate over the grouped lists and print the items in each group
-                    foreach (var group in groupedLists)
-                    {
-                        int level = group.Key;
-                        List<SpareParts> itemsAtLevel = group.ToList();
-                    SpareParts spareParts = new SpareParts();
-
-                    var pivotPart = new SpareParts(
-                         PivotCategoryCB.Text,
-                         PivotPartTB.Text,
-                         decimal.Parse(pivotCostTB.Text),
-                         DateTime.UtcNow,
-                         decimal.Parse(pivotHegitTB.Text),
-                         decimal.Parse(pivotwidthTB.Text),
-                         decimal.Parse(pivotlenghtTB.Text),
-                         decimal.Parse(pivotWeightTB.Text),
-                         "",
-                         level+1,
-                         "",
-                         string.Join(",", itemsAtLevel.Select(x => x.ID).ToList()),
-                         double.Parse(pivotQTYTB.Text),
-                         "",
-                         PivotPartARTB.Text,
-                         PivotSectionCB.Text,
-                         Brand
-                         );
-                        pivotPart.ParentSpares = itemsAtLevel;
-
-                    if (SparePartsOBS.Any(s => HelperFunctions.CompareSpareParts(s, pivotPart)))
-                    {
-                        spareParts = SparePartsOBS.Where(s => HelperFunctions.CompareSpareParts(s, pivotPart) && s.SpanID =="" && s.pivotcode =="").First();
-                        List<SpareParts> pvs = spareParts.ParentSpares;
-                        pvs.AddRange(itemsAtLevel);
-                        spareParts.SpareID = string.Join(",", pvs.Distinct().Select(x => x.ID).ToList());
-                        spareParts.ParentSpares = pvs.Distinct().ToList();
-                    }
-                    if (spareParts.ID != 0)
-                    {
-                        await _pivotPartsRepository.EditPivotPart(spareParts);
-                    }
-                    else
-                    {
-                        pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
-                        SparePartsOBS.Add(pivotPart);
-                    }
-
-                    }
+                    item.Quantity = pivotPart.Quantity;
                 }
 
+            }
+            await _pivotPartsRepository.EditPivotPart(sparesToChild);
+            #endregion
+
+            pivotPart.ParentPivots = PivotParentOBS.ToList();
+            pivotPart.ParentSpans = SpanParentOBS.ToList();
+            pivotPart.ParentSpares = SpareParentOBS.ToList();
+
+            await _pivotPartsRepository.AddPivotPartRelation(PivotParentOBS.ToList());
+            await _pivotPartsRepository.AddPivotPartRelation(SpanParentOBS.ToList());
+            await _pivotPartsRepository.AddPivotPartRelation(SpareParentOBS.ToList());
+
+
+            SparePartsOBS.Add(pivotPart);
 
 
 
-                //await _pivotPartsRepository.AddPivotPart(pivotPart);
-                //UpdateGridandCB();
-            
+            //if (PivotParentOBS.Count != 0)
+            //{
+
+               
+
+            //    if (SparePartsOBS.Any(s => HelperFunctions.CompareSpareParts(s, pivotPart)))
+            //    {
+            //        spareParts = SparePartsOBS.Where(s => HelperFunctions.CompareSpareParts(s, pivotPart)).First();
+            //        List<PivotTable> pvs = spareParts.ParentPivots;
+            //        pvs.AddRange(pivotParents);
+            //        spareParts.pivotcode = string.Join(",", pvs.Distinct().Select(x => x.ID).ToList());
+            //        spareParts.ParentPivots = pvs.Distinct().ToList();
+            //    }
+            //    if (spareParts.ID != 0)
+            //    {
+            //        await _pivotPartsRepository.EditPivotPart(spareParts);
+            //    }
+            //    else
+            //    {
+            //        pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
+            //    }
+
+            //}
+
+
+            //if (SpansParents.Count > 0)
+            //{
+            //    SpareParts spareParts = new SpareParts();
+
+            //    var pivotPart = new SpareParts(
+            //       PivotCategoryCB.Text,
+            //       PivotPartTB.Text,
+            //       decimal.Parse(pivotCostTB.Text),
+            //       DateTime.UtcNow,
+            //       decimal.Parse(pivotHegitTB.Text),
+            //       decimal.Parse(pivotwidthTB.Text),
+            //       decimal.Parse(pivotlenghtTB.Text),
+            //       decimal.Parse(pivotWeightTB.Text),
+            //       "",
+            //       3,
+            //       "",
+            //       "",
+            //       double.Parse(pivotQTYTB.Text),
+            //       string.Join(",", SpansParents.Select(x => x.ID).ToList()),
+            //       PivotPartARTB.Text,
+            //       PivotSectionCB.Text,
+            //       Brand
+            //       );
+            //    pivotPart.ParentSpans = SpansParents;
+
+            //    if (SparePartsOBS.Any(s => HelperFunctions.CompareSpareParts(s, pivotPart)))
+            //    {
+            //        spareParts = SparePartsOBS.Where(s => HelperFunctions.CompareSpareParts(s, pivotPart)).First();
+            //        List<Spans> pvs = spareParts.ParentSpans;
+            //        pvs.AddRange(SpansParents);
+            //        spareParts.SpanID = string.Join(",", pvs.Distinct().Select(x => x.ID).ToList());
+            //        spareParts.ParentSpans = pvs.Distinct().ToList();
+            //    }
+            //    if (spareParts.ID != 0)
+            //    {
+            //        await _pivotPartsRepository.EditPivotPart(spareParts);
+            //    }
+            //    else
+            //    {
+            //        pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
+            //        SparePartsOBS.Add(pivotPart);
+            //    }
+
+
+
+
+            //}
+
+
+            //if (SparesParents.Count > 0)
+            //{
+            //    var groupedLists = SparesParents.GroupBy(item => item.PartLevel);
+
+            //    // Iterate over the grouped lists and print the items in each group
+            //    foreach (var group in groupedLists)
+            //    {
+            //        int level = group.Key;
+            //        List<SpareParts> itemsAtLevel = group.ToList();
+            //        SpareParts spareParts = new SpareParts();
+
+            //        var pivotPart = new SpareParts(
+            //             PivotCategoryCB.Text,
+            //             PivotPartTB.Text,
+            //             decimal.Parse(pivotCostTB.Text),
+            //             DateTime.UtcNow,
+            //             decimal.Parse(pivotHegitTB.Text),
+            //             decimal.Parse(pivotwidthTB.Text),
+            //             decimal.Parse(pivotlenghtTB.Text),
+            //             decimal.Parse(pivotWeightTB.Text),
+            //             "",
+            //             level + 1,
+            //             "",
+            //             string.Join(",", itemsAtLevel.Select(x => x.ID).ToList()),
+            //             double.Parse(pivotQTYTB.Text),
+            //             "",
+            //             PivotPartARTB.Text,
+            //             PivotSectionCB.Text,
+            //             Brand
+            //             );
+            //        pivotPart.ParentSpares = itemsAtLevel;
+
+            //        if (SparePartsOBS.Any(s => HelperFunctions.CompareSpareParts(s, pivotPart)))
+            //        {
+            //            spareParts = SparePartsOBS.Where(s => HelperFunctions.CompareSpareParts(s, pivotPart) && s.SpanID == "" && s.pivotcode == "").First();
+            //            List<SpareParts> pvs = spareParts.ParentSpares;
+            //            pvs.AddRange(itemsAtLevel);
+            //            spareParts.SpareID = string.Join(",", pvs.Distinct().Select(x => x.ID).ToList());
+            //            spareParts.ParentSpares = pvs.Distinct().ToList();
+            //        }
+            //        if (spareParts.ID != 0)
+            //        {
+            //            await _pivotPartsRepository.EditPivotPart(spareParts);
+            //        }
+            //        else
+            //        {
+            //            pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
+            //            SparePartsOBS.Add(pivotPart);
+            //        }
+
+            //    }
+            //}
+
+
+
+
+            await _pivotPartsRepository.AddPivotPart(pivotPart);
+            //UpdateGridandCB();
+
 
             ClearTextBoxes();
         }
@@ -695,6 +749,7 @@ namespace InputsApp
 
         private void pivotPartsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             if (pivotPartsGrid.SelectedItem is SpareParts selectedItem)
             {
                 pivotEdit = selectedItem;
@@ -705,6 +760,7 @@ namespace InputsApp
                 pivotEdit = null;
                 ClearTextBoxes();
             }
+            
         }
 
         private void UpdateTextBoxesFromItem_Pivots(SpareParts pivotEdit)
@@ -964,9 +1020,19 @@ namespace InputsApp
             {
                 if (PivotNameCB.SelectedItem is PivotTable pivot)
                 {
-                    if (!PivotParentOBS.Contains(pivot))
+                    SpareRelationship spareRelationship = new SpareRelationship()
                     {
-                        PivotParentOBS.Add(pivot);
+                        PivotPart = pivot.pivotname,
+                        PivotCategory = pivot.pivotcategory,
+                        pivotcode = pivot.ID,
+                        ParentType = "Pivot",
+                        PartLevel = 2,
+                        
+                    };
+
+                    if (!PivotParentOBS.Contains(spareRelationship))
+                    {
+                        PivotParentOBS.Add(spareRelationship);
                     }
                 }
             }
@@ -975,9 +1041,19 @@ namespace InputsApp
             {
                 if (SpanNameCB.SelectedItem is Spans span)
                 {
-                    if (!SpanParentOBS.Contains(span))
+                    SpareRelationship spareRelationship = new SpareRelationship()
                     {
-                        SpanParentOBS.Add(span);
+                        PivotPart = span.Name,
+                        PivotCategory = span.Category,
+                        SpanID = span.ID,
+                        ParentType = "Span",
+                        PartLevel = 3,
+
+                    };
+
+                    if (!SpanParentOBS.Contains(spareRelationship))
+                    {
+                        SpanParentOBS.Add(spareRelationship);
                     }
                 }
             }
@@ -986,9 +1062,20 @@ namespace InputsApp
             {
                 if (PartNameCB.SelectedItem is SpareParts spares)
                 {
-                    if (!SpareParentOBS.Contains(spares))
+                    SpareRelationship spareRelationship = new SpareRelationship()
                     {
-                        SpareParentOBS.Add(spares);
+                        PivotPart = spares.Name,
+                        PivotCategory = spares.PivotCategory,
+                        SpareID = spares.ID,
+                        ParentType = "Spare",
+                        PartLevel = 3,
+
+
+                    };
+
+                    if (!SpareParentOBS.Contains(spareRelationship))
+                    {
+                        SpareParentOBS.Add(spareRelationship);
                     }
                 }
             }
@@ -1006,7 +1093,7 @@ namespace InputsApp
 
         private void deletePivotParents_Click(object sender, RoutedEventArgs e)
         {
-            if (NewPivotConnectionsGrid.SelectedItem is PivotTable piv)
+            if (NewPivotConnectionsGrid.SelectedItem is SpareRelationship piv)
             {
                 PivotParentOBS.Remove(piv);
             }
@@ -1014,7 +1101,7 @@ namespace InputsApp
 
         private void deleteSpanParents_Click(object sender, RoutedEventArgs e)
         {
-            if (NewSpanConnectionsGrid.SelectedItem is Spans spa)
+            if (NewSpanConnectionsGrid.SelectedItem is SpareRelationship spa)
             {
                 SpanParentOBS.Remove(spa);
             }
@@ -1022,7 +1109,7 @@ namespace InputsApp
 
         private void deleteSpareParents_Click(object sender, RoutedEventArgs e)
         {
-            if (NewPartConnectionsGrid.SelectedItem is SpareParts spp)
+            if (NewPartConnectionsGrid.SelectedItem is SpareRelationship spp)
             {
                 SpareParentOBS.Remove(spp);
             }
@@ -1099,113 +1186,113 @@ namespace InputsApp
                 {
                     Brand = selectedBrand.Brand;
                 }
-                if (pivotParents is not null)
-                {
+                //if (pivotParents is not null)
+                //{
 
-                    var pivotPart = new SpareParts(
-                        spare.ID,
-                        PivotCategoryCB.Text,
-                        PivotPartTB.Text,
-                        decimal.Parse(pivotCostTB.Text),
-                        DateTime.UtcNow,
-                        decimal.Parse(pivotHegitTB.Text),
-                        decimal.Parse(pivotwidthTB.Text),
-                        decimal.Parse(pivotlenghtTB.Text),
-                        decimal.Parse(pivotWeightTB.Text),
-                        string.Join(",", pivotParents.Select(x => x.ID).ToList()),
-                        2,
-                        "",
-                        "",
-                        double.Parse(pivotQTYTB.Text),
-                        "",
-                        PivotPartARTB.Text,
-                        PivotSectionCB.Text,
-                        Brand
+                //    var pivotPart = new SpareParts(
+                //        spare.ID,
+                //        PivotCategoryCB.Text,
+                //        PivotPartTB.Text,
+                //        decimal.Parse(pivotCostTB.Text),
+                //        DateTime.UtcNow,
+                //        decimal.Parse(pivotHegitTB.Text),
+                //        decimal.Parse(pivotwidthTB.Text),
+                //        decimal.Parse(pivotlenghtTB.Text),
+                //        decimal.Parse(pivotWeightTB.Text),
+                //        string.Join(",", pivotParents.Select(x => x.ID).ToList()),
+                //        2,
+                //        "",
+                //        "",
+                //        double.Parse(pivotQTYTB.Text),
+                //        "",
+                //        PivotPartARTB.Text,
+                //        PivotSectionCB.Text,
+                //        Brand
 
-                        );
-                    pivotPart.ParentPivots = pivotParents;
+                //        );
+                //    pivotPart.ParentPivots = pivotParents;
 
                   
-                        await _pivotPartsRepository.EditPivotPart(pivotPart);
+                //        await _pivotPartsRepository.EditPivotPart(pivotPart);
 
 
-                }
+                //}
 
 
-                if (SpansParents.Count > 0)
-                {
+                //if (SpansParents.Count > 0)
+                //{
 
-                    var pivotPart = new SpareParts(spare.ID,
-                       PivotCategoryCB.Text,
-                       PivotPartTB.Text,
-                       decimal.Parse(pivotCostTB.Text),
-                       DateTime.UtcNow,
-                       decimal.Parse(pivotHegitTB.Text),
-                       decimal.Parse(pivotwidthTB.Text),
-                       decimal.Parse(pivotlenghtTB.Text),
-                       decimal.Parse(pivotWeightTB.Text),
-                       "",
-                       3,
-                       "",
-                       "",
-                       double.Parse(pivotQTYTB.Text),
-                       string.Join(",", SpansParents.Select(x => x.ID).ToList()),
-                       PivotPartARTB.Text,
-                       PivotSectionCB.Text,
-                       Brand
-                       );
-                    pivotPart.ParentSpans = SpansParents;
+                //    var pivotPart = new SpareParts(spare.ID,
+                //       PivotCategoryCB.Text,
+                //       PivotPartTB.Text,
+                //       decimal.Parse(pivotCostTB.Text),
+                //       DateTime.UtcNow,
+                //       decimal.Parse(pivotHegitTB.Text),
+                //       decimal.Parse(pivotwidthTB.Text),
+                //       decimal.Parse(pivotlenghtTB.Text),
+                //       decimal.Parse(pivotWeightTB.Text),
+                //       "",
+                //       3,
+                //       "",
+                //       "",
+                //       double.Parse(pivotQTYTB.Text),
+                //       string.Join(",", SpansParents.Select(x => x.ID).ToList()),
+                //       PivotPartARTB.Text,
+                //       PivotSectionCB.Text,
+                //       Brand
+                //       );
+                //    pivotPart.ParentSpans = SpansParents;
 
                    
-                        await _pivotPartsRepository.EditPivotPart(pivotPart);
+                //        await _pivotPartsRepository.EditPivotPart(pivotPart);
 
 
 
 
 
-                }
+                //}
 
 
-                if (SparesParents.Count > 0)
-                {
-                    var groupedLists = SparesParents.GroupBy(item => item.PartLevel);
+                //if (SparesParents.Count > 0)
+                //{
+                //    var groupedLists = SparesParents.GroupBy(item => item.PartLevel);
 
-                    // Iterate over the grouped lists and print the items in each group
-                    foreach (var group in groupedLists)
-                    {
-                        int level = group.Key;
-                        List<SpareParts> itemsAtLevel = group.ToList();
+                //    // Iterate over the grouped lists and print the items in each group
+                //    foreach (var group in groupedLists)
+                //    {
+                //        int level = group.Key;
+                //        List<SpareParts> itemsAtLevel = group.ToList();
 
-                        var pivotPart = new SpareParts(
-                             spare.ID,
-                             PivotCategoryCB.Text,
-                             PivotPartTB.Text,
-                             decimal.Parse(pivotCostTB.Text),
-                             DateTime.UtcNow,
-                             decimal.Parse(pivotHegitTB.Text),
-                             decimal.Parse(pivotwidthTB.Text),
-                             decimal.Parse(pivotlenghtTB.Text),
-                             decimal.Parse(pivotWeightTB.Text),
-                             "",
-                             level + 1,
-                             "",
-                             string.Join(",", itemsAtLevel.Select(x => x.ID).ToList()),
-                             double.Parse(pivotQTYTB.Text),
-                             "",
-                             PivotPartARTB.Text,
-                             PivotSectionCB.Text,
-                             Brand
-                             );
-                            pivotPart.ParentSpares = itemsAtLevel;
+                //        var pivotPart = new SpareParts(
+                //             spare.ID,
+                //             PivotCategoryCB.Text,
+                //             PivotPartTB.Text,
+                //             decimal.Parse(pivotCostTB.Text),
+                //             DateTime.UtcNow,
+                //             decimal.Parse(pivotHegitTB.Text),
+                //             decimal.Parse(pivotwidthTB.Text),
+                //             decimal.Parse(pivotlenghtTB.Text),
+                //             decimal.Parse(pivotWeightTB.Text),
+                //             "",
+                //             level + 1,
+                //             "",
+                //             string.Join(",", itemsAtLevel.Select(x => x.ID).ToList()),
+                //             double.Parse(pivotQTYTB.Text),
+                //             "",
+                //             PivotPartARTB.Text,
+                //             PivotSectionCB.Text,
+                //             Brand
+                //             );
+                //            pivotPart.ParentSpares = itemsAtLevel;
 
                        
                         
-                            await _pivotPartsRepository.EditPivotPart(pivotPart);
+                //            await _pivotPartsRepository.EditPivotPart(pivotPart);
                         
                        
 
-                    }
-                }
+                //    }
+                //}
             }
         }
     }
