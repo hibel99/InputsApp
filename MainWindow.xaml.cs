@@ -31,6 +31,8 @@ namespace InputsApp
         private readonly ISprinklerPartsRepository _sprinklerPartsRepository;
         private readonly IPivotRepository _PivotRepository;
         private readonly ISpanRepository _spanRepository;
+        private readonly ISetRepository _setRepository;
+
         private readonly ICatergoryRepository _catergoryRepository;
         private readonly IBrandRepository _brandRepository;
         private SprinklerParts sprinklerEdit = null;
@@ -39,6 +41,8 @@ namespace InputsApp
         ObservableCollection<Categories> SectionsListOBS = new ObservableCollection<Categories>();
         ObservableCollection<PivotTable> PivotsOBS = new ObservableCollection<PivotTable>();
         ObservableCollection<Spans> SpansOBS = new ObservableCollection<Spans>();
+        ObservableCollection<Set> SetOBS = new ObservableCollection<Set>();
+
         ObservableCollection<SpareParts> SparePartsOBS = new ObservableCollection<SpareParts>();
         ObservableCollection<SpareParts> JoinedSparePartsOBS = new ObservableCollection<SpareParts>();
         ObservableCollection<SpareParts> FilteredSparePartsOBS = new ObservableCollection<SpareParts>();
@@ -49,6 +53,8 @@ namespace InputsApp
         ObservableCollection<SpareRelationship> PivotParentOBS = new ObservableCollection<SpareRelationship>();
         ObservableCollection<SpareRelationship> SpanParentOBS = new ObservableCollection<SpareRelationship>();
         ObservableCollection<SpareRelationship> SpareParentOBS = new ObservableCollection<SpareRelationship>();
+        ObservableCollection<SpareRelationship> SetParentOBS = new ObservableCollection<SpareRelationship>();
+
 
         ObservableCollection<PivotTable> PivotSpanParentOBS = new ObservableCollection<PivotTable>();
 
@@ -65,6 +71,7 @@ namespace InputsApp
             _sprinklerPartsRepository = new SprinklerPartsRepository(_sqlDataAccess);
             _PivotRepository = new PivotRepository(_sqlDataAccess);
             _spanRepository = new SpanRepository(_sqlDataAccess);
+            _setRepository = new SetRepository(_sqlDataAccess);
             _catergoryRepository = new CatergoryRepository(_sqlDataAccess);
             _brandRepository = new BrandRepository(_sqlDataAccess);
             GetDataOBS();
@@ -92,8 +99,12 @@ namespace InputsApp
                     item.ParentSpans = relations.Where(x => x.ParentType == "Span").ToList();
 
                     item.ParentSpares = relations.Where(x => x.ParentType == "Spare").ToList();
+
+                    item.ParentSets = relations.Where(x => x.ParentType == "Set").ToList();
                 }
             }
+
+
 
             //foreach (var item in JoinedSparePartsOBS)
             //{
@@ -189,6 +200,21 @@ namespace InputsApp
             }
             SpansDG.ItemsSource = SpansOBS;
             SpanNameCB.ItemsSource = SpansOBS;
+
+
+            #endregion
+
+            #region Set
+
+            var sets = await _setRepository.GetSets();
+            foreach (var item in sets)
+            {
+                SetOBS.Add(item);
+            }
+           // SpansDG.ItemsSource = SpansOBS;
+            SetNameCB.ItemsSource = SetOBS;
+
+
             #endregion
 
             #region Brands
@@ -230,10 +256,12 @@ namespace InputsApp
             SectionsFilterIC.ItemsSource = SectionsListOBS;
             #endregion
 
+            //hk1
             #region parents stuff
             NewPivotConnectionsGrid.ItemsSource = PivotParentOBS;
             NewSpanConnectionsGrid.ItemsSource = SpanParentOBS;
             NewPartConnectionsGrid.ItemsSource = SpareParentOBS;
+            NewSetPartConnectionsGrid.ItemsSource = SetParentOBS;
 
             NewPivotForSpansConnectionsGrid.ItemsSource = PivotSpanParentOBS;
             #endregion
@@ -384,8 +412,6 @@ namespace InputsApp
             {
                 item.PivotPartID = pivotPart.ID;
                 item.Quantity = pivotPart.Quantity;
-
-
             }
             foreach (var item in SpareParentOBS)
             {
@@ -397,18 +423,34 @@ namespace InputsApp
                 {
                     item.Quantity = pivotPart.Quantity;
                 }
-
             }
+
+            double QTYInSet = 0;
+            if (!string.IsNullOrEmpty(pivotQTYInSetTB.Text))
+            {
+                QTYInSet = double.Parse(pivotQTYInSetTB.Text);
+            }
+            foreach (var item in SetParentOBS)
+            {
+                item.PivotPartID = pivotPart.ID;
+                item.Quantity = QTYInSet;
+            }
+            
+
             await _pivotPartsRepository.EditPivotPart(sparesToChild);
             #endregion
 
             pivotPart.ParentPivots = PivotParentOBS.ToList();
             pivotPart.ParentSpans = SpanParentOBS.ToList();
             pivotPart.ParentSpares = SpareParentOBS.ToList();
+            pivotPart.ParentSets = SetParentOBS.ToList();
+
 
             await _pivotPartsRepository.AddPivotPartRelation(PivotParentOBS.ToList());
             await _pivotPartsRepository.AddPivotPartRelation(SpanParentOBS.ToList());
             await _pivotPartsRepository.AddPivotPartRelation(SpareParentOBS.ToList());
+            await _pivotPartsRepository.AddPivotPartRelation(SetParentOBS.ToList());
+
 
 
             SparePartsOBS.Add(pivotPart);
@@ -545,7 +587,7 @@ namespace InputsApp
 
 
 
-            await _pivotPartsRepository.AddPivotPart(pivotPart);
+            //await _pivotPartsRepository.EditPivotPart(pivotPart);
             //UpdateGridandCB();
 
 
@@ -735,6 +777,12 @@ namespace InputsApp
                 //PipeTypeCBCB.SelectedIndex = 0;
                 SpanNameTB.Text = string.Empty; 
             }
+            if ((bool)SetsRD.IsChecked)
+            {
+                SetName.Text = string.Empty;
+                SetCategory.Text = string.Empty;
+                SetNameAR.Text = string.Empty;
+            }
             //if ((bool)OverhangParts.IsChecked)
             //{
             //    OHLengthTB.Text = string.Empty;
@@ -775,15 +823,30 @@ namespace InputsApp
             pivotlenghtTB.Text = pivotEdit.Length.ToString();
             pivotWeightTB.Text = pivotEdit.Weight.ToString();
             pivotQTYTB.Text = pivotEdit.Quantity.ToString();
+            
             PivotPartARTB.Text = pivotEdit.NameAR.ToString();
 
             PivotCategoryCB.Text = pivotEdit.PivotCategory;
             PivotSectionCB.Text = pivotEdit.Section;
             PivotBrandCB.SelectedItem = BrandsOBS.Where(x=>x.Brand == pivotEdit.Brand).FirstOrDefault();
 
+
+             var QTYInRels = RelationstOBS.Where(rels => rels.PivotPartID == pivotEdit.ID).FirstOrDefault();
+            double QTY = 0;
+            if (QTYInRels != null) QTY = QTYInRels.Quantity;
+
+
+            pivotQTYTB.Text = QTY.ToString();
+
+
+            var QTYInSetRels = RelationstOBS.Where(rels => rels.ParentType == "Set" && rels.PivotPartID == pivotEdit.ID).FirstOrDefault();
+            double QTYInSet = 0;
+            if (QTYInSetRels != null) QTYInSet = QTYInSetRels.Quantity;
+            pivotQTYInSetTB.Text = QTYInSet.ToString();
             SpareParentOBS.Clear();
             SpanParentOBS.Clear();
             PivotParentOBS.Clear();
+            SetParentOBS.Clear();
 
             if (pivotEdit.ParentSpans is not null)
             {
@@ -806,6 +869,14 @@ namespace InputsApp
                 foreach (var item3 in pivotEdit.ParentPivots)
                 {
                     PivotParentOBS.Add(item3);
+                }
+            }
+
+            if (pivotEdit.ParentSets is not null)
+            {
+                foreach (var item3 in pivotEdit.ParentSets)
+                {
+                    SetParentOBS.Add(item3);
                 }
             }
 
@@ -1081,6 +1152,28 @@ namespace InputsApp
                     }
                 }
             }
+
+            else if ((bool)SetPartRD.IsChecked)
+            {
+                if (SetNameCB.SelectedItem is Set set)
+                {
+                    SpareRelationship spareRelationship = new SpareRelationship()
+                    {
+                        PivotPart = set.Name,
+                        PivotCategory = set.Category,
+                        SetID = set.ID,
+                        ParentType = "Set",
+                        PartLevel = 3,
+
+
+                    };
+
+                    if (!SetParentOBS.Contains(spareRelationship))
+                    {
+                        SetParentOBS.Add(spareRelationship);
+                    }
+                }
+            }
         }
 
        
@@ -1116,6 +1209,16 @@ namespace InputsApp
                 SpareParentOBS.Remove(spp);
             }
         }
+
+
+        private void deleteSetParents_Click(object sender, RoutedEventArgs e)
+        {
+            if (NewSetPartConnectionsGrid.SelectedItem is SpareRelationship spp)
+            {
+                SetParentOBS.Remove(spp);
+            }
+        }
+
 
         private void deletePivotForSpanParents_Click(object sender, RoutedEventArgs e)
         {
@@ -1380,6 +1483,24 @@ namespace InputsApp
 
             OpenFilter.IsChecked = false;
 
+        }
+
+        private void SetPartRD_Checked(object sender, RoutedEventArgs e)
+        {
+            if (SetPartRD.IsChecked.Value)
+            {
+
+            }
+        }
+
+        private async void AddNewSetBT_Click(object sender, RoutedEventArgs e)
+        {
+            var set = new Set(  SetName.Text, SetCategory.Text,  SetNameAR.Text);
+
+
+            await _setRepository.AddSet(set);
+            //UpdateGridandCB();
+            ClearTextBoxes();
         }
     }
 }

@@ -41,6 +41,7 @@ public class SpareParts:INotifyPropertyChanged
     public List<SpareRelationship> ParentPivots { get; set; }
     public List<SpareRelationship> ParentSpares { get; set; }
     public List<SpareRelationship> ParentSpans { get; set; }
+    public List<SpareRelationship> ParentSets { get; set; }
     public string ParentType { get; set; }
     public bool HasChild { get; set; }
     public string Name => NameAR;
