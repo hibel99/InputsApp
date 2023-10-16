@@ -53,7 +53,6 @@ public class SetRepository : ISetRepository
                new
                {
                    Name = Set.Name,
-                   Category = Set.Category,
                    NameAR = Set.NameAR,
 
                },
@@ -77,7 +76,6 @@ public class SetRepository : ISetRepository
      {
          ID = Set.ID,
          Name = Set.Name,
-         Category = Set.Category,
          NameAR = Set.NameAR,
      },
     AppConnection.ConnectionString);

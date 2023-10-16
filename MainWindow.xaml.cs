@@ -41,7 +41,6 @@ namespace InputsApp
         ObservableCollection<Categories> SectionsListOBS = new ObservableCollection<Categories>();
         ObservableCollection<PivotTable> PivotsOBS = new ObservableCollection<PivotTable>();
         ObservableCollection<Spans> SpansOBS = new ObservableCollection<Spans>();
-        ObservableCollection<Set> SetOBS = new ObservableCollection<Set>();
 
         ObservableCollection<SpareParts> SparePartsOBS = new ObservableCollection<SpareParts>();
         ObservableCollection<SpareParts> JoinedSparePartsOBS = new ObservableCollection<SpareParts>();
@@ -59,6 +58,7 @@ namespace InputsApp
         ObservableCollection<PivotTable> PivotSpanParentOBS = new ObservableCollection<PivotTable>();
 
         ObservableCollection<Brands> BrandsOBS = new ObservableCollection<Brands>();
+        ObservableCollection<Set> SetOBS = new ObservableCollection<Set>();
 
         public MainWindow()
         {
@@ -211,7 +211,7 @@ namespace InputsApp
             {
                 SetOBS.Add(item);
             }
-           // SpansDG.ItemsSource = SpansOBS;
+            SetDG.ItemsSource = SetOBS;
             SetNameCB.ItemsSource = SetOBS;
 
 
@@ -777,12 +777,7 @@ namespace InputsApp
                 //PipeTypeCBCB.SelectedIndex = 0;
                 SpanNameTB.Text = string.Empty; 
             }
-            if ((bool)SetsRD.IsChecked)
-            {
-                SetName.Text = string.Empty;
-                SetCategory.Text = string.Empty;
-                SetNameAR.Text = string.Empty;
-            }
+           
             //if ((bool)OverhangParts.IsChecked)
             //{
             //    OHLengthTB.Text = string.Empty;
@@ -968,6 +963,9 @@ namespace InputsApp
             ClearTextBoxes();
         }
 
+
+
+
         async private void AddSpanBT_Click(object sender, RoutedEventArgs e)
         {
             
@@ -1072,6 +1070,16 @@ namespace InputsApp
             }
         }
 
+        private async void AddNewSet_Click(object sender, RoutedEventArgs e)
+        {
+            if (SetName.Text != "" && SetNameAR.Text != "")
+            {
+                Set set = new Set(SetName.Text, SetNameAR.Text);
+                await _setRepository.AddSet(set);
+                SetOBS.Add(set);
+            }
+        }
+
         private void PivotPartRD_Checked(object sender, RoutedEventArgs e)
         {
 
@@ -1160,7 +1168,7 @@ namespace InputsApp
                     SpareRelationship spareRelationship = new SpareRelationship()
                     {
                         PivotPart = set.Name,
-                        PivotCategory = set.Category,
+                        PivotCategory = "",
                         SetID = set.ID,
                         ParentType = "Set",
                         PartLevel = 3,
@@ -1268,6 +1276,20 @@ namespace InputsApp
             }
         }
 
+
+
+        private async void DeleteSet_Click(object sender, RoutedEventArgs e)
+        {
+            if (SetDG.SelectedItem is Set set)
+            {
+                if (MessageBox.Show("Are you sure you want to delete this brand?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    await _setRepository.DeleteSet(set.ID);
+                    SetOBS.Remove(set);
+                }
+            }
+        }
+
         private void BrandsDG_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (BrandsDG.SelectedItem is Brands brands)
@@ -1276,7 +1298,25 @@ namespace InputsApp
                 CategoryNewBrand.SelectedItem = CategoriesListOBS.Where(x => x.Name == brands.Category).FirstOrDefault();
 
 
-    }       }
+        
+            }       
+        }
+
+
+
+
+
+        private void SetDG_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SetDG.SelectedItem is Set set)
+            {
+                SetName.Text = set.Name;
+                SetNameAR.Text = set.NameAR;
+
+
+            }
+        }
+
 
         private async void EditPivot_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -1495,12 +1535,12 @@ namespace InputsApp
 
         private async void AddNewSetBT_Click(object sender, RoutedEventArgs e)
         {
-            var set = new Set(  SetName.Text, SetCategory.Text,  SetNameAR.Text);
-
-
+            var set = new Set(SetName.Text,   SetNameAR.Text);
             await _setRepository.AddSet(set);
+            SetOBS.Add(set);
+
             //UpdateGridandCB();
-            ClearTextBoxes();
+            
         }
     }
 }
