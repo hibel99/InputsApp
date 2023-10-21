@@ -1,13 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace InputsApp.Models
 {
-    public class PivotTable
+    public class PivotTable : INotifyPropertyChanged
     {
+        public ObservableCollection<string> PivotsOBS { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public PivotTable()
         {
 
@@ -29,10 +41,66 @@ namespace InputsApp.Models
             ID = iD;
         }
 
-        public string pivotname { get; set; }
+        
         public string Name => pivotname;
-        public string pivotcategory { get; set; }
-        public int ID { get; set; }
-        public decimal pivotlength { get; set; }
+
+        private string _pivotname;
+
+        public string pivotname
+        {
+            get { return _pivotname; }
+            set
+            {
+                if (_pivotname != value)
+                {
+                    _pivotname = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _pivotcategory;
+        public string pivotcategory
+        {
+            get { return _pivotcategory; }
+            set
+            {
+                if (_pivotcategory != value)
+                {
+                    _pivotcategory = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _ID;
+        public int ID
+        {
+            get { return _ID; }
+            set
+            {
+                if (_ID != value)
+                {
+                    _ID = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private decimal _pivotlength;
+
+        public decimal pivotlength
+    {
+            get { return _pivotlength; }
+            set
+            {
+                if (_pivotlength != value)
+                {
+                    _pivotlength = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
     }
 }

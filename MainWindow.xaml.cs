@@ -915,7 +915,10 @@ namespace InputsApp
                 PivotCategory.Text,
                 decimal.Parse(PivotLength.Text));
 
+            PivotsOBS.Add(Pivot);
+                
             await _PivotRepository.AddPivot(Pivot);
+            PivotsDG.ItemsSource = PivotsOBS;
             //UpdateGridandCB();
             ClearTextBoxes();
         }
@@ -937,7 +940,8 @@ namespace InputsApp
                 PivotTable part = (PivotTable)((Button)sender).DataContext;
 
                 await _PivotRepository.DeletePivot(part.ID);
-
+                PivotsOBS.Remove(part);
+                PivotsDG.ItemsSource = PivotsOBS;   
                 //UpdateGridandCB();
             }
             ClearTextBoxes();
@@ -1069,32 +1073,6 @@ namespace InputsApp
                 SectionsListOBS.Add(categories);
             }
         }
-
-        private async void AddNewSet_Click(object sender, RoutedEventArgs e)
-        {
-            if (SetName.Text != "" && SetNameAR.Text != "")
-            {
-                Set set = new Set(SetName.Text, SetNameAR.Text);
-                await _setRepository.AddSet(set);
-                SetOBS.Add(set);
-            }
-        }
-
-        private void PivotPartRD_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SpanPartRD_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SparePartRD_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void AddToParents_Click(object sender, RoutedEventArgs e)
         {
             if ((bool)PivotPartRD.IsChecked)
@@ -1168,7 +1146,6 @@ namespace InputsApp
                     SpareRelationship spareRelationship = new SpareRelationship()
                     {
                         PivotPart = set.Name,
-                        PivotCategory = "",
                         SetID = set.ID,
                         ParentType = "Set",
                         PartLevel = 3,
@@ -1525,14 +1502,6 @@ namespace InputsApp
 
         }
 
-        private void SetPartRD_Checked(object sender, RoutedEventArgs e)
-        {
-            if (SetPartRD.IsChecked.Value)
-            {
-
-            }
-        }
-
         private async void AddNewSetBT_Click(object sender, RoutedEventArgs e)
         {
             var set = new Set(SetName.Text,   SetNameAR.Text);
@@ -1541,6 +1510,16 @@ namespace InputsApp
 
             //UpdateGridandCB();
             
+        }
+
+        private void SetsDG_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void DeleteButtoninSetDG_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
