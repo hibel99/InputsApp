@@ -1073,6 +1073,32 @@ namespace InputsApp
                 SectionsListOBS.Add(categories);
             }
         }
+
+        private async void AddNewSet_Click(object sender, RoutedEventArgs e)
+        {
+            if (SetName.Text != "" && SetNameAR.Text != "")
+            {
+                Set set = new Set(SetName.Text, SetNameAR.Text);
+                await _setRepository.AddSet(set);
+                SetOBS.Add(set);
+            }
+        }
+
+        private void PivotPartRD_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SpanPartRD_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SparePartRD_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void AddToParents_Click(object sender, RoutedEventArgs e)
         {
             if ((bool)PivotPartRD.IsChecked)
@@ -1146,6 +1172,7 @@ namespace InputsApp
                     SpareRelationship spareRelationship = new SpareRelationship()
                     {
                         PivotPart = set.Name,
+                        PivotCategory = "",
                         SetID = set.ID,
                         ParentType = "Set",
                         PartLevel = 3,
@@ -1293,7 +1320,6 @@ namespace InputsApp
 
             }
         }
-
 
         private async void EditPivot_Button_Click(object sender, RoutedEventArgs e)
         {

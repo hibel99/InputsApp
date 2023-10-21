@@ -688,6 +688,8 @@
                             </DataGridTemplateColumn>
 
                         </DataGrid.Columns>
+                        
+                        
                     </DataGrid>
                     <DataGrid Name="NewSpanConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
                                  BorderThickness="0" Margin="10"  Grid.Row="0" Grid.Column="1" FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
@@ -1154,7 +1156,7 @@
                     </DataGrid>
 
                     <DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Name="PivotsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding PivotsOBS}"
-                                 BorderThickness="0" FontSize="12" Grid.RowSpan="3" Grid.ColumnSpan="2"   SelectionChanged="pivotPartsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0" FontSize="12" Grid.RowSpan="3" Grid.ColumnSpan="2" SelectionChanged="pivotPartsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding pivotcategory}" >
@@ -1220,7 +1222,7 @@
                             </ResourceDictionary>
                         </DataGrid.Resources>
                     </DataGrid>
-                    <DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Name="SetsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden" Grid.ColumnSpan="2" Grid.RowSpan="3"
+                    <!--<DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Name="SetsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden" Grid.ColumnSpan="2" Grid.RowSpan="3"
                                  BorderThickness="0" FontSize="12"    SelectionChanged="SetsDG_SelectionChanged"  GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                         <DataGrid.Columns>
@@ -1277,7 +1279,7 @@
                                 </Style>
                             </ResourceDictionary>
                         </DataGrid.Resources>
-                    </DataGrid>
+                    </DataGrid>-->
 
                     <!--<DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Name="SpansDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
                                  BorderThickness="0" FontSize="12"   SelectionChanged="pivotPartsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
