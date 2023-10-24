@@ -1,12 +1,19 @@
 ﻿using InputsApp.DataAccess;
 using InputsApp.FunctionsLibrary;
 using InputsApp.Models;
+using MaterialDesignThemes.Wpf;
+using Microsoft.VisualBasic;
+using Microsoft.Xaml.Behaviors;
+using SharpVectors.Dom;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,10 +22,13 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Collections.Specialized.BitVector32;
 
 
 namespace InputsApp
@@ -77,30 +87,47 @@ namespace InputsApp
             GetDataOBS();
         }
 
-        private void ArrangeConnections()
+
+		private void ArrangeConnections()
         {
-            foreach (var item in SpansOBS)
+			// For each item in the SpansOBS collection
+			foreach (var item in SpansOBS)
             {
-                if (item.PivotID is not null && item.PivotID != "")
+				// Check if the item has associated Pivot IDs
+				if (item.PivotID is not null && item.PivotID != "")
                 {
-                    List<int> pivotsIDs = item.PivotID.Split(",").Select(int.Parse).ToList();
-                    item.ParentPivots = PivotsOBS.Where(x => pivotsIDs.Contains(x.ID)).ToList();
+					// Split the Pivot IDs into a list of integers
+					List<int> pivotsIDs = item.PivotID.Split(",").Select(int.Parse).ToList();
+					// Find and set the parent Pivots for the current item
+					item.ParentPivots = PivotsOBS.Where(x => pivotsIDs.Contains(x.ID)).ToList();
                 }
             }
 
-            foreach (var item in SparePartsOBS)
+
+			// For each item in the SparePartsOBS collection
+			foreach (var item in SparePartsOBS)
             {
-                List<SpareRelationship> relations = RelationstOBS.Where(x => x.PivotPartID == item.ID).ToList();
 
-                if (relations.Count > 0)
+				// Retrieve a list of SpareRelationships where the PivotPartID matches the current item's ID
+				List<SpareRelationship> relations = RelationstOBS.Where(x => x.PivotPartID == item.ID).ToList();
+
+
+				// Check if there are any relations
+				if (relations.Count > 0)
                 {
-                    item.ParentPivots = relations.Where(x => x.ParentType == "Pivot").ToList();
 
-                    item.ParentSpans = relations.Where(x => x.ParentType == "Span").ToList();
+					// Set the parent Pivots for the current item
+					item.ParentPivots = relations.Where(x => x.ParentType == "Pivot").ToList();
 
-                    item.ParentSpares = relations.Where(x => x.ParentType == "Spare").ToList();
+					// Set the parent Spans for the current item
+					item.ParentSpans = relations.Where(x => x.ParentType == "Span").ToList();
 
-                    item.ParentSets = relations.Where(x => x.ParentType == "Set").ToList();
+					// Set the parent Spares for the current item
+					item.ParentSpares = relations.Where(x => x.ParentType == "Spare").ToList();
+
+
+					// Set the parent Sets for the current item
+					item.ParentSets = relations.Where(x => x.ParentType == "Set").ToList();
                 }
             }
 
@@ -127,7 +154,10 @@ namespace InputsApp
             //    }
             //}
 
+            //end
         }
+
+
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -137,134 +167,227 @@ namespace InputsApp
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
-        }
+		}
 
-        private async void GetDataOBS()
+
+       
+
+
+		private async void GetDataOBS()
         {
 
-            #region pivot parts
-            var Parts = await _pivotPartsRepository.GetPivotParts();
+			#region pivot parts
+			// Retrieve all pivot parts and their relations
+			var Parts = await _pivotPartsRepository.GetPivotParts();
             var PartsR = await _pivotPartsRepository.GetPivotPartsRelationsJoined();
-            foreach (var item in Parts)
+
+			// Add pivot parts to the SparePartsOBS observable collection
+			foreach (var item in Parts)
             {
                 SparePartsOBS.Add(item);
             }
-            foreach (var item in PartsR)
+
+			// Add pivot parts with their relations to the JoinedSparePartsOBS observable collection
+			foreach (var item in PartsR)
             {
                 JoinedSparePartsOBS.Add(item);
             }
 
-            ALLpivotPartsGrid.ItemsSource = JoinedSparePartsOBS;
+			// Set the data sources for data grids and combo boxes
+			ALLpivotPartsGrid.ItemsSource = JoinedSparePartsOBS;
             pivotPartsGrid.ItemsSource = SparePartsOBS;
-            PartNameCB.ItemsSource = SparePartsOBS; 
+            PartNameCB.ItemsSource = SparePartsOBS;
 
-            var relations = await _pivotPartsRepository.GetPivotPartsRelations();
-            foreach (var rel in relations)
+			// Retrieve pivot parts relations
+			var relations = await _pivotPartsRepository.GetPivotPartsRelations();
+
+
+			// Add the retrieved relations to the RelationstOBS observable collection
+			foreach (var rel in relations)
             {
                 RelationstOBS.Add(rel);
             }
-            #endregion
+			#endregion
 
-            #region pivots
-            var pivots = await _PivotRepository.GetPivots();
-            foreach (var piv in pivots)
+
+
+
+
+
+
+			
+			#region pivots
+			// Retrieve a list of pivot components
+			var pivots = await _PivotRepository.GetPivots();
+
+			// Add each pivot component to the PivotsOBS observable collection
+			foreach (var piv in pivots)
             {
                 PivotsOBS.Add(piv);
             }
-            PivotNameCB.ItemsSource = PivotsOBS;
+
+			// Set the data sources for combo boxes and a data grid
+			PivotNameCB.ItemsSource = PivotsOBS;
             PivotsDG.ItemsSource = PivotsOBS;
             PivotTypeCB.ItemsSource = PivotsOBS;
-            #endregion
-
-            #region To delete
-
-            var overhang = Parts.Where(x => x.PivotCategory == "Overhang");
-            OverhangDG.ItemsSource = overhang;
+			#endregion
 
 
+			
+			#region To delete
 
-            var sprinklerParts = await _sprinklerPartsRepository.GetSprinklerParts();
-            foreach (var sps in sprinklerParts)
+
+			// Retrieve pivot parts with "Overhang" category and assign them to the 'overhang' variable
+			var overhang = Parts.Where(x => x.PivotCategory == "Overhang");
+
+			// Set the data source for the 'OverhangDG' data grid to display the retrieved pivot parts
+			OverhangDG.ItemsSource = overhang;
+
+
+			// Retrieve sprinkler parts from the _sprinklerPartsRepository
+			var sprinklerParts = await _sprinklerPartsRepository.GetSprinklerParts();
+
+
+			// Add each retrieved sprinkler part to the 'SprinklerPartsOBS' observable collection
+			foreach (var sps in sprinklerParts)
             {
                 SprinklerPartsOBS.Add(sps);
             }
-            SprinklerPartsDG.ItemsSource = SprinklerPartsOBS;
-            #endregion
 
-            #region Spans
+			// Set the data source for the 'SprinklerPartsDG' data grid to display the retrieved sprinkler parts
+			SprinklerPartsDG.ItemsSource = SprinklerPartsOBS;
+			#endregion
+			//end
 
-            var result = await _spanRepository.GetSpans();
-            foreach (var item in result)
+
+
+
+
+			#region Spans
+
+
+			// Retrieve "Span" components from the _spanRepository
+			var result = await _spanRepository.GetSpans();
+
+			// Add each retrieved "Span" component to the 'SpansOBS' observable collection
+			foreach (var item in result)
             {
                 SpansOBS.Add(item);
             }
-            SpansDG.ItemsSource = SpansOBS;
-            SpanNameCB.ItemsSource = SpansOBS;
+			// Set the data source for the 'SpansDG' data grid to display the retrieved "Span" components
+			SpansDG.ItemsSource = SpansOBS;
+
+			// Set the data source for the 'SpanNameCB' combo box to display the retrieved "Span" components
+			SpanNameCB.ItemsSource = SpansOBS;
 
 
-            #endregion
+			#endregion
 
-            #region Set
 
-            var sets = await _setRepository.GetSets();
-            foreach (var item in sets)
+			#region Set
+
+
+			// Retrieve "Set" components from the _setRepository
+			var sets = await _setRepository.GetSets();
+
+
+			// Add each retrieved "Set" component to the 'SetOBS' observable collection
+			foreach (var item in sets)
             {
                 SetOBS.Add(item);
             }
-            SetDG.ItemsSource = SetOBS;
-            SetNameCB.ItemsSource = SetOBS;
+
+			// Set the data source for the 'SetDG' data grid to display the retrieved "Set" components
+			SetDG.ItemsSource = SetOBS;
+
+			// Set the data source for the 'SetNameCB' combo box to display the retrieved "Set" components
+			SetNameCB.ItemsSource = SetOBS;
+
+			
 
 
-            #endregion
+			#endregion
+		
 
-            #region Brands
+			#region Brands
 
-            var brands = await _brandRepository.GetBrands();
-            foreach (var item in brands)
+
+			// Retrieve a list of brands asynchronously from the _brandRepository
+			var brands = await _brandRepository.GetBrands();
+
+			// Populate an ObservableCollection called BrandsOBS with the retrieved brands
+			foreach (var item in brands)
             {
                 BrandsOBS.Add(item);
             }
-            BrandsDG.ItemsSource = BrandsOBS;
-            BrandsFilterIC.ItemsSource = BrandsOBS.Distinct();
-            ListCollectionView lcv = new ListCollectionView(BrandsOBS);
+
+
+			// Set the data source for a DataGrid named BrandsDG to the BrandsOBS collection
+			BrandsDG.ItemsSource = BrandsOBS;
+
+			// Populate the data source for an ItemsControl named BrandsFilterIC with distinct brand items
+			BrandsFilterIC.ItemsSource = BrandsOBS.Distinct();
+
+
+			// Create a ListCollectionView called lcv with BrandsOBS as its source and group it by the "Category" property
+			ListCollectionView lcv = new ListCollectionView(BrandsOBS);
             lcv.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
 
-            PivotBrandCB.ItemsSource = lcv; 
-            #endregion
+			// Set the data source for a ComboBox named PivotBrandCB to the ListCollectionView lcv
+			PivotBrandCB.ItemsSource = lcv;
 
-            #region Categories
-            List<Categories> CategoriesList = await _catergoryRepository.GetCategories();
+			#endregion
+
+			#region Categories
+			// Retrieve a list of categories asynchronously from the _catergoryRepository
+			List<Categories> CategoriesList = await _catergoryRepository.GetCategories();
 
 
-
-            foreach (var item in CategoriesList.Where(x => x.Type == "Category"))
+			// Populate an ObservableCollection called CategoriesListOBS with category items where the Type is "Category"
+			foreach (var item in CategoriesList.Where(x => x.Type == "Category"))
             {
                 CategoriesListOBS.Add(item);
             }
-            CategoriesDG.ItemsSource = CategoriesListOBS;
-            PivotCategoryCB.ItemsSource = CategoriesListOBS;
-            CategoryNewBrand.ItemsSource = CategoriesListOBS;
-            CategoriesFilterIC.ItemsSource = CategoriesListOBS;
+			// Set the data source for a DataGrid named CategoriesDG to CategoriesListOBS
+			CategoriesDG.ItemsSource = CategoriesListOBS;
+			// Set the data source for a ComboBox named PivotCategoryCB to CategoriesListOBS
+			PivotCategoryCB.ItemsSource = CategoriesListOBS;
+			// Set the data source for another ComboBox named CategoryNewBrand to CategoriesListOBS
+			CategoryNewBrand.ItemsSource = CategoriesListOBS;
+			// Set the data source for an ItemsControl named CategoriesFilterIC to CategoriesListOBS
+			CategoriesFilterIC.ItemsSource = CategoriesListOBS;
 
 
-            foreach (var item in CategoriesList.Where(x => x.Type == "Section"))
+			// Populate an ObservableCollection called SectionsListOBS with category items where the Type is "Section"
+			foreach (var item in CategoriesList.Where(x => x.Type == "Section"))
             {
                 SectionsListOBS.Add(item);
             }
-            SectionsDG.ItemsSource = SectionsListOBS;
-            PivotSectionCB.ItemsSource = SectionsListOBS;
-            SectionsFilterIC.ItemsSource = SectionsListOBS;
+
+			// Set the data source for a DataGrid named SectionsDG to SectionsListOBS
+			SectionsDG.ItemsSource = SectionsListOBS;
+			// Set the data source for a ComboBox named PivotSectionCB to SectionsListOBS
+			PivotSectionCB.ItemsSource = SectionsListOBS;
+			// Set the data source for an ItemsControl named SectionsFilterIC to SectionsListOBS
+			SectionsFilterIC.ItemsSource = SectionsListOBS;
+			#endregion
+
+			//hk1
+			#region parents stuff
+			// Set the data source for a grid named NewPivotConnectionsGrid to PivotParentOBS
+			NewPivotConnectionsGrid.ItemsSource = PivotParentOBS;
+			// Set the data source for a grid named NewSpanConnectionsGrid to SpanParentOBS
+			NewSpanConnectionsGrid.ItemsSource = SpanParentOBS;
+			// Set the data source for a grid named NewPartConnectionsGrid to SpareParentOBS
+			NewPartConnectionsGrid.ItemsSource = SpareParentOBS;
+			// Set the data source for a grid named NewSetPartConnectionsGrid to SetParentOBS
+			NewSetPartConnectionsGrid.ItemsSource = SetParentOBS;
+			// Set the data source for a grid named NewPivotForSpansConnectionsGrid to PivotSpanParentOBS
+			NewPivotForSpansConnectionsGrid.ItemsSource = PivotSpanParentOBS;
             #endregion
 
-            //hk1
-            #region parents stuff
-            NewPivotConnectionsGrid.ItemsSource = PivotParentOBS;
-            NewSpanConnectionsGrid.ItemsSource = SpanParentOBS;
-            NewPartConnectionsGrid.ItemsSource = SpareParentOBS;
-            NewSetPartConnectionsGrid.ItemsSource = SetParentOBS;
-
-            NewPivotForSpansConnectionsGrid.ItemsSource = PivotSpanParentOBS;
-            #endregion
+            //end
+            //************************************************
 
             ArrangeConnections();
 
@@ -285,78 +408,112 @@ namespace InputsApp
 
         async private void UpdateGridandCB()
         {
-            
 
-            if ((bool)PivotParts.IsChecked)
-            {
-                var Parts = await _pivotPartsRepository.GetPivotParts();
+			// Check if the "PivotParts" checkbox is checked
+			if ((bool)PivotParts.IsChecked)
+			{    
+                // Asynchronously retrieve pivot parts from the _pivotPartsRepository
+				var Parts = await _pivotPartsRepository.GetPivotParts();
 
-                if (SparePartsOBS.Count == 0)
+				// If the SparePartsOBS collection is empty, populate it with pivot parts
+				if (SparePartsOBS.Count == 0)
                 {
                     foreach (var item in Parts)
                     {
                         SparePartsOBS.Add(item);
                     } 
                 }
-               
 
-                pivotPartsGrid.ItemsSource = Parts;
-                PivotNameCB.ItemsSource = PivotsOBS;
+				// Set the data source for a grid named pivotPartsGrid to the retrieved pivot parts
+				pivotPartsGrid.ItemsSource = Parts;
+
+				// Set the data source for a ComboBox named PivotNameCB to the PivotsOBS collection
+				PivotNameCB.ItemsSource = PivotsOBS;
 
 
             }
-            //if ((bool)SpinklersParts.IsChecked)
-            //{
-            //    var result = await _sprinklerPartsRepository.GetSprinklerParts();
-            //    SprinklerPartsDG.ItemsSource = result;
-            //}
-            if ((bool)Pivots.IsChecked)
-            {
-                
+			//if ((bool)SpinklersParts.IsChecked)
+			//{
+			//    var result = await _sprinklerPartsRepository.GetSprinklerParts();
+			//    SprinklerPartsDG.ItemsSource = result;
+			//}
 
-                PivotsDG.ItemsSource = PivotsOBS;
-                PivotNameCB.ItemsSource = PivotsOBS;
+
+			// Check if the "Pivots" checkbox is checked
+			if ((bool)Pivots.IsChecked)
+			
+
+			{
+
+				// Set the data source for a DataGrid named PivotsDG to the PivotsOBS collection
+				PivotsDG.ItemsSource = PivotsOBS;
+				// Set the data source for a ComboBox named PivotNameCB to the PivotsOBS collection
+				PivotNameCB.ItemsSource = PivotsOBS;
             }
-            if((bool)SpanParts.IsChecked)
+
+
+			// Check if the "SpanParts" checkbox is checked
+			if ((bool)SpanParts.IsChecked)
             {
-                var result = await _spanRepository.GetSpans();
-                foreach (var item in result)
+				// Asynchronously retrieve span parts from the _spanRepository
+				var result = await _spanRepository.GetSpans();
+
+
+				// Populate the SpansOBS collection with the retrieved span parts
+				foreach (var item in result)
                 {
                     SpansOBS.Add(item);
                 }
-                SpansDG.ItemsSource = SpansOBS;
-                SpanNameCB.ItemsSource = SpansOBS;
+
+				// Set the data source for a DataGrid named SpansDG to the SpansOBS collection
+				SpansDG.ItemsSource = SpansOBS;
+				// Set the data source for a ComboBox named SpanNameCB to the SpansOBS collection
+				SpanNameCB.ItemsSource = SpansOBS;
             }
 
-            //if ((bool)OverhangParts.IsChecked)
-            //{
-            //    var result = await _pivotPartsRepository.GetPivotParts();
-            //    var overhang = result.Where(x => x.PivotCategory == "Overhang");
-            //    OverhangDG.ItemsSource = overhang;
-            //}
+			//if ((bool)OverhangParts.IsChecked)
+			//{
+			//    var result = await _pivotPartsRepository.GetPivotParts();
+			//    var overhang = result.Where(x => x.PivotCategory == "Overhang");
+			//    OverhangDG.ItemsSource = overhang;
+			//}
 
-            if ((bool)CategoriesRD.IsChecked)
+
+
+			// Check if the "CategoriesRD" checkbox is checked
+			if ((bool)CategoriesRD.IsChecked)
             {
-                List<Categories> CategoriesList = await _catergoryRepository.GetCategories();
+				// Asynchronously retrieve a list of categories from the _catergoryRepository
+				List<Categories> CategoriesList = await _catergoryRepository.GetCategories();
 
-                if (CategoriesListOBS.Count == 0)
+				// If the CategoriesListOBS collection is empty, populate it with categories of "Category" type
+				if (CategoriesListOBS.Count == 0)
                 {
 
                     foreach (var item in CategoriesList.Where(x => x.Type == "Category"))
                     {
                         CategoriesListOBS.Add(item);
                     }
-                    CategoriesDG.ItemsSource = CategoriesListOBS;
-                    PivotCategoryCB.ItemsSource = CategoriesListOBS;
+
+					// Set the data source for a DataGrid named CategoriesDG to the CategoriesListOBS collection
+					CategoriesDG.ItemsSource = CategoriesListOBS;
+
+					// Set the data source for a ComboBox named PivotCategoryCB to the CategoriesListOBS collection
+					PivotCategoryCB.ItemsSource = CategoriesListOBS;
                 }
-                if (SectionsListOBS.Count == 0)
+
+				// If the SectionsListOBS collection is empty, populate it with categories of "Section" type
+				if (SectionsListOBS.Count == 0)
                 {
                     foreach (var item in CategoriesList.Where(x => x.Type == "Section"))
                     {
                         SectionsListOBS.Add(item);
                     }
-                    SectionsDG.ItemsSource = SectionsListOBS;
-                    PivotSectionCB.ItemsSource = SectionsListOBS;
+					// Set the data source for a DataGrid named SectionsDG to the SectionsListOBS collection
+					SectionsDG.ItemsSource = SectionsListOBS;
+
+					// Set the data source for a ComboBox named PivotSectionCB to the SectionsListOBS collection
+					PivotSectionCB.ItemsSource = SectionsListOBS;
 
                 }
 
@@ -368,16 +525,20 @@ namespace InputsApp
 
         private async void AddPivot_Button_Click(object sender, RoutedEventArgs e)
         {
+			// Create a list to store spare parts related to the pivot part
+			List<SpareParts> sparesToChild = new List<SpareParts>();
 
-            List<SpareParts> sparesToChild = new List<SpareParts>();
+			// Initialize a string variable to store the selected brand name
+			string Brand = "";
 
-            string Brand = "";
-            if (PivotBrandCB.SelectedItem is Brands selectedBrand)
+			// Check if an item is selected in the PivotBrandCB ComboBox
+			if (PivotBrandCB.SelectedItem is Brands selectedBrand)
             {
                 Brand = selectedBrand.Brand;
             }
 
-            var pivotPart = new SpareParts(
+			// Create a new pivot part object with various properties
+			var pivotPart = new SpareParts(
                    PivotCategoryCB.Text,
                    PivotPartTB.Text,
                    decimal.Parse(pivotCostTB.Text),
@@ -397,23 +558,35 @@ namespace InputsApp
                    Brand
 
                    );
-            if (SparePartsOBS.Where(x=>x.Name == PivotPartTB.Text).FirstOrDefault() is not null)
+
+
+			// Check if a spare part with the same name already exists
+			if (SparePartsOBS.Where(x=>x.Name == PivotPartTB.Text).FirstOrDefault() is not null)
             {
                 MessageBox.Show("يوجد قطعة أخرى بنفس الاسم, يرجى تغيير الاسم");
             }
-            pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
-            #region set spare IDs
-            foreach (var item in PivotParentOBS)
+
+			// Add the new pivot part to the repository and get its ID
+			pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
+			#region set spare IDs
+
+
+			// Set the PivotPartID and Quantity for each item in PivotParentOBS
+			foreach (var item in PivotParentOBS)
             {
                 item.PivotPartID = pivotPart.ID;
                 item.Quantity = pivotPart.Quantity;
             }
-            foreach (var item in SpanParentOBS)
+
+			// Set the PivotPartID and Quantity for each item in SpanParentOBS
+			foreach (var item in SpanParentOBS)
             {
                 item.PivotPartID = pivotPart.ID;
                 item.Quantity = pivotPart.Quantity;
             }
-            foreach (var item in SpareParentOBS)
+
+			// Update spare parts related to the pivot part and collect them in sparesToChild
+			foreach (var item in SpareParentOBS)
             {
                 SpareParts sp = SparePartsOBS.Where(x => x.ID == item.SpareID).FirstOrDefault();
                 sp.HasChild = true;
@@ -425,187 +598,203 @@ namespace InputsApp
                 }
             }
 
-            double QTYInSet = 0;
+
+			// Parse and store the quantity in set parts
+			double QTYInSet = 0;
             if (!string.IsNullOrEmpty(pivotQTYInSetTB.Text))
             {
                 QTYInSet = double.Parse(pivotQTYInSetTB.Text);
             }
-            foreach (var item in SetParentOBS)
+
+			// Set the PivotPartID and Quantity for each item in SetParentOBS
+			foreach (var item in SetParentOBS)
             {
                 item.PivotPartID = pivotPart.ID;
                 item.Quantity = QTYInSet;
             }
-            
 
-            await _pivotPartsRepository.EditPivotPart(sparesToChild);
-            #endregion
 
-            pivotPart.ParentPivots = PivotParentOBS.ToList();
+			// Edit the pivot part to update the related spare parts
+			await _pivotPartsRepository.EditPivotPart(sparesToChild);
+			#endregion
+
+			// Assign the parent parts lists to the pivot part
+			pivotPart.ParentPivots = PivotParentOBS.ToList();
             pivotPart.ParentSpans = SpanParentOBS.ToList();
             pivotPart.ParentSpares = SpareParentOBS.ToList();
             pivotPart.ParentSets = SetParentOBS.ToList();
 
-
-            await _pivotPartsRepository.AddPivotPartRelation(PivotParentOBS.ToList());
+			// Add pivot part relationships to the repository
+			await _pivotPartsRepository.AddPivotPartRelation(PivotParentOBS.ToList());
             await _pivotPartsRepository.AddPivotPartRelation(SpanParentOBS.ToList());
             await _pivotPartsRepository.AddPivotPartRelation(SpareParentOBS.ToList());
             await _pivotPartsRepository.AddPivotPartRelation(SetParentOBS.ToList());
 
 
-
-            SparePartsOBS.Add(pivotPart);
-
-
-
-            //if (PivotParentOBS.Count != 0)
-            //{
-
-               
-
-            //    if (SparePartsOBS.Any(s => HelperFunctions.CompareSpareParts(s, pivotPart)))
-            //    {
-            //        spareParts = SparePartsOBS.Where(s => HelperFunctions.CompareSpareParts(s, pivotPart)).First();
-            //        List<PivotTable> pvs = spareParts.ParentPivots;
-            //        pvs.AddRange(pivotParents);
-            //        spareParts.pivotcode = string.Join(",", pvs.Distinct().Select(x => x.ID).ToList());
-            //        spareParts.ParentPivots = pvs.Distinct().ToList();
-            //    }
-            //    if (spareParts.ID != 0)
-            //    {
-            //        await _pivotPartsRepository.EditPivotPart(spareParts);
-            //    }
-            //    else
-            //    {
-            //        pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
-            //    }
-
-            //}
-
-
-            //if (SpansParents.Count > 0)
-            //{
-            //    SpareParts spareParts = new SpareParts();
-
-            //    var pivotPart = new SpareParts(
-            //       PivotCategoryCB.Text,
-            //       PivotPartTB.Text,
-            //       decimal.Parse(pivotCostTB.Text),
-            //       DateTime.UtcNow,
-            //       decimal.Parse(pivotHegitTB.Text),
-            //       decimal.Parse(pivotwidthTB.Text),
-            //       decimal.Parse(pivotlenghtTB.Text),
-            //       decimal.Parse(pivotWeightTB.Text),
-            //       "",
-            //       3,
-            //       "",
-            //       "",
-            //       double.Parse(pivotQTYTB.Text),
-            //       string.Join(",", SpansParents.Select(x => x.ID).ToList()),
-            //       PivotPartARTB.Text,
-            //       PivotSectionCB.Text,
-            //       Brand
-            //       );
-            //    pivotPart.ParentSpans = SpansParents;
-
-            //    if (SparePartsOBS.Any(s => HelperFunctions.CompareSpareParts(s, pivotPart)))
-            //    {
-            //        spareParts = SparePartsOBS.Where(s => HelperFunctions.CompareSpareParts(s, pivotPart)).First();
-            //        List<Spans> pvs = spareParts.ParentSpans;
-            //        pvs.AddRange(SpansParents);
-            //        spareParts.SpanID = string.Join(",", pvs.Distinct().Select(x => x.ID).ToList());
-            //        spareParts.ParentSpans = pvs.Distinct().ToList();
-            //    }
-            //    if (spareParts.ID != 0)
-            //    {
-            //        await _pivotPartsRepository.EditPivotPart(spareParts);
-            //    }
-            //    else
-            //    {
-            //        pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
-            //        SparePartsOBS.Add(pivotPart);
-            //    }
+			// Add the new pivot part to the SparePartsOBS collection
+			SparePartsOBS.Add(pivotPart);
 
 
 
+			//if (PivotParentOBS.Count != 0)
+			//{
 
-            //}
 
 
-            //if (SparesParents.Count > 0)
-            //{
-            //    var groupedLists = SparesParents.GroupBy(item => item.PartLevel);
+			//    if (SparePartsOBS.Any(s => HelperFunctions.CompareSpareParts(s, pivotPart)))
+			//    {
+			//        spareParts = SparePartsOBS.Where(s => HelperFunctions.CompareSpareParts(s, pivotPart)).First();
+			//        List<PivotTable> pvs = spareParts.ParentPivots;
+			//        pvs.AddRange(pivotParents);
+			//        spareParts.pivotcode = string.Join(",", pvs.Distinct().Select(x => x.ID).ToList());
+			//        spareParts.ParentPivots = pvs.Distinct().ToList();
+			//    }
+			//    if (spareParts.ID != 0)
+			//    {
+			//        await _pivotPartsRepository.EditPivotPart(spareParts);
+			//    }
+			//    else
+			//    {
+			//        pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
+			//    }
 
-            //    // Iterate over the grouped lists and print the items in each group
-            //    foreach (var group in groupedLists)
-            //    {
-            //        int level = group.Key;
-            //        List<SpareParts> itemsAtLevel = group.ToList();
-            //        SpareParts spareParts = new SpareParts();
+			//}
 
-            //        var pivotPart = new SpareParts(
-            //             PivotCategoryCB.Text,
-            //             PivotPartTB.Text,
-            //             decimal.Parse(pivotCostTB.Text),
-            //             DateTime.UtcNow,
-            //             decimal.Parse(pivotHegitTB.Text),
-            //             decimal.Parse(pivotwidthTB.Text),
-            //             decimal.Parse(pivotlenghtTB.Text),
-            //             decimal.Parse(pivotWeightTB.Text),
-            //             "",
-            //             level + 1,
-            //             "",
-            //             string.Join(",", itemsAtLevel.Select(x => x.ID).ToList()),
-            //             double.Parse(pivotQTYTB.Text),
-            //             "",
-            //             PivotPartARTB.Text,
-            //             PivotSectionCB.Text,
-            //             Brand
-            //             );
-            //        pivotPart.ParentSpares = itemsAtLevel;
 
-            //        if (SparePartsOBS.Any(s => HelperFunctions.CompareSpareParts(s, pivotPart)))
-            //        {
-            //            spareParts = SparePartsOBS.Where(s => HelperFunctions.CompareSpareParts(s, pivotPart) && s.SpanID == "" && s.pivotcode == "").First();
-            //            List<SpareParts> pvs = spareParts.ParentSpares;
-            //            pvs.AddRange(itemsAtLevel);
-            //            spareParts.SpareID = string.Join(",", pvs.Distinct().Select(x => x.ID).ToList());
-            //            spareParts.ParentSpares = pvs.Distinct().ToList();
-            //        }
-            //        if (spareParts.ID != 0)
-            //        {
-            //            await _pivotPartsRepository.EditPivotPart(spareParts);
-            //        }
-            //        else
-            //        {
-            //            pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
-            //            SparePartsOBS.Add(pivotPart);
-            //        }
+			//if (SpansParents.Count > 0)
+			//{
+			//    SpareParts spareParts = new SpareParts();
 
-            //    }
-            //}
+			//    var pivotPart = new SpareParts(
+			//       PivotCategoryCB.Text,
+			//       PivotPartTB.Text,
+			//       decimal.Parse(pivotCostTB.Text),
+			//       DateTime.UtcNow,
+			//       decimal.Parse(pivotHegitTB.Text),
+			//       decimal.Parse(pivotwidthTB.Text),
+			//       decimal.Parse(pivotlenghtTB.Text),
+			//       decimal.Parse(pivotWeightTB.Text),
+			//       "",
+			//       3,
+			//       "",
+			//       "",
+			//       double.Parse(pivotQTYTB.Text),
+			//       string.Join(",", SpansParents.Select(x => x.ID).ToList()),
+			//       PivotPartARTB.Text,
+			//       PivotSectionCB.Text,
+			//       Brand
+			//       );
+			//    pivotPart.ParentSpans = SpansParents;
+
+			//    if (SparePartsOBS.Any(s => HelperFunctions.CompareSpareParts(s, pivotPart)))
+			//    {
+			//        spareParts = SparePartsOBS.Where(s => HelperFunctions.CompareSpareParts(s, pivotPart)).First();
+			//        List<Spans> pvs = spareParts.ParentSpans;
+			//        pvs.AddRange(SpansParents);
+			//        spareParts.SpanID = string.Join(",", pvs.Distinct().Select(x => x.ID).ToList());
+			//        spareParts.ParentSpans = pvs.Distinct().ToList();
+			//    }
+			//    if (spareParts.ID != 0)
+			//    {
+			//        await _pivotPartsRepository.EditPivotPart(spareParts);
+			//    }
+			//    else
+			//    {
+			//        pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
+			//        SparePartsOBS.Add(pivotPart);
+			//    }
 
 
 
 
-            //await _pivotPartsRepository.EditPivotPart(pivotPart);
-            //UpdateGridandCB();
+			//}
 
 
-            ClearTextBoxes();
+			//if (SparesParents.Count > 0)
+			//{
+			//    var groupedLists = SparesParents.GroupBy(item => item.PartLevel);
+
+			//    // Iterate over the grouped lists and print the items in each group
+			//    foreach (var group in groupedLists)
+			//    {
+			//        int level = group.Key;
+			//        List<SpareParts> itemsAtLevel = group.ToList();
+			//        SpareParts spareParts = new SpareParts();
+
+			//        var pivotPart = new SpareParts(
+			//             PivotCategoryCB.Text,
+			//             PivotPartTB.Text,
+			//             decimal.Parse(pivotCostTB.Text),
+			//             DateTime.UtcNow,
+			//             decimal.Parse(pivotHegitTB.Text),
+			//             decimal.Parse(pivotwidthTB.Text),
+			//             decimal.Parse(pivotlenghtTB.Text),
+			//             decimal.Parse(pivotWeightTB.Text),
+			//             "",
+			//             level + 1,
+			//             "",
+			//             string.Join(",", itemsAtLevel.Select(x => x.ID).ToList()),
+			//             double.Parse(pivotQTYTB.Text),
+			//             "",
+			//             PivotPartARTB.Text,
+			//             PivotSectionCB.Text,
+			//             Brand
+			//             );
+			//        pivotPart.ParentSpares = itemsAtLevel;
+
+			//        if (SparePartsOBS.Any(s => HelperFunctions.CompareSpareParts(s, pivotPart)))
+			//        {
+			//            spareParts = SparePartsOBS.Where(s => HelperFunctions.CompareSpareParts(s, pivotPart) && s.SpanID == "" && s.pivotcode == "").First();
+			//            List<SpareParts> pvs = spareParts.ParentSpares;
+			//            pvs.AddRange(itemsAtLevel);
+			//            spareParts.SpareID = string.Join(",", pvs.Distinct().Select(x => x.ID).ToList());
+			//            spareParts.ParentSpares = pvs.Distinct().ToList();
+			//        }
+			//        if (spareParts.ID != 0)
+			//        {
+			//            await _pivotPartsRepository.EditPivotPart(spareParts);
+			//        }
+			//        else
+			//        {
+			//            pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
+			//            SparePartsOBS.Add(pivotPart);
+			//        }
+
+			//    }
+			//}
+
+
+
+
+			//await _pivotPartsRepository.EditPivotPart(pivotPart);
+			//UpdateGridandCB();
+
+
+
+
+			// Clear the text boxes in the user interface
+			ClearTextBoxes();
         }
 
         private async void AddSpinkler_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (sprinklerEdit != null)
+			// Check if the sprinklerEdit variable is not null, indicating that an existing sprinkler part is being edited
+			if (sprinklerEdit != null)
             {
                 await UpdateItemFromTextBoxes_Sprinklers(sprinklerEdit);
             }
             else
             {
-                var selectedPivot = await _PivotRepository.GetPivots();
-                //var Pivotid = selectedPivot.FirstOrDefault(x => x.pivotname == PivotforSprinklerCB.Text);
+				// If no existing sprinkler part is being edited, proceed with adding a new sprinkler part
 
-                var sprinklerPart = new SprinklerParts(
+				// Retrieve a list of selected pivot items 
+				var selectedPivot = await _PivotRepository.GetPivots();
+
+				//var Pivotid = selectedPivot.FirstOrDefault(x => x.pivotname == PivotforSprinklerCB.Text);
+
+
+				// Create a new sprinkler part object with various properties
+				var sprinklerPart = new SprinklerParts(
                 SprinklerCategoryCB.Text,
                 SprinklerPartTB.Text,
                 decimal.Parse(SprinklerCostTB.Text),
@@ -616,33 +805,44 @@ namespace InputsApp
                 decimal.Parse(SprinklerWeightTB.Text)
                 );
 
-                await _sprinklerPartsRepository.AddSprinklerPart(sprinklerPart);
+				// Add the newly created sprinkler part to the _sprinklerPartsRepository
+				await _sprinklerPartsRepository.AddSprinklerPart(sprinklerPart);
                 //UpdateGridandCB();
             }
 
-            ClearTextBoxes();
+			// Clear the text boxes in the user interface
+			ClearTextBoxes();
         }
 
 
 
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            TextBox textBox = sender as TextBox;
+			// Get the sender object and assign it to the textBox variable
+			TextBox textBox = sender as TextBox;
 
-            // Check if the input text is numeric or a decimal point
-            foreach (char c in e.Text)
+			// Check if the input text is numeric or a decimal point
+			// Loop through each character in the input text provided by the event arguments (e.Text)
+			foreach (char c in e.Text)
             {
-                if (!char.IsDigit(c) && c != '.')
+				// Loop through each character in the input text provided by the event arguments (e.Text)
+				if (!char.IsDigit(c) && c != '.')
                 {
                     e.Handled = true; // Prevent non-numeric characters from being entered
-                    break;
+
+					// Exit the loop as soon as a non-numeric character is encountered
+					break;
                 }
             }
 
-            // Ensure only one decimal point is allowed
-            if (e.Text == "." && textBox.Text.Contains("."))
+			// Ensure only one decimal point is allowed
+
+
+			// Check if the input text is a decimal point ('.') and the current text in the TextBox already contains a decimal point
+			if (e.Text == "." && textBox.Text.Contains("."))
             {
-                e.Handled = true;
+				// Prevent the input of another decimal point
+				e.Handled = true;
             }
         }
 
@@ -689,34 +889,51 @@ namespace InputsApp
 
         private void SprinklerPartsDG_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (SprinklerPartsDG.SelectedItem is SprinklerParts selectedItem)
+			// Check if an item in the data grid (SprinklerPartsDG) is selected and if the selected item is of type SprinklerParts
+			if (SprinklerPartsDG.SelectedItem is SprinklerParts selectedItem)
             {
-                sprinklerEdit = selectedItem;
-                UpdateTextBoxesFromItem_Sprinklers(sprinklerEdit);
+				// Set the sprinklerEdit variable to the selected item for editing
+				sprinklerEdit = selectedItem;
+
+				// Update the text boxes in the user interface with data from the selected item
+				UpdateTextBoxesFromItem_Sprinklers(sprinklerEdit);
             }
             else
             {
-                sprinklerEdit = null;
-                ClearTextBoxes();
+				// If no item is selected, set the sprinklerEdit variable to null
+				sprinklerEdit = null;
+
+				// If no item is selected, set the sprinklerEdit variable to null
+				ClearTextBoxes();
             }
         }
         private void UpdateTextBoxesFromItem_Sprinklers(SprinklerParts sprinklerEdit)
         {
-            SprinklerCategoryCB.Text = sprinklerEdit.SprinklerCategory;
-            SprinklerPartTB.Text = sprinklerEdit.SprinklerPart;
-            SprinklerCostTB.Text = sprinklerEdit.Cost.ToString();
-            SprinklerHeightTB.Text = sprinklerEdit.Height.ToString();
-            SprinklerwidthTB.Text = sprinklerEdit.Width.ToString(); 
-            SprinklerlengthTB.Text = sprinklerEdit.Length.ToString();
-            SprinklerWeightTB.Text = sprinklerEdit.Weight.ToString();
+			// Set the text of the SprinklerCategoryCB ComboBox to the SprinklerCategory property of the sprinklerEdit object
+			SprinklerCategoryCB.Text = sprinklerEdit.SprinklerCategory;
+			// Set the text of the SprinklerPartTB TextBox to the SprinklerPart property of the sprinklerEdit object
+			SprinklerPartTB.Text = sprinklerEdit.SprinklerPart;
+			// Set the text of the SprinklerCostTB TextBox to the Cost property of the sprinklerEdit object, converted to a string
+			SprinklerCostTB.Text = sprinklerEdit.Cost.ToString();
+			// Set the text of the SprinklerHeightTB TextBox to the Height property of the sprinklerEdit object, converted to a string
+			SprinklerHeightTB.Text = sprinklerEdit.Height.ToString();
+			// Set the text of the SprinklerwidthTB TextBox to the Width property of the sprinklerEdit object, converted to a string
+			SprinklerwidthTB.Text = sprinklerEdit.Width.ToString();
+			// Set the text of the SprinklerlengthTB TextBox to the Length property of the sprinklerEdit object, converted to a string
+			SprinklerlengthTB.Text = sprinklerEdit.Length.ToString();
+			// Set the text of the SprinklerWeightTB TextBox to the Weight property of the sprinklerEdit object, converted to a string
+			SprinklerWeightTB.Text = sprinklerEdit.Weight.ToString();
         }
 
         async private Task UpdateItemFromTextBoxes_Sprinklers(SprinklerParts sprinklerEdit)
         {
-            var selectedPivot = await _pivotPartsRepository.GetPivotParts();
-            //var Pivotid = selectedPivot.FirstOrDefault(x => x.PivotCategory == PivotforSprinklerCB.Text);
+			// Retrieve a list of pivot parts from the _pivotPartsRepository
+			var selectedPivot = await _pivotPartsRepository.GetPivotParts();
+			//var Pivotid = selectedPivot.FirstOrDefault(x => x.PivotCategory == PivotforSprinklerCB.Text);
 
-            var sprinklerPart = new SprinklerParts(
+
+			// Create a new sprinkler part object with updated properties
+			var sprinklerPart = new SprinklerParts(
                 sprinklerEdit.ID,
                 SprinklerCategoryCB.Text,
                 SprinklerPartTB.Text,
@@ -728,7 +945,9 @@ namespace InputsApp
                 decimal.Parse(SprinklerWeightTB.Text)
                 );
 
-            await _sprinklerPartsRepository.EditSprinklerPart( sprinklerPart );
+
+			// Call the _sprinklerPartsRepository's method to edit the sprinkler part with the updated values
+			await _sprinklerPartsRepository.EditSprinklerPart( sprinklerPart );
             //UpdateGridandCB();
         }
 
@@ -794,23 +1013,28 @@ namespace InputsApp
 
         private void pivotPartsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            if (pivotPartsGrid.SelectedItem is SpareParts selectedItem)
+			// Check if an item in the data grid (pivotPartsGrid) is selected, and if the selected item is of type SpareParts
+			if (pivotPartsGrid.SelectedItem is SpareParts selectedItem)
             {
-                pivotEdit = selectedItem;
-                UpdateTextBoxesFromItem_Pivots(pivotEdit);
+				// Set the pivotEdit variable to the selected item for potential editing
+				pivotEdit = selectedItem;
+				// Update the text boxes in the user interface with data from the selected item
+				UpdateTextBoxesFromItem_Pivots(pivotEdit);
             }
             else
             {
-                pivotEdit = null;
-                ClearTextBoxes();
+				// If no item is selected, set the pivotEdit variable to null
+				pivotEdit = null;
+				// Clear the text boxes in the user interface
+				ClearTextBoxes();
             }
             
         }
 
         private void UpdateTextBoxesFromItem_Pivots(SpareParts pivotEdit)
         {
-            PivotCategoryCB.Text = pivotEdit.PivotCategory;
+			// Set various UI elements to display or edit the properties of the pivotEdit object
+			PivotCategoryCB.Text = pivotEdit.PivotCategory;
             PivotPartTB.Text = pivotEdit.PivotPart;
             pivotCostTB.Text = pivotEdit.Cost.ToString();
             pivotHegitTB.Text = pivotEdit.Height.ToString();
@@ -823,27 +1047,36 @@ namespace InputsApp
 
             PivotCategoryCB.Text = pivotEdit.PivotCategory;
             PivotSectionCB.Text = pivotEdit.Section;
-            PivotBrandCB.SelectedItem = BrandsOBS.Where(x=>x.Brand == pivotEdit.Brand).FirstOrDefault();
 
 
-             var QTYInRels = RelationstOBS.Where(rels => rels.PivotPartID == pivotEdit.ID).FirstOrDefault();
+			// Set the selected brand in the PivotBrandCB combo box
+			PivotBrandCB.SelectedItem = BrandsOBS.Where(x=>x.Brand == pivotEdit.Brand).FirstOrDefault();
+
+			// Retrieve the quantity in relations for the pivot part
+			var QTYInRels = RelationstOBS.Where(rels => rels.PivotPartID == pivotEdit.ID).FirstOrDefault();
             double QTY = 0;
             if (QTYInRels != null) QTY = QTYInRels.Quantity;
 
+			// Set the quantity text box
+			pivotQTYTB.Text = QTY.ToString();
 
-            pivotQTYTB.Text = QTY.ToString();
 
-
-            var QTYInSetRels = RelationstOBS.Where(rels => rels.ParentType == "Set" && rels.PivotPartID == pivotEdit.ID).FirstOrDefault();
+			// Retrieve the quantity in set relations for the pivot part
+			var QTYInSetRels = RelationstOBS.Where(rels => rels.ParentType == "Set" && rels.PivotPartID == pivotEdit.ID).FirstOrDefault();
             double QTYInSet = 0;
             if (QTYInSetRels != null) QTYInSet = QTYInSetRels.Quantity;
             pivotQTYInSetTB.Text = QTYInSet.ToString();
-            SpareParentOBS.Clear();
+
+
+			// Clear the collections for related parts
+			SpareParentOBS.Clear();
             SpanParentOBS.Clear();
             PivotParentOBS.Clear();
             SetParentOBS.Clear();
 
-            if (pivotEdit.ParentSpans is not null)
+
+			// Populate the collections with related parts based on the pivotEdit object
+			if (pivotEdit.ParentSpans is not null)
             {
                 foreach (var item in pivotEdit.ParentSpans)
                 {
@@ -909,18 +1142,26 @@ namespace InputsApp
         }
 
         async private void AddNewPivotBT_Click(object sender, RoutedEventArgs e)
-        {
-            var Pivot = new PivotTable(
+		{
+            // Create a new PivotTable object with properties from user input
+			var Pivot = new PivotTable(
                 PivotName.Text,
                 PivotCategory.Text,
                 decimal.Parse(PivotLength.Text));
 
-            PivotsOBS.Add(Pivot);
-                
-            await _PivotRepository.AddPivot(Pivot);
-            PivotsDG.ItemsSource = PivotsOBS;
-            //UpdateGridandCB();
-            ClearTextBoxes();
+			// Add the new PivotTable object to the observable collection (PivotsOBS)
+			PivotsOBS.Add(Pivot);
+
+			// Save the new PivotTable object to the repository
+			await _PivotRepository.AddPivot(Pivot);
+
+			// Set the data grid's item source to the updated PivotsOBS collection
+			PivotsDG.ItemsSource = PivotsOBS;
+
+			//UpdateGridandCB();
+
+			// Clear the text boxes in the user interface
+			ClearTextBoxes();
         }
 
         async private void PivotNameCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -972,20 +1213,32 @@ namespace InputsApp
 
         async private void AddSpanBT_Click(object sender, RoutedEventArgs e)
         {
-            
 
-            var Span = new Spans
+			// Create a new Spans object with the following properties and related data
+			var Span = new Spans
                 (
-                decimal.Parse(LengthTB.Text),
-                decimal.Parse(DiameterTB.Text),
-                "Span",
-                SpanNameTB.Text,
-                decimal.Parse(SpanCostTB.Text),
-                string.Join(",", PivotSpanParentOBS.Select(x=>x.ID).ToList())
+				// Set the length property from user input
+				decimal.Parse(LengthTB.Text),
+				// Set the diameter property from user input
+				decimal.Parse(DiameterTB.Text),
+
+				// Set the type as "Span"
+				"Span",
+				// Set the name property from user input
+				SpanNameTB.Text,
+
+				// Set the cost property from user input
+				decimal.Parse(SpanCostTB.Text),
+
+				// Set the PivotIDs property by joining IDs from the PivotSpanParentOBS collection
+				string.Join(",", PivotSpanParentOBS.Select(x=>x.ID).ToList())
             );
 
-            Span.ID = await _spanRepository.AddSpan(Span);
-            SpansOBS.Add(Span);
+			// Add the newly created Spans object to the _spanRepository and retrieve its ID
+			Span.ID = await _spanRepository.AddSpan(Span);
+
+			// Add the new Spans object to the SpansOBS observable collection
+			SpansOBS.Add(Span);
             //UpdateGridandCB();
             ClearTextBoxes();
         }
@@ -1101,11 +1354,15 @@ namespace InputsApp
 
         private void AddToParents_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)PivotPartRD.IsChecked)
+
+			// Check which radio button is checked (user's selection)
+			if ((bool)PivotPartRD.IsChecked)
             {
-                if (PivotNameCB.SelectedItem is PivotTable pivot)
+				// If the PivotPartRD radio button is checked, and a PivotTable item is selected
+				if (PivotNameCB.SelectedItem is PivotTable pivot)
                 {
-                    SpareRelationship spareRelationship = new SpareRelationship()
+					// Create a SpareRelationship with information related to a PivotTable
+					SpareRelationship spareRelationship = new SpareRelationship()
                     {
                         PivotPart = pivot.pivotname,
                         PivotCategory = pivot.pivotcategory,
@@ -1115,7 +1372,8 @@ namespace InputsApp
                         
                     };
 
-                    if (!PivotParentOBS.Contains(spareRelationship))
+					// Add the SpareRelationship to the PivotParentOBS collection if it doesn't already exist
+					if (!PivotParentOBS.Contains(spareRelationship))
                     {
                         PivotParentOBS.Add(spareRelationship);
                     }
@@ -1124,9 +1382,11 @@ namespace InputsApp
 
             else if ((bool)SpanPartRD.IsChecked)
             {
-                if (SpanNameCB.SelectedItem is Spans span)
+				// If the SpanPartRD radio button is checked, and a Spans item is selected
+				if (SpanNameCB.SelectedItem is Spans span)
                 {
-                    SpareRelationship spareRelationship = new SpareRelationship()
+					// Create a SpareRelationship with information related to a Spans item
+					SpareRelationship spareRelationship = new SpareRelationship()
                     {
                         PivotPart = span.Name,
                         PivotCategory = span.Category,
@@ -1136,7 +1396,8 @@ namespace InputsApp
 
                     };
 
-                    if (!SpanParentOBS.Contains(spareRelationship))
+					// Add the SpareRelationship to the SpanParentOBS collection if it doesn't already exist
+					if (!SpanParentOBS.Contains(spareRelationship))
                     {
                         SpanParentOBS.Add(spareRelationship);
                     }
@@ -1145,9 +1406,13 @@ namespace InputsApp
 
             else if ((bool)SparePartRD.IsChecked)
             {
-                if (PartNameCB.SelectedItem is SpareParts spares)
+
+				// If the SparePartRD radio button is checked, and a SpareParts item is selected
+				if (PartNameCB.SelectedItem is SpareParts spares)
                 {
-                    SpareRelationship spareRelationship = new SpareRelationship()
+
+					// Create a SpareRelationship with information related to a SpareParts item
+					SpareRelationship spareRelationship = new SpareRelationship()
                     {
                         PivotPart = spares.Name,
                         PivotCategory = spares.PivotCategory,
@@ -1158,7 +1423,8 @@ namespace InputsApp
 
                     };
 
-                    if (!SpareParentOBS.Contains(spareRelationship))
+					// Add the SpareRelationship to the SpareParentOBS collection if it doesn't already exist
+					if (!SpareParentOBS.Contains(spareRelationship))
                     {
                         SpareParentOBS.Add(spareRelationship);
                     }
@@ -1167,9 +1433,12 @@ namespace InputsApp
 
             else if ((bool)SetPartRD.IsChecked)
             {
-                if (SetNameCB.SelectedItem is Set set)
+				// If the SetPartRD radio button is checked, and a Set item is selected
+				if (SetNameCB.SelectedItem is Set set)
                 {
-                    SpareRelationship spareRelationship = new SpareRelationship()
+
+					// Create a SpareRelationship with information related to a Set item
+					SpareRelationship spareRelationship = new SpareRelationship()
                     {
                         PivotPart = set.Name,
                         PivotCategory = "",
@@ -1180,7 +1449,8 @@ namespace InputsApp
 
                     };
 
-                    if (!SetParentOBS.Contains(spareRelationship))
+					// Add the SpareRelationship to the SetParentOBS collection if it doesn't already exist
+					if (!SetParentOBS.Contains(spareRelationship))
                     {
                         SetParentOBS.Add(spareRelationship);
                     }
@@ -1252,17 +1522,25 @@ namespace InputsApp
         }
 
         private async void AddNewBrand_Click(object sender, RoutedEventArgs e)
-        {
-            if (CategoryNewBrand.SelectedItem is not null && NewBrandTB.Text != "")
+		{
+            // Check if an item is selected in the CategoryNewBrand combo box and if NewBrandTB is not empty
+			if (CategoryNewBrand.SelectedItem is not null && NewBrandTB.Text != "")
             {
 
-                if (BrandsOBS.Where(x => x.Brand == NewBrandTB.Text && x.Category == CategoryNewBrand.Text).FirstOrDefault() is null)
+				// Check if there is no existing brand with the same name and category
+				if (BrandsOBS.Where(x => x.Brand == NewBrandTB.Text && x.Category == CategoryNewBrand.Text).FirstOrDefault() is null)
                 {
-                    Categories categories = CategoryNewBrand.SelectedItem as Categories;
-                    Brands brands = new Brands(categories.Name, NewBrandTB.Text);
+					// Retrieve the selected category from CategoryNewBrand combo box
+					Categories categories = CategoryNewBrand.SelectedItem as Categories;
 
-                    brands.ID = await _brandRepository.AddBrands(brands);
-                    BrandsOBS.Add(brands);  
+					// Create a new Brands object with the selected category and the new brand name
+					Brands brands = new Brands(categories.Name, NewBrandTB.Text);
+
+					// Add the new brand to the _brandRepository and retrieve its ID
+					brands.ID = await _brandRepository.AddBrands(brands);
+
+					// Add the new brand to the BrandsOBS observable collection
+					BrandsOBS.Add(brands);  
                 }
                 
             }
@@ -1296,10 +1574,15 @@ namespace InputsApp
 
         private void BrandsDG_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (BrandsDG.SelectedItem is Brands brands)
+
+			// Check if an item in the data grid (BrandsDG) is selected, and if the selected item is of type Brands
+			if (BrandsDG.SelectedItem is Brands brands)
             {
-                NewBrandTB.Text = brands.Brand;
-                CategoryNewBrand.SelectedItem = CategoriesListOBS.Where(x => x.Name == brands.Category).FirstOrDefault();
+				// Set the text of the NewBrandTB text box to the brand's name
+				NewBrandTB.Text = brands.Brand;
+
+				// Set the selected item in the CategoryNewBrand combo box to the category associated with the selected brand
+				CategoryNewBrand.SelectedItem = CategoriesListOBS.Where(x => x.Name == brands.Category).FirstOrDefault();
 
 
         
@@ -1323,14 +1606,24 @@ namespace InputsApp
 
         private async void EditPivot_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (pivotPartsGrid.SelectedItem is SpareParts spare)
-            {
 
-                List<PivotTable> pivotParents = NewPivotConnectionsGrid.ItemsSource.Cast<PivotTable>().ToList();
-                List<Spans> SpansParents = NewSpanConnectionsGrid.ItemsSource.Cast<Spans>().ToList();
-                List<SpareParts> SparesParents = NewPartConnectionsGrid.ItemsSource.Cast<SpareParts>().ToList();
-                string Brand = "";
-                if (PivotBrandCB.SelectedItem is Brands selectedBrand)
+			// Check if an item in the data grid (pivotPartsGrid) is selected, and if the selected item is of type SpareParts
+			if (pivotPartsGrid.SelectedItem is SpareParts spare)
+            {
+				// Retrieve a list of pivot parents from NewPivotConnectionsGrid
+				List<PivotTable> pivotParents = NewPivotConnectionsGrid.ItemsSource.Cast<PivotTable>().ToList();
+
+				// Retrieve a list of span parents from NewSpanConnectionsGrid
+				List<Spans> SpansParents = NewSpanConnectionsGrid.ItemsSource.Cast<Spans>().ToList();
+				// Retrieve a list of spare parents from NewPartConnectionsGrid
+				List<SpareParts> SparesParents = NewPartConnectionsGrid.ItemsSource.Cast<SpareParts>().ToList();
+
+				// Initialize the Brand variable
+				string Brand = "";
+
+
+				// Check if an item is selected in the PivotBrandCB combo box and set Brand to the selected brand's name
+				if (PivotBrandCB.SelectedItem is Brands selectedBrand)
                 {
                     Brand = selectedBrand.Brand;
                 }
@@ -1513,11 +1806,17 @@ namespace InputsApp
 
         private void ApplyFilters_Click(object sender, RoutedEventArgs e)
         {
-            List<string> Targetbrands = BrandsFilterIC.ItemsSource.Cast<Brands>().Where(x => x.IsSelect).Select(x => x.Brand).ToList();
-            List<string> Targetsections = SectionsFilterIC.ItemsSource.Cast<Categories>().Where(x => x.IsSelect).Select(x => x.NameAR).ToList();
-            List<string> Targetcategories = CategoriesFilterIC.ItemsSource.Cast<Categories>().Where(x => x.IsSelect).Select(x => x.NameAR).ToList();
+			// Create a list of selected brand names from the BrandsFilterIC collection
+			List<string> Targetbrands = BrandsFilterIC.ItemsSource.Cast<Brands>().Where(x => x.IsSelect).Select(x => x.Brand).ToList();
 
-            JoinedSparePartsOBS = HelperFunctions.ToObservableCollection(SparePartsOBS.Where(x => Targetbrands.Contains(x.Brand)
+			// Create a list of selected section names from the SectionsFilterIC collection
+			List<string> Targetsections = SectionsFilterIC.ItemsSource.Cast<Categories>().Where(x => x.IsSelect).Select(x => x.NameAR).ToList();
+
+			// Create a list of selected category names from the CategoriesFilterIC collection
+			List<string> Targetcategories = CategoriesFilterIC.ItemsSource.Cast<Categories>().Where(x => x.IsSelect).Select(x => x.NameAR).ToList();
+
+			// Filter the SparePartsOBS collection based on the selected brands
+			JoinedSparePartsOBS = HelperFunctions.ToObservableCollection(SparePartsOBS.Where(x => Targetbrands.Contains(x.Brand)
            //&& TargetTitles.Contains(x.Title)
            //&& TargetGrades.Contains(x.JobGrades)
            && Targetcategories.Contains(x.PivotCategory.ToLower())
