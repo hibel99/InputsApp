@@ -224,11 +224,42 @@
                     <TextBox Name="PivotPartTB" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="5" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name"/>
                     <TextBox Name="PivotPartARTB" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="6" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name Arabic"/>
 
-                    <TextBox  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="7" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost"/>
-                    <TextBox  Name="pivotHegitTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Height" Grid.Row="8" Grid.Column="1" Padding="14"/>
-                    <TextBox  Name="pivotwidthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput"  Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Width" Grid.Row="9" Grid.Column="1" Padding="14"/>
-                    <TextBox  Name="pivotlenghtTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Length" Grid.Row="10" Grid.Column="1" Padding="14"/>
-                    <TextBox  Name="pivotWeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Weight" Grid.Row="11" Grid.Column="1" Padding="14"/>
+                    <TextBox  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Margin="5" Width="310" Grid.Row="7" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost"/>
+                    <ComboBox Name="pivotCostcm" Grid.Row="7" Grid.Column="1"  HorizontalAlignment="Right" Width="60" Style="{StaticResource MaterialDesignOutlinedComboBox}" FontSize="12"  >
+                        <ComboBoxItem Content="$"/>
+                        <ComboBoxItem Content="£"/>
+                        <ComboBoxItem Content="TRY"/>
+                    </ComboBox>
+
+                    <TextBox  Name="pivotHegitTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="310" Margin="5 0 0 0"   materialDesign:HintAssist.Hint="Height" Grid.Row="8" Grid.Column="1" Padding="14"/>
+                    <ComboBox Name="pivotHeghitcb" Grid.Row="8" Grid.Column="1"  HorizontalAlignment="Right" Width="60" Style="{StaticResource MaterialDesignOutlinedComboBox}" FontSize="12"  >
+                        <ComboBoxItem Content="inch"/>
+                        <ComboBoxItem Content="Cm"/>
+                        <ComboBoxItem Content="m"/>
+                    </ComboBox>
+                    <TextBox  Name="pivotwidthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput"  Height="50" HorizontalAlignment="Left" Width="310" Margin="5 0 0 0"   materialDesign:HintAssist.Hint="Width" Grid.Row="9" Grid.Column="1" Padding="14"/>
+                    <ComboBox Name="pivotwidthcb" Grid.Row="9" Grid.Column="1"  HorizontalAlignment="Right" Width="60" Style="{StaticResource MaterialDesignOutlinedComboBox}" FontSize="12"  >
+                        <ComboBoxItem Content="inch"/>
+                        <ComboBoxItem Content="Cm"/>
+                        <ComboBoxItem Content="m"/>
+                    </ComboBox>
+
+
+                    <TextBox  Name="pivotlenghtTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="310" Margin="5 0 0 0"   materialDesign:HintAssist.Hint="Length" Grid.Row="10" Grid.Column="1" Padding="14"/>
+                    <ComboBox Name="pivotlenghtcb" Grid.Row="10" Grid.Column="1"  HorizontalAlignment="Right" Width="60" Style="{StaticResource MaterialDesignOutlinedComboBox}" FontSize="12"  >
+                        <ComboBoxItem Content="inch"/>
+                        <ComboBoxItem Content="Cm"/>
+                        <ComboBoxItem Content="m"/>
+                    </ComboBox>
+
+                    <TextBox  Name="pivotWeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="310" Margin="5 0 0 0"   materialDesign:HintAssist.Hint="Weight" Grid.Row="11" Grid.Column="1" Padding="14"/>
+
+                    <ComboBox Name="pivotweighttb" Grid.Row="11" Grid.Column="1"  HorizontalAlignment="Right" Width="60" Style="{StaticResource MaterialDesignOutlinedComboBox}" FontSize="12"  >
+                        <ComboBoxItem Content="inch"/>
+                        <ComboBoxItem Content="Cm"/>
+                        <ComboBoxItem Content="m"/>
+                    </ComboBox>
+
                     <TextBox  Name="pivotQTYTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"    materialDesign:HintAssist.Hint="Quantity" Grid.Row="12" Grid.Column="1" Padding="14">
                         <TextBox.Style>
                             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
@@ -1737,11 +1768,11 @@
                     </Grid.RowDefinitions>
 
                     <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="Pivot_Click" />
-                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="1" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="PivotParts_Click" />
+                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="1" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="PivotParts_Click" />
                     <!--<RadioButton Name="SpinklersParts" Grid.Row="2" Content="Spinklers Parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpinklersParts_Click" />-->
                     <RadioButton Name="SpanParts" Grid.Row="2" Content="Spans" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
                     <!--<RadioButton Name="OverhangParts" Grid.Row="3" Content="Overhang" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
-                    <RadioButton Name="CategoriesRD" Grid.Row="3" Content="Categories" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="SpanParts_Click" />
+                    <RadioButton Name="CategoriesRD" Grid.Row="3" Content="Categories" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
                     <!--<RadioButton Name="BrandsRD" Grid.Row="6" Content="Brands" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
                     
                     
