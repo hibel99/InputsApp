@@ -131,7 +131,7 @@
 
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Width="380">
                         <Grid>
-                            <ComboBox Name="PartNameCB" Padding="10"  IsTextSearchEnabled="True" DisplayMemberPath="NameAR" Height="50" Width="335" materialDesign:HintAssist.Hint="Part" SelectionChanged="PivotNameCB_SelectionChanged">
+                            <ComboBox Name="PartNameCB" Padding="10"  IsTextSearchEnabled="True" DisplayMemberPath="NameAR" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be connected with a Part" SelectionChanged="PivotNameCB_SelectionChanged">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -144,7 +144,7 @@
                                     </Style>
                                 </ComboBox.Style>
                             </ComboBox>
-                            <ComboBox Name="PivotNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="Pivot" SelectionChanged="PivotNameCB_SelectionChanged">
+                            <ComboBox Name="PivotNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be connected with a Pivot" SelectionChanged="PivotNameCB_SelectionChanged">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -158,8 +158,8 @@
                                 </ComboBox.Style>
 
                             </ComboBox>
-                            
-                            <ComboBox Name="SpanNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="Span" SelectionChanged="PivotNameCB_SelectionChanged">
+
+                            <ComboBox Name="SpanNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be connected with a Span" SelectionChanged="PivotNameCB_SelectionChanged">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -175,8 +175,8 @@
                             </ComboBox>
 
 
-                               
-                            <ComboBox Name="SetNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="Set" SelectionChanged="PivotNameCB_SelectionChanged">
+
+                            <ComboBox Name="SetNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be added to a Set" SelectionChanged="PivotNameCB_SelectionChanged">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -644,7 +644,7 @@
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
                     <DataGrid Name="NewPivotConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0" Margin="10"  Grid.Row="0"  FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0" Margin="10"  Grid.Row="0"  FontSize="12"      GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >

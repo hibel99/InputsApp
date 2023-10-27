@@ -19,9 +19,9 @@ namespace InputsApp.DataAccess
 
         Task<List<SpareParts>> GetPivotPartsRelationsJoined();
 
-        Task<SpareRelationship> AddPivotPartRelation(SpareRelationship pivotPart);
+        Task<int> AddPivotPartRelation(SpareRelationship pivotPart);
         Task<List<SpareRelationship>> AddPivotPartRelation(List<SpareRelationship> pivotPart);
-        Task EditPivotPartRelation(SpareParts pivotPart);
+        Task EditPivotPartRelation(SpareRelationship pivotPart);
         Task DeletePivotPartRelation(int pivotPartId);
     }
 }

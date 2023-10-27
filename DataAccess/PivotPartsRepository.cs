@@ -78,29 +78,23 @@ public class PivotPartsRepository : IPivotPartsRepository
     {
         await _sqlDataAccess.SaveData<dynamic>("dbo.spEditPivotPart",
  new
- {
-     ID = pivotPart.ID,
-     PivotCategory = pivotPart.PivotCategory,
-     PivotPart = pivotPart.PivotPart,
-     Cost = pivotPart.Cost,
-     Date = pivotPart.Date,
-     Height = pivotPart.Height,
-     Length = pivotPart.Length,
-     Width = pivotPart.Width,
-     Weight = pivotPart.Weight,
-     PivotCode = pivotPart.pivotcode,
-     PartLevel = pivotPart.PartLevel,
-     SetID = pivotPart.SetID,
-     SpareID = pivotPart.SpareID,
-     Quantity = pivotPart.Quantity,
-     SpanID = pivotPart.SpanID,
-     NameAR = pivotPart.NameAR,
-     Brand = pivotPart.Brand,
-     Section = pivotPart.Section,
-     HasChild = pivotPart.HasChild,
+         {
+             ID = pivotPart.ID,
+             PivotCategory = pivotPart.PivotCategory,
+             PivotPart = pivotPart.PivotPart,
+             Cost = pivotPart.Cost,
+             Date = pivotPart.Date,
+             Height = pivotPart.Height,
+             Length = pivotPart.Length,
+             Width = pivotPart.Width,
+             Weight = pivotPart.Weight,
+             NameAR = pivotPart.NameAR,
+             Section = pivotPart.Section,
+             Brand = pivotPart.Brand,
+             HasChild = pivotPart.HasChild,
 
 
- },
+         },
     AppConnection.ConnectionString);
     }
 
@@ -110,23 +104,21 @@ public class PivotPartsRepository : IPivotPartsRepository
         {
             await _sqlDataAccess.SaveData<dynamic>("dbo.spEditPivotPart",
    new
-   {
-       ID = item.ID,
-       PivotCategory = item.PivotCategory,
-       PivotPart = item.PivotPart,
-       Cost = item.Cost,
-       Date = item.Date,
-       Height = item.Height,
-       Length = item.Length,
-       Width = item.Width,
-       Weight = item.Weight,
-       NameAR = item.NameAR,
-       Brand = item.Brand,
-       Section = item.Section,
-       HasChild = item.HasChild,
-
-
-   },
+            {
+                ID = item.ID,
+                PivotCategory = item.PivotCategory,
+                PivotPart = item.PivotPart,
+                Cost = item.Cost,
+                Date = item.Date,
+                Height = item.Height,
+                Length = item.Length,
+                Width = item.Width,
+                Weight = item.Weight,
+                NameAR = item.NameAR,
+                Brand = item.Brand,
+                Section = item.Section,
+                HasChild = item.HasChild,
+            },
       AppConnection.ConnectionString); 
         }
     }
@@ -165,14 +157,14 @@ public class PivotPartsRepository : IPivotPartsRepository
         }
     }
 
-    public async Task<SpareRelationship> AddPivotPartRelation(SpareRelationship pivotPart)
+    public async Task<int> AddPivotPartRelation(SpareRelationship pivotPart)
     {
         try
         {
             var result = await _sqlDataAccess.LoadData<int, dynamic>("dbo.spAddRelation",
                new
                {
-                  
+
                    PivotCode = pivotPart.pivotcode,
                    PartLevel = pivotPart.PartLevel,
                    SetID = pivotPart.SetID,
@@ -182,11 +174,12 @@ public class PivotPartsRepository : IPivotPartsRepository
                    PivotPartID = pivotPart.PivotPartID,
                    PivotCategory = pivotPart.PivotCategory,
                    PivotPart = pivotPart.PivotPart,
+                   ParentType = pivotPart.ParentType,
 
                },
                AppConnection.ConnectionString);
-            pivotPart.ID = result.FirstOrDefault();
-            return pivotPart;
+   
+            return result.FirstOrDefault();
 
         }
         catch (Exception ex)
@@ -232,21 +225,20 @@ public class PivotPartsRepository : IPivotPartsRepository
     }
 
 
-    public async Task EditPivotPartRelation(SpareParts pivotPart)
+    public async Task EditPivotPartRelation(SpareRelationship pivotPart)
     {
         await _sqlDataAccess.SaveData<dynamic>("dbo.spEditRelation",
- new
- {
-     ID = pivotPart.ID,
-     PivotCode = pivotPart.pivotcode,
-     PartLevel = pivotPart.PartLevel,
-     SetID = pivotPart.SetID,
-     SpareID = pivotPart.SpareID,
-     Quantity = pivotPart.Quantity,
-     SpanID = pivotPart.SpanID,
-     PivotPartID = pivotPart.ID
-
- },
+         new
+         {
+              ID = pivotPart.ID,
+             PivotCode = pivotPart.pivotcode,
+             PartLevel = pivotPart.PartLevel,
+             SetID = pivotPart.SetID,
+             SpareID = pivotPart.SpareID,
+             Quantity = pivotPart.Quantity,
+             SpanID = pivotPart.SpanID,
+             PivotPartID = pivotPart.PivotPartID,
+         },
     AppConnection.ConnectionString);
     }
 
