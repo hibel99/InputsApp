@@ -2,10 +2,12 @@
 using InputsApp.FunctionsLibrary;
 using InputsApp.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -104,29 +106,6 @@ namespace InputsApp
                 }
             }
 
-
-
-            //foreach (var item in JoinedSparePartsOBS)
-            //{
-            //    if (item.pivotcode is not null && item.pivotcode != "")
-            //    {
-            //        List<int> pivotsIDs = item.pivotcode.Split(",").Select(int.Parse).ToList();
-            //        item.ParentPivots = PivotsOBS.Where(x => pivotsIDs.Contains(x.ID)).ToList();
-            //    }
-
-            //    if (item.SpanID is not null && item.SpanID != "")
-            //    {
-            //        List<int> pivotsIDs = item.SpanID.Split(",").Select(int.Parse).ToList();
-            //        item.ParentSpans = SpansOBS.Where(x => pivotsIDs.Contains(x.ID)).ToList();
-            //    }
-
-            //    if (item.SpareID is not null && item.SpareID != "")
-            //    {
-            //        List<int> pivotsIDs = item.SpareID.Split(",").Select(int.Parse).ToList();
-            //        item.ParentSpares = SparePartsOBS.Where(x => pivotsIDs.Contains(x.ID)).ToList();
-            //    }
-            //}
-
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -143,10 +122,17 @@ namespace InputsApp
         {
 
             #region pivot parts
-            var Parts = await _pivotPartsRepository.GetPivotParts();
             var PartsR = await _pivotPartsRepository.GetPivotPartsRelationsJoined();
+            var PartQty = PartsR.DistinctBy(p => p.PivotPartID).ToList();
+
+            var Parts = await _pivotPartsRepository.GetPivotParts();
+
+     
+            int index = 0;
             foreach (var item in Parts)
             {
+                
+                item.Quantity = index < PartQty.Count ? PartQty[index++].Quantity : 0;
                 SparePartsOBS.Add(item);
             }
             foreach (var item in PartsR)
@@ -154,11 +140,12 @@ namespace InputsApp
                 JoinedSparePartsOBS.Add(item);
             }
 
-            ALLpivotPartsGrid.ItemsSource = JoinedSparePartsOBS;
+            ALLpivotPartsGrid.ItemsSource = SparePartsOBS;
             pivotPartsGrid.ItemsSource = SparePartsOBS;
             PartNameCB.ItemsSource = SparePartsOBS; 
 
             var relations = await _pivotPartsRepository.GetPivotPartsRelations();
+      
             foreach (var rel in relations)
             {
                 RelationstOBS.Add(rel);
@@ -279,6 +266,16 @@ namespace InputsApp
 
                 await _pivotPartsRepository.DeletePivotPart(part.ID);
 
+                SparePartsOBS.Remove(part);
+                JoinedSparePartsOBS.Remove(part);
+
+                PivotParentOBS.Remove(PivotParentOBS.Where((item) => item.PivotPartID == part.ID).FirstOrDefault());
+                SpanParentOBS.Remove(SpanParentOBS.Where((item) => item.PivotPartID == part.ID).FirstOrDefault());
+                SpareParentOBS.Remove(SpareParentOBS.Where((item) => item.PivotPartID == part.ID).FirstOrDefault());
+                SetParentOBS.Remove( SetParentOBS.Where((item) => item.PivotPartID == part.ID).FirstOrDefault());
+
+
+              
                 //UpdateGridandCB();
             }
         }
@@ -368,7 +365,7 @@ namespace InputsApp
 
         private async void AddPivot_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            
             List<SpareParts> sparesToChild = new List<SpareParts>();
 
             string Brand = "";
@@ -377,6 +374,29 @@ namespace InputsApp
                 Brand = selectedBrand.Brand;
             }
 
+            if (IsAnyFieldEmpty(PivotCategoryCB.Text, PivotPartTB.Text, pivotCostTB.Text, pivotHegitTB.Text, pivotwidthTB.Text, pivotlenghtTB.Text, pivotWeightTB.Text, PivotPartARTB.Text, PivotSectionCB.Text, Brand))
+            {
+                MessageBox.Show("Fill in all required fields.","Missing Information",MessageBoxButton.OK);
+               
+                return;
+            }
+        
+            double QTYInSet = 0;
+            double QTY = 0;
+            if (!string.IsNullOrEmpty(pivotQTYInSetTB.Text))
+            {
+                QTYInSet = double.Parse(pivotQTYInSetTB.Text);
+                if (string.IsNullOrEmpty(pivotQTYTB.Text))
+                {
+                    QTY = QTYInSet;
+                }  
+            }
+
+            if (!string.IsNullOrEmpty(pivotQTYTB.Text))
+            {
+                QTY = double.Parse(pivotQTYTB.Text);
+            }
+  
             var pivotPart = new SpareParts(
                    PivotCategoryCB.Text,
                    PivotPartTB.Text,
@@ -390,7 +410,7 @@ namespace InputsApp
                    0,
                    0,
                    0,
-                   double.Parse(pivotQTYTB.Text),
+                   quantity: QTY,
                    0,
                    PivotPartARTB.Text,
                    PivotSectionCB.Text,
@@ -403,39 +423,7 @@ namespace InputsApp
             }
             pivotPart.ID = await _pivotPartsRepository.AddPivotPart(pivotPart);
             #region set spare IDs
-            foreach (var item in PivotParentOBS)
-            {
-                item.PivotPartID = pivotPart.ID;
-                item.Quantity = pivotPart.Quantity;
-            }
-            foreach (var item in SpanParentOBS)
-            {
-                item.PivotPartID = pivotPart.ID;
-                item.Quantity = pivotPart.Quantity;
-            }
-            foreach (var item in SpareParentOBS)
-            {
-                SpareParts sp = SparePartsOBS.Where(x => x.ID == item.SpareID).FirstOrDefault();
-                sp.HasChild = true;
-                sparesToChild.Add(sp);
-                item.PivotPartID = pivotPart.ID;
-                if (item.Quantity == 0)
-                {
-                    item.Quantity = pivotPart.Quantity;
-                }
-            }
-
-            double QTYInSet = 0;
-            if (!string.IsNullOrEmpty(pivotQTYInSetTB.Text))
-            {
-                QTYInSet = double.Parse(pivotQTYInSetTB.Text);
-            }
-            foreach (var item in SetParentOBS)
-            {
-                item.PivotPartID = pivotPart.ID;
-                item.Quantity = QTYInSet;
-            }
-            
+            await CreatePivotPartRelations(pivotPart, sparesToChild);
 
             await _pivotPartsRepository.EditPivotPart(sparesToChild);
             #endregion
@@ -446,10 +434,10 @@ namespace InputsApp
             pivotPart.ParentSets = SetParentOBS.ToList();
 
 
-            await _pivotPartsRepository.AddPivotPartRelation(PivotParentOBS.ToList());
-            await _pivotPartsRepository.AddPivotPartRelation(SpanParentOBS.ToList());
-            await _pivotPartsRepository.AddPivotPartRelation(SpareParentOBS.ToList());
-            await _pivotPartsRepository.AddPivotPartRelation(SetParentOBS.ToList());
+            //await _pivotPartsRepository.AddPivotPartRelation(PivotParentOBS.ToList());
+            //await _pivotPartsRepository.AddPivotPartRelation(SpanParentOBS.ToList());
+            //await _pivotPartsRepository.AddPivotPartRelation(SpareParentOBS.ToList());
+            //await _pivotPartsRepository.AddPivotPartRelation(SetParentOBS.ToList());
 
 
 
@@ -810,8 +798,10 @@ namespace InputsApp
 
         private void UpdateTextBoxesFromItem_Pivots(SpareParts pivotEdit)
         {
+            
             PivotCategoryCB.Text = pivotEdit.PivotCategory;
             PivotPartTB.Text = pivotEdit.PivotPart;
+            
             pivotCostTB.Text = pivotEdit.Cost.ToString();
             pivotHegitTB.Text = pivotEdit.Height.ToString();
             pivotwidthTB.Text = pivotEdit.Width.ToString();
@@ -826,12 +816,12 @@ namespace InputsApp
             PivotBrandCB.SelectedItem = BrandsOBS.Where(x=>x.Brand == pivotEdit.Brand).FirstOrDefault();
 
 
-             var QTYInRels = RelationstOBS.Where(rels => rels.PivotPartID == pivotEdit.ID).FirstOrDefault();
-            double QTY = 0;
-            if (QTYInRels != null) QTY = QTYInRels.Quantity;
+            // var QTYInRels = RelationstOBS.Where(rels => rels.PivotPartID == pivotEdit.ID).FirstOrDefault();
+            //double QTY = 0;
+            //if (QTYInRels != null) QTY = QTYInRels.Quantity;
 
 
-            pivotQTYTB.Text = QTY.ToString();
+            //pivotQTYTB.Text = QTY.ToString();
 
 
             var QTYInSetRels = RelationstOBS.Where(rels => rels.ParentType == "Set" && rels.PivotPartID == pivotEdit.ID).FirstOrDefault();
@@ -910,6 +900,14 @@ namespace InputsApp
 
         async private void AddNewPivotBT_Click(object sender, RoutedEventArgs e)
         {
+
+            if (IsAnyFieldEmpty(PivotName.Text, PivotCategory.Text, PivotLength.Text))
+            {
+                MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
+
+                return;
+            }
+
             var Pivot = new PivotTable(
                 PivotName.Text,
                 PivotCategory.Text,
@@ -972,7 +970,14 @@ namespace InputsApp
 
         async private void AddSpanBT_Click(object sender, RoutedEventArgs e)
         {
-            
+
+
+            if (IsAnyFieldEmpty(LengthTB.Text, DiameterTB.Text, SpanNameTB.Text, SpanCostTB.Text))
+            {
+                MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
+
+                return;
+            }
 
             var Span = new Spans
                 (
@@ -1101,6 +1106,8 @@ namespace InputsApp
 
         private void AddToParents_Click(object sender, RoutedEventArgs e)
         {
+          var s =  RelationstOBS;
+
             if ((bool)PivotPartRD.IsChecked)
             {
                 if (PivotNameCB.SelectedItem is PivotTable pivot)
@@ -1152,6 +1159,7 @@ namespace InputsApp
                         PivotPart = spares.Name,
                         PivotCategory = spares.PivotCategory,
                         SpareID = spares.ID,
+                      
                         ParentType = "Spare",
                         PartLevel = 3,
 
@@ -1198,41 +1206,59 @@ namespace InputsApp
             //}
         }
 
-        private void deletePivotParents_Click(object sender, RoutedEventArgs e)
+        private async void deletePivotParents_Click(object sender, RoutedEventArgs e)
         {
             if (NewPivotConnectionsGrid.SelectedItem is SpareRelationship piv)
             {
                 PivotParentOBS.Remove(piv);
+                if (piv.ID != 0)
+                {
+                  await  _pivotPartsRepository.DeletePivotPartRelation(piv.ID);
+                }
+               
             }
+            
         }
 
-        private void deleteSpanParents_Click(object sender, RoutedEventArgs e)
+        private async void deleteSpanParents_Click(object sender, RoutedEventArgs e)
         {
             if (NewSpanConnectionsGrid.SelectedItem is SpareRelationship spa)
             {
                 SpanParentOBS.Remove(spa);
+                if (spa.ID != 0)
+                {
+                    await _pivotPartsRepository.DeletePivotPartRelation(spa.ID);
+                }
             }
         }
 
-        private void deleteSpareParents_Click(object sender, RoutedEventArgs e)
+        private async void deleteSpareParents_Click(object sender, RoutedEventArgs e)
         {
             if (NewPartConnectionsGrid.SelectedItem is SpareRelationship spp)
             {
                 SpareParentOBS.Remove(spp);
+                if (spp.ID != 0)
+                {
+                    await _pivotPartsRepository.DeletePivotPartRelation(spp.ID);
+                }
             }
         }
 
 
-        private void deleteSetParents_Click(object sender, RoutedEventArgs e)
+        private async void deleteSetParents_Click(object sender, RoutedEventArgs e)
         {
             if (NewSetPartConnectionsGrid.SelectedItem is SpareRelationship spp)
             {
                 SetParentOBS.Remove(spp);
+                if (spp.ID != 0)
+                {
+                    await _pivotPartsRepository.DeletePivotPartRelation(spp.ID);
+                }
             }
         }
 
 
-        private void deletePivotForSpanParents_Click(object sender, RoutedEventArgs e)
+        private async void deletePivotForSpanParents_Click(object sender, RoutedEventArgs e)
         {
             if (NewPivotForSpansConnectionsGrid.SelectedItem is PivotTable pivot)
             {
@@ -1321,19 +1347,128 @@ namespace InputsApp
             }
         }
 
+        private bool EditSparePartFields(SpareParts part,double qtyInSet)
+        {
+            bool isQtyChanged = false;
+           
+
+            string Brand = "";
+            if (PivotBrandCB.SelectedItem is Brands selectedBrand)
+            {
+                Brand = selectedBrand.Brand;
+            }
+            double QTYInSet = 0;
+            double QTY = 0;
+            if (!string.IsNullOrEmpty(pivotQTYInSetTB.Text))
+            {
+                QTYInSet = double.Parse(pivotQTYInSetTB.Text);
+                if (string.IsNullOrEmpty(pivotQTYTB.Text))
+                {
+                    QTY = QTYInSet;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(pivotQTYTB.Text))
+            {
+                QTY = double.Parse(pivotQTYTB.Text);
+            }
+            if(QTY != part.Quantity)
+            {
+                isQtyChanged = true;
+            }
+            if(qtyInSet > -1 && qtyInSet != QTYInSet)
+            {
+                isQtyChanged = true;
+            }
+            part.PivotCategory = PivotCategoryCB.Text;
+            part.PivotPart = PivotPartTB.Text;
+            part.Cost = decimal.Parse(pivotCostTB.Text);
+            part.Height = decimal.Parse(pivotHegitTB.Text);
+            part.Width = decimal.Parse(pivotwidthTB.Text);
+            part.Length = decimal.Parse(pivotlenghtTB.Text);
+            part.Weight = decimal.Parse(pivotWeightTB.Text);
+            part.Quantity = QTY;
+            part.NameAR = PivotPartARTB.Text;
+            part.Section = PivotSectionCB.Text;
+            part.Brand = Brand;
+
+            return isQtyChanged;
+        }
+
+        private async Task EditSparePartReilations(List<SpareRelationship> partRels,double newQty)
+        {
+            double QTYInSet = 0;
+            if (!string.IsNullOrEmpty(pivotQTYInSetTB.Text))
+            {
+                QTYInSet = double.Parse(pivotQTYInSetTB.Text);
+            }
+
+            foreach (var rel in partRels)
+            {
+                if (rel.SetID > 0)
+                {
+                    rel.Quantity = QTYInSet;
+                }
+                else
+                {
+                    rel.Quantity = newQty;
+                }
+                await _pivotPartsRepository.EditPivotPartRelation(rel);
+            }
+        }
         private async void EditPivot_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (pivotPartsGrid.SelectedItem is SpareParts spare)
+            if (pivotPartsGrid.SelectedItem is SpareParts pivotPart)
             {
-
-                List<PivotTable> pivotParents = NewPivotConnectionsGrid.ItemsSource.Cast<PivotTable>().ToList();
-                List<Spans> SpansParents = NewSpanConnectionsGrid.ItemsSource.Cast<Spans>().ToList();
-                List<SpareParts> SparesParents = NewPartConnectionsGrid.ItemsSource.Cast<SpareParts>().ToList();
                 string Brand = "";
                 if (PivotBrandCB.SelectedItem is Brands selectedBrand)
                 {
                     Brand = selectedBrand.Brand;
                 }
+                if (IsAnyFieldEmpty(PivotCategoryCB.Text, PivotPartTB.Text, pivotCostTB.Text, pivotHegitTB.Text, pivotwidthTB.Text, pivotlenghtTB.Text, pivotWeightTB.Text, PivotPartARTB.Text, PivotSectionCB.Text, Brand))
+                {
+                    MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
+
+                    return;
+                }
+
+
+
+                List<SpareParts> sparesToChild = new List<SpareParts>();
+
+                await CreatePivotPartRelations(pivotPart, sparesToChild);
+
+                var PartRelations = RelationstOBS.Where((partRelation) => partRelation.PivotPartID == pivotPart.ID).ToList();
+                var rel = PartRelations.Where((partRel) => partRel.SetID > 0).FirstOrDefault();
+
+                double qtyInSet = -1;
+                if (rel is not null)
+                {
+                    qtyInSet = rel.Quantity;
+                }
+                var isQtyChanged = EditSparePartFields(pivotPart, qtyInSet);
+
+
+                if (isQtyChanged)
+                {
+                    await EditSparePartReilations(PartRelations, pivotPart.Quantity);
+                }
+
+
+                await _pivotPartsRepository.EditPivotPart(pivotPart);
+
+
+                //pivotPartsGrid.Items.Refresh();
+
+
+                //List<PivotTable> pivotParents = NewPivotConnectionsGrid.ItemsSource.Cast<PivotTable>().ToList();
+                //List<Spans> SpansParents = NewSpanConnectionsGrid.ItemsSource.Cast<Spans>().ToList();
+                //List<SpareParts> SparesParents = NewPartConnectionsGrid.ItemsSource.Cast<SpareParts>().ToList();
+                //string Brand = "";
+                //if (PivotBrandCB.SelectedItem is Brands selectedBrand)
+                //{
+                //    Brand = selectedBrand.Brand;
+                //}
                 //if (pivotParents is not null)
                 //{
 
@@ -1360,7 +1495,7 @@ namespace InputsApp
                 //        );
                 //    pivotPart.ParentPivots = pivotParents;
 
-                  
+
                 //        await _pivotPartsRepository.EditPivotPart(pivotPart);
 
 
@@ -1391,7 +1526,7 @@ namespace InputsApp
                 //       );
                 //    pivotPart.ParentSpans = SpansParents;
 
-                   
+
                 //        await _pivotPartsRepository.EditPivotPart(pivotPart);
 
 
@@ -1433,18 +1568,83 @@ namespace InputsApp
                 //             );
                 //            pivotPart.ParentSpares = itemsAtLevel;
 
-                       
-                        
+
+
                 //            await _pivotPartsRepository.EditPivotPart(pivotPart);
-                        
-                       
+
+
 
                 //    }
                 //}
             }
-                       
+
 
         }
+
+        private async Task CreatePivotPartRelations(SpareParts pivotPart, List<SpareParts> sparesToChild)
+        {
+            double QTYInSet = 0;
+            double QTY = 0;
+            if (!string.IsNullOrEmpty(pivotQTYInSetTB.Text))
+            {
+                QTYInSet = double.Parse(pivotQTYInSetTB.Text);
+                if (string.IsNullOrEmpty(pivotQTYTB.Text))
+                {
+                    QTY = QTYInSet;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(pivotQTYTB.Text))
+            {
+                QTY = double.Parse(pivotQTYTB.Text);
+            }
+
+
+            foreach (var item in PivotParentOBS)
+            {
+                if (item.ID != 0) continue;
+                item.PivotPartID = pivotPart.ID;
+                item.Quantity = pivotPart.Quantity;
+                item.ID = await _pivotPartsRepository.AddPivotPartRelation(item);
+                RelationstOBS.Add(item);
+                NewPivotConnectionsGrid.Items.Refresh();
+            }
+            foreach (var item in SpanParentOBS)
+            {
+                if (item.ID != 0) continue;
+                item.PivotPartID = pivotPart.ID;
+                item.Quantity = pivotPart.Quantity;
+                item.ID = await _pivotPartsRepository.AddPivotPartRelation(item);
+                RelationstOBS.Add(item);
+                NewSpanConnectionsGrid.Items.Refresh();
+            }
+            foreach (var item in SpareParentOBS)
+            {
+                if (item.ID != 0) continue;
+                SpareParts sp = SparePartsOBS.Where(x => x.ID == item.SpareID).FirstOrDefault();
+                sp.HasChild = true;
+                sparesToChild.Add(sp);
+                item.PivotPartID = pivotPart.ID;
+                if (item.Quantity == 0)
+                {
+                    item.Quantity = pivotPart.Quantity;
+                }
+                item.ID = await _pivotPartsRepository.AddPivotPartRelation(item);
+                RelationstOBS.Add(item);
+                NewPartConnectionsGrid.Items.Refresh();
+            }
+
+            foreach (var item in SetParentOBS)
+            {
+                if (item.ID != 0) continue;
+                item.PivotPartID = pivotPart.ID;
+                item.Quantity = QTYInSet;
+                item.ID = await _pivotPartsRepository.AddPivotPartRelation(item);
+                RelationstOBS.Add(item);
+                NewSetPartConnectionsGrid.Items.Refresh();
+            }
+        }
+
         private void UsersFilterSelectAll_Checked(object sender, RoutedEventArgs e)
         {
 
@@ -1547,6 +1747,9 @@ namespace InputsApp
         {
 
         }
+
+        private bool IsAnyFieldEmpty(params string[] fields) => fields.Any((field) => field.Length == 0);
+
     }
 }
 

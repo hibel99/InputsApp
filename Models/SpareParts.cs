@@ -46,6 +46,7 @@ public class SpareParts:INotifyPropertyChanged
     public bool HasChild { get; set; }
     public string Name => NameAR;
 
+    public int? PivotPartID { get; set; }
 
     public SpareParts()
     {
