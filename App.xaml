@@ -19,7 +19,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
 
-            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontSize" Value="18"/>
         </Style>
 
         <Style x:Key="OrangeButton" TargetType="Button" >
@@ -141,7 +141,7 @@
             <Setter Property="Foreground" Value="#AAAAAA"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
 
             <!--to change fore ground on MouseOver and Menu Item Selection-->
@@ -219,6 +219,9 @@
                             <!--setting default selection to dashboard button on Application startup-->
                             <Trigger Property="Content" Value="Dashboard">
                                 <Setter Property="IsChecked" Value="True"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="Orange"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

@@ -1717,13 +1717,17 @@ namespace InputsApp
             List<string> Targetsections = SectionsFilterIC.ItemsSource.Cast<Categories>().Where(x => x.IsSelect).Select(x => x.NameAR).ToList();
             List<string> Targetcategories = CategoriesFilterIC.ItemsSource.Cast<Categories>().Where(x => x.IsSelect).Select(x => x.NameAR).ToList();
 
-            JoinedSparePartsOBS = HelperFunctions.ToObservableCollection(SparePartsOBS.Where(x => Targetbrands.Contains(x.Brand)
-           //&& TargetTitles.Contains(x.Title)
-           //&& TargetGrades.Contains(x.JobGrades)
-           && Targetcategories.Contains(x.PivotCategory.ToLower())
-           && Targetsections.Contains(x.Section)).ToList());
-            //ALLpivotPartsGrid.ItemsSource = FilteredSparePartsOBS;
+           // JoinedSparePartsOBS = HelperFunctions.ToObservableCollection(SparePartsOBS.Where(x => Targetbrands.Contains(x.Brand)
+           //&& Targetcategories.Contains(x.PivotCategory.ToLower())
+           //&& Targetsections.Contains(x.Section)).ToList());
 
+            JoinedSparePartsOBS = HelperFunctions.ToObservableCollection(SparePartsOBS.Where(x =>
+        (Targetbrands.Count == 0 || Targetbrands.Contains(x.Brand)) &&
+        (Targetcategories.Count == 0 || Targetcategories.Contains(x.PivotCategory.ToLower())) &&
+        (Targetsections.Count == 0 || Targetsections.Contains(x.Section))
+    ).ToList());
+            //ALLpivotPartsGrid.ItemsSource = FilteredSparePartsOBS;
+            ALLpivotPartsGrid.ItemsSource = JoinedSparePartsOBS;
             OpenFilter.IsChecked = false;
 
         }
