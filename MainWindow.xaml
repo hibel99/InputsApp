@@ -63,7 +63,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
-                      
+
 
 
                     </Grid.ColumnDefinitions>
@@ -130,7 +130,7 @@
                     <TextBlock Text="Weight" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Quantity" Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                   
+
 
                     <StackPanel Orientation="Horizontal" Grid.Row="12"  Grid.Column="1" Width="380"  >
                         <Grid Width="337" >
@@ -176,7 +176,7 @@
                             </ComboBox>
 
 
-                            
+
 
                             <ComboBox Name="SpanNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be connected with a Span" SelectionChanged="PivotNameCB_SelectionChanged" Grid.ColumnSpan="2">
                                 <ComboBox.Style>
@@ -213,7 +213,7 @@
                                 <icon:PackIconMaterial Kind="Plus"/>
                             </Button>
                         </Grid>
-                        
+
                     </StackPanel>
                     <ComboBox Name="PivotCategoryCB" Padding="10"  SelectionChanged="PivotCategoryCB_SelectionChanged" DisplayMemberPath="NameAR" Height="50" Width="380" Grid.Row="1" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Parent category" />
                     <ComboBox Name="PivotSectionCB" Padding="10"  Height="50" DisplayMemberPath="NameAR"  Width="380" Grid.Row="2" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Show section Pivot" />
@@ -259,7 +259,7 @@
                         </ComboBox>
                     </Grid>
 
-      
+
 
 
 
@@ -1411,33 +1411,37 @@
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
-                
+
             </Border>
 
-            <Border Grid.Column="1" Grid.Row="1" Margin="10 0 10 10" Padding="14" CornerRadius="19" Background="White">
+            <Border Grid.Column="1" Grid.Row="1" Margin="5 0 10 10" Padding="14" CornerRadius="19" Background="White">
                 <Grid Name="CategoriesGrid">
 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+
+                    </Grid.ColumnDefinitions>
+
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="60"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid>
+                    <Grid Grid.ColumnSpan="2" Margin="0,0,2,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
+                            <ColumnDefinition  />
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="NameNewCategory" materialDesign:HintAssist.Hint="Category name" Grid.Column="0" VerticalAlignment="Center" Margin="10 0" PreviewTextInput="Empty_PreviewTextInput"/>
-                        <TextBox x:Name="NameARNewCategory"  materialDesign:HintAssist.Hint="Category name Arabic" Grid.Column="1" VerticalAlignment="Center" Margin="10 0" PreviewTextInput="Empty_PreviewTextInput"/>
-                        <Button x:Name="AddNewCategory" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Center" Margin="10 0" Content="Add" Click="AddNewCategory_Click"/>
+                        <TextBox x:Name="NameNewCategory" materialDesign:HintAssist.Hint="Category name" Grid.Column="0" VerticalAlignment="Top" Margin="10 0" PreviewTextInput="Empty_PreviewTextInput"/>
+                        <TextBox x:Name="NameARNewCategory"  materialDesign:HintAssist.Hint="Category name Arabic" Grid.Column="1" VerticalAlignment="Top" Margin="10 0" PreviewTextInput="Empty_PreviewTextInput"/>
+                        <Button x:Name="AddNewCategory" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Top" Margin="10 0" Content="Add" Click="AddNewCategory_Click"/>
                     </Grid>
 
-                    <DataGrid ItemsSource="{Binding CategoriesListOBS}" Name="CategoriesDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0"  FontSize="12" Grid.Row="1" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
-                                 ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
+                    <DataGrid ItemsSource="{Binding CategoriesListOBS}" Name="CategoriesDG" Grid.Row="0" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                                 BorderThickness="0"  FontSize="12" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left" Grid.ColumnSpan="2" Width="754" Margin="0,56,0,0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Name}" >
                                 <DataGridTextColumn.ElementStyle>
@@ -1471,20 +1475,20 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Grid Grid.Row="2">
+                    <Grid Grid.Row="1" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <ComboBox x:Name="CategoryNewBrand" DisplayMemberPath="NameAR" materialDesign:HintAssist.Hint="Brand category" Grid.Column="0" VerticalAlignment="Center" Margin="10 0" PreviewTextInput="Empty_PreviewTextInput"/>
-                        <TextBox x:Name="NewBrandTB"  materialDesign:HintAssist.Hint="Brand name  " Grid.Column="1" VerticalAlignment="Center" Margin="10 0" PreviewTextInput="Empty_PreviewTextInput"/>
-                        <Button x:Name="AddNewBrand" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Center" Margin="10 0" Content="Add" Click="AddNewBrand_Click"/>
+                        <ComboBox x:Name="CategoryNewBrand" DisplayMemberPath="NameAR" materialDesign:HintAssist.Hint="Brand category" Grid.Column="0" VerticalAlignment="Top"  PreviewTextInput="Empty_PreviewTextInput" />
+                        <TextBox x:Name="NewBrandTB"  materialDesign:HintAssist.Hint="Brand name  " Grid.Column="1" VerticalAlignment="Top" Margin="10 0" PreviewTextInput="Empty_PreviewTextInput"/>
+                        <Button x:Name="AddNewBrand" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Top" Margin="10 0" Content="Add" Click="AddNewBrand_Click"/>
                     </Grid>
 
                     <DataGrid  Name="BrandsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                               BorderThickness="0"  FontSize="12" Grid.Row="3" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
-                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" SelectionChanged="BrandsDG_SelectionChanged" HorizontalAlignment="Left">
+                               BorderThickness="0"  FontSize="12" Grid.Row="1" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" SelectionChanged="BrandsDG_SelectionChanged" HorizontalAlignment="Left" Grid.ColumnSpan="2" Width="752" Margin="0,64,0,0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Category}" >
                                 <DataGridTextColumn.ElementStyle>
@@ -1535,8 +1539,15 @@
             </Border>
 
 
-            <Border Grid.Column="2" Grid.Row="1" Margin="10 0 10 10" Padding="14" CornerRadius="19" Background="White">
+            <Border Grid.Column="2" Grid.Row="1" Margin="5 0 10 10" Padding="14" CornerRadius="19" Background="White">
                 <Grid Name="SectionsGrid">
+
+
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60"/>
@@ -1546,15 +1557,15 @@
 
                     </Grid.RowDefinitions>
 
-                    <Grid>
+                    <Grid Grid.ColumnSpan="2" Margin="0,0,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBox x:Name="NameNewSection"  materialDesign:HintAssist.Hint="Section name" Grid.Column="0" VerticalAlignment="Center" Margin="10 0"/>
-                        <TextBox x:Name="NameARNewSection"  materialDesign:HintAssist.Hint="Section name Arabic" Grid.Column="1" VerticalAlignment="Center" Margin="10 0"/>
-                        <Button x:Name="AddNewSection" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Center" Margin="10 0" Content="Add" Click="AddNewSection_Click"/>
+                        <TextBox x:Name="NameARNewSection"  materialDesign:HintAssist.Hint="Section name Arabic" Grid.Column="1" Grid.ColumnSpan="1" VerticalAlignment="Center" Margin="10 0"/>
+                        <Button x:Name="AddNewSection" Style="{StaticResource OrangeButton}" Grid.Column="3" VerticalAlignment="Center" Margin="10 0" Content="Add" Click="AddNewSection_Click"/>
                     </Grid>
 
 
@@ -1562,7 +1573,7 @@
 
 
                     <DataGrid ItemsSource="{Binding SectionsListOBS}" Name="SectionsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0"  FontSize="12" Grid.Row="1" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0"  FontSize="12" Grid.Row="1" Grid.ColumnSpan="2" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Section"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Name}" >
@@ -1599,7 +1610,7 @@
 
 
 
-                    <Grid Grid.Row="2">
+                    <Grid Grid.Row="2" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
@@ -1611,7 +1622,7 @@
                     </Grid>
 
                     <DataGrid  Name="SetDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0"  FontSize="12" Grid.Row="3" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0"  FontSize="12" Grid.Row="3" Grid.ColumnSpan="2" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="SetDG_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Set"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Name}" >
@@ -1691,7 +1702,7 @@
                     <!--<RadioButton Name="SetsRD" Grid.Row="4" Content="Sets" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="SpanParts_Click" />-->
 
                     <RadioButton Name="ALLSparesRD" Grid.Row="4" Content="All spare parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
-                    
+
 
                     <!--<RadioButton Name="SectionsRD" Grid.Row="6" Content="Sections" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
                 </Grid>
