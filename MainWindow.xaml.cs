@@ -628,7 +628,7 @@ namespace InputsApp
             {
                 PivotCategory.Text = string.Empty;
                 PivotName.Text  = string.Empty;
-                PivotLength.Text = string.Empty;
+               
             }
             if((bool)SpanParts.IsChecked)
             {
@@ -780,7 +780,7 @@ namespace InputsApp
         async private void AddNewPivotBT_Click(object sender, RoutedEventArgs e)
         {
 
-            if (IsAnyFieldEmpty(PivotName.Text, PivotCategory.Text, PivotLength.Text))
+            if (IsAnyFieldEmpty(PivotName.Text, PivotCategory.Text))
             {
                 MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
 
@@ -790,7 +790,7 @@ namespace InputsApp
             var Pivot = new PivotTable(
                 PivotName.Text,
                 PivotCategory.Text,
-                decimal.Parse(PivotLength.Text));
+                0);
 
             PivotsOBS.Add(Pivot);
                 
