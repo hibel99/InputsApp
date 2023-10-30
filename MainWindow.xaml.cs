@@ -374,9 +374,7 @@ namespace InputsApp
                 Brand = selectedBrand.Brand;
             }
 
-            if (IsAnyFieldEmpty(PivotCategoryCB.Text, PivotPartTB.Text, pivotCostTB.Text, pivotHegitTB.Text, pivotwidthTB.Text, pivotlenghtTB.Text,
-                pivotWeightTB.Text, PivotPartARTB.Text, PivotSectionCB.Text, Brand
-                ,pivotHegitUnitCB.Text,pivotWidthUnitCB.Text,pivotLengthUnitCB.Text,pivotWeightUnitCB.Text))
+            if (IsAnyFieldEmpty(PivotCategoryCB.Text, PivotPartTB.Text, pivotCostTB.Text, PivotPartARTB.Text, PivotSectionCB.Text, Brand))
             {
                 MessageBox.Show("Fill in all required fields.","Missing Information",MessageBoxButton.OK);
                
@@ -398,19 +396,45 @@ namespace InputsApp
             {
                 QTY = double.Parse(pivotQTYTB.Text);
             }
+
+            decimal pivHeight = 0;
+            if (!string.IsNullOrEmpty(pivotHegitTB.Text))
+            {
+                pivHeight = decimal.Parse(pivotHegitTB.Text);
+            }
+            
+            decimal pivWidth = 0;
+            if (!string.IsNullOrEmpty(pivotwidthTB.Text))
+            {
+                pivWidth = decimal.Parse(pivotwidthTB.Text);
+            }
+            
+            decimal pivLength = 0;
+            if (!string.IsNullOrEmpty(pivotlenghtTB.Text))
+            {
+                pivLength = decimal.Parse(pivotlenghtTB.Text);
+            }
+            
+            decimal pivWeight = 0;
+            if (!string.IsNullOrEmpty(pivotWeightTB.Text))
+            {
+                pivWeight = decimal.Parse(pivotWeightTB.Text);
+            }
+
+
   
             var pivotPart = new SpareParts(
                    PivotCategoryCB.Text,
                    PivotPartTB.Text,
                    decimal.Parse(pivotCostTB.Text),
                    DateTime.UtcNow,
-                   decimal.Parse(pivotHegitTB.Text),
+                   pivHeight,
                    pivotHegitUnitCB.Text,
-                   decimal.Parse(pivotwidthTB.Text),
+                   pivWidth,
                    pivotWidthUnitCB.Text,
-                   decimal.Parse(pivotlenghtTB.Text),
+                   pivLength,
                    pivotLengthUnitCB.Text,
-                   decimal.Parse(pivotWeightTB.Text),
+                   pivWeight,
                    pivotWeightUnitCB.Text,
                    0,
                    0,
