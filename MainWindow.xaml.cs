@@ -623,6 +623,13 @@ namespace InputsApp
                 pivotLengthUnitCB.SelectedItem = null;
                 pivotWidthUnitCB.SelectedItem = null;
                 pivotWeightUnitCB.SelectedItem = null;
+
+                SpareParentOBS.Clear();
+                SpanParentOBS.Clear();
+                PivotParentOBS.Clear();
+                SetParentOBS.Clear();
+
+
             }
             if((bool)Pivots.IsChecked)
             {
