@@ -845,6 +845,8 @@ namespace InputsApp
                 Spans part = (Spans)((Button)sender).DataContext;
 
                 await _spanRepository.DeleteSpan(part.ID);
+                SpansOBS.Remove(part);
+                SpansDG.ItemsSource = SpansOBS;
 
                 //UpdateGridandCB();
             }
