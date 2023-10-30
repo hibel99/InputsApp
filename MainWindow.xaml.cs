@@ -374,7 +374,9 @@ namespace InputsApp
                 Brand = selectedBrand.Brand;
             }
 
-            if (IsAnyFieldEmpty(PivotCategoryCB.Text, PivotPartTB.Text, pivotCostTB.Text, pivotHegitTB.Text, pivotwidthTB.Text, pivotlenghtTB.Text, pivotWeightTB.Text, PivotPartARTB.Text, PivotSectionCB.Text, Brand))
+            if (IsAnyFieldEmpty(PivotCategoryCB.Text, PivotPartTB.Text, pivotCostTB.Text, pivotHegitTB.Text, pivotwidthTB.Text, pivotlenghtTB.Text,
+                pivotWeightTB.Text, PivotPartARTB.Text, PivotSectionCB.Text, Brand
+                ,pivotHegitUnitCB.Text,pivotWidthUnitCB.Text,pivotLengthUnitCB.Text,pivotWeightUnitCB.Text))
             {
                 MessageBox.Show("Fill in all required fields.","Missing Information",MessageBoxButton.OK);
                
@@ -1307,7 +1309,10 @@ namespace InputsApp
                 {
                     Brand = selectedBrand.Brand;
                 }
-                if (IsAnyFieldEmpty(PivotCategoryCB.Text, PivotPartTB.Text, pivotCostTB.Text, pivotHegitTB.Text, pivotwidthTB.Text, pivotlenghtTB.Text, pivotWeightTB.Text, PivotPartARTB.Text, PivotSectionCB.Text, Brand))
+
+                if (IsAnyFieldEmpty(PivotCategoryCB.Text, PivotPartTB.Text, pivotCostTB.Text, pivotHegitTB.Text, pivotwidthTB.Text, pivotlenghtTB.Text,
+                    pivotWeightTB.Text, PivotPartARTB.Text, PivotSectionCB.Text, Brand
+                    , pivotHegitUnitCB.Text, pivotWidthUnitCB.Text, pivotLengthUnitCB.Text, pivotWeightUnitCB.Text))
                 {
                     MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
 
