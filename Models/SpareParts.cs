@@ -27,9 +27,17 @@ public class SpareParts:INotifyPropertyChanged
     public decimal Cost { get; set; }
     public DateTime Date { get; set; }
     public decimal Height { get; set; }
+    public string? HeightUnit { get; set; }
+
     public decimal Width { get; set; }
+
+    public string? WidthUnit { get; set; }
     public decimal Length { get; set; }
+
+    public string? LengthUnit { get; set; }
     public decimal Weight { get; set; }
+
+    public string? WeightUnit { get; set; }
     public int pivotcode { get; set; }
     public int PartLevel { get; set; }
     public int SetID { get; set; }
@@ -55,8 +63,8 @@ public class SpareParts:INotifyPropertyChanged
 
   
     public SpareParts(string pivotCategory, string pivotPart, decimal cost, 
-        DateTime date, decimal height, decimal width, decimal length, 
-        decimal weight, int PivotCode,int partLevel, int setID,
+        DateTime date, decimal height, string? heightUnit, decimal width, string? widthUnit, decimal length, string? lengthUnit,
+        decimal weight, string? weightUnit,int PivotCode,int partLevel, int setID,
         int spareID, double quantity, int spanID, string nameAR,string section,string brand,bool haschild = false)
     {
         PivotCategory = pivotCategory;
@@ -77,10 +85,16 @@ public class SpareParts:INotifyPropertyChanged
         Section = section;
         Brand = brand;
         HasChild = haschild;
+        HeightUnit = heightUnit;
+        WidthUnit = widthUnit;
+        LengthUnit = lengthUnit;
+        WeightUnit = weightUnit;
+
     }
 
     public SpareParts(int iD, string pivotCategory, string pivotPart, decimal cost, 
-        DateTime date, decimal height, decimal width, decimal length, decimal weight,
+        DateTime date, decimal height, string? heightUnit, decimal width, string? widthUnit, decimal length, string? lengthUnit,
+        decimal weight, string? weightUnit,
         int PivotCode, int partLevel, int setID, int spareID, double quantity, int spanID, string nameAR, string section, string brand, bool haschild = false)
     {
         ID = iD;
@@ -102,6 +116,10 @@ public class SpareParts:INotifyPropertyChanged
         Section = section;
         Brand = brand;
         HasChild = haschild;
+        HeightUnit = heightUnit;
+        WidthUnit = widthUnit;
+        LengthUnit = lengthUnit;
+        WeightUnit = weightUnit;
 
     }
 

@@ -55,14 +55,18 @@ public class PivotPartsRepository : IPivotPartsRepository
                    Cost = pivotPart.Cost,
                    Date = pivotPart.Date,
                    Height = pivotPart.Height,
-                   Length = pivotPart.Length,
+                   HeightUnit = pivotPart.HeightUnit,
                    Width = pivotPart.Width,
+                   WidthUnit = pivotPart.WidthUnit,
+                   Length = pivotPart.Length,
+                   LengthUnit = pivotPart.LengthUnit,
                    Weight = pivotPart.Weight,
+                   WeightUnit = pivotPart.WeightUnit,
                    NameAR = pivotPart.NameAR,
                    section = pivotPart.Section,
                    Brand = pivotPart.Brand,
-                   HasChild = pivotPart.HasChild,
-               },
+                   HasChild = pivotPart.HasChild,   
+        },
                AppConnection.ConnectionString);
             return result.FirstOrDefault();
 
@@ -85,15 +89,18 @@ public class PivotPartsRepository : IPivotPartsRepository
              Cost = pivotPart.Cost,
              Date = pivotPart.Date,
              Height = pivotPart.Height,
-             Length = pivotPart.Length,
+             HeightUnit = pivotPart.HeightUnit,
              Width = pivotPart.Width,
+             WidthUnit = pivotPart.WidthUnit,
+             Length = pivotPart.Length,
+             LengthUnit = pivotPart.LengthUnit,
              Weight = pivotPart.Weight,
+             WeightUnit = pivotPart.WeightUnit,
              NameAR = pivotPart.NameAR,
              Section = pivotPart.Section,
              Brand = pivotPart.Brand,
              HasChild = pivotPart.HasChild,
-
-
+         
          },
     AppConnection.ConnectionString);
     }
@@ -118,7 +125,11 @@ public class PivotPartsRepository : IPivotPartsRepository
                 Brand = item.Brand,
                 Section = item.Section,
                 HasChild = item.HasChild,
-            },
+                HeightUnit = item.HeightUnit,
+                WidthUnit = item.WidthUnit,
+                LengthUnit = item.LengthUnit,
+                WeightUnit = item.WeightUnit,
+   },
       AppConnection.ConnectionString); 
         }
     }
@@ -164,7 +175,6 @@ public class PivotPartsRepository : IPivotPartsRepository
             var result = await _sqlDataAccess.LoadData<int, dynamic>("dbo.spAddRelation",
                new
                {
-
                    PivotCode = pivotPart.pivotcode,
                    PartLevel = pivotPart.PartLevel,
                    SetID = pivotPart.SetID,

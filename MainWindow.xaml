@@ -63,6 +63,9 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
+                      
+
+
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -129,9 +132,13 @@
 
 
 
-                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Width="380">
-                        <Grid>
-                            <ComboBox Name="PartNameCB" Padding="10"  IsTextSearchEnabled="True" DisplayMemberPath="NameAR" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be connected with a Part" SelectionChanged="PivotNameCB_SelectionChanged">
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Width="380"  >
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="52*"/>
+                                <ColumnDefinition Width="283*"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Name="PartNameCB" Padding="10"  IsTextSearchEnabled="True" DisplayMemberPath="NameAR" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be connected with a Part" SelectionChanged="PivotNameCB_SelectionChanged" Grid.ColumnSpan="2">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -139,12 +146,12 @@
                                             <DataTrigger Binding="{Binding IsChecked,ElementName=SparePartRD}" Value="True">
                                                 <Setter Property="Visibility" Value="Visible"/>
                                             </DataTrigger>
-                                            
+
                                         </Style.Triggers>
                                     </Style>
                                 </ComboBox.Style>
                             </ComboBox>
-                            <ComboBox Name="PivotNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be connected with a Pivot" SelectionChanged="PivotNameCB_SelectionChanged">
+                            <ComboBox Name="PivotNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be connected with a Pivot" SelectionChanged="PivotNameCB_SelectionChanged" Grid.ColumnSpan="2">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -159,7 +166,7 @@
 
                             </ComboBox>
 
-                            <ComboBox Name="SpanNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be connected with a Span" SelectionChanged="PivotNameCB_SelectionChanged">
+                            <ComboBox Name="SpanNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be connected with a Span" SelectionChanged="PivotNameCB_SelectionChanged" Grid.ColumnSpan="2">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -176,7 +183,7 @@
 
 
 
-                            <ComboBox Name="SetNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be added to a Set" SelectionChanged="PivotNameCB_SelectionChanged">
+                            <ComboBox Name="SetNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be added to a Set" SelectionChanged="PivotNameCB_SelectionChanged" Grid.ColumnSpan="2">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -198,8 +205,8 @@
                     </StackPanel>
                     <ComboBox Name="PivotCategoryCB" Padding="10"  SelectionChanged="PivotCategoryCB_SelectionChanged" DisplayMemberPath="NameAR" Height="50" Width="380" Grid.Row="2" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Parent category" />
                     <ComboBox Name="PivotSectionCB" Padding="10"  Height="50" DisplayMemberPath="NameAR"  Width="380" Grid.Row="3" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Show section Pivot" />
-                   
-                    
+
+
                     <!--<ComboBox Name="PivotBrandCB" Height="50" DisplayMemberPath="Brand"  Width="380" Grid.Row="4" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Brands of category" />-->
                     <ComboBox x:Name="PivotBrandCB" Padding="10" Height="50"   Width="380" Grid.Row="4" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Brands of category" >
                         <ComboBox.GroupStyle>
@@ -221,14 +228,86 @@
 
 
 
-                    <TextBox Name="PivotPartTB" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="5" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name"/>
+                    <TextBox Name="PivotPartTB" Height="50" Grid.Row="5" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name" Margin="5 0 5 0"/>
                     <TextBox Name="PivotPartARTB" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="6" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name Arabic"/>
 
-                    <TextBox  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="7" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost"/>
-                    <TextBox  Name="pivotHegitTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Height" Grid.Row="8" Grid.Column="1" Padding="14"/>
-                    <TextBox  Name="pivotwidthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput"  Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Width" Grid.Row="9" Grid.Column="1" Padding="14"/>
-                    <TextBox  Name="pivotlenghtTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Length" Grid.Row="10" Grid.Column="1" Padding="14"/>
-                    <TextBox  Name="pivotWeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Weight" Grid.Row="11" Grid.Column="1" Padding="14"/>
+                    <TextBox  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" Grid.Row="7" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost" Margin="5 0 5 0"/>
+
+                    <Grid  Grid.Row="8" Grid.Column="1" Height="50"  >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="90"/>
+                        </Grid.ColumnDefinitions >
+                        <TextBox Grid.Row="0" Grid.Column="0"  Name="pivotHegitTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Height" Padding="14"/>
+                        <ComboBox Name="pivotHegitUnitCB" Grid.Column="1"   Height="50"   Width="85" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Unit" Margin="0 0 5 0" >
+                            <ComboBoxItem Content="Inch" />
+                            <ComboBoxItem Content="m" />
+                            <ComboBoxItem Content="cm" />
+                            <ComboBoxItem Content="mm" />
+                        </ComboBox>
+                    </Grid>
+
+      
+
+
+
+                    <Grid  Grid.Row="9" Grid.Column="1" Height="50"  >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="90"/>
+                        </Grid.ColumnDefinitions >
+                        <TextBox Grid.Row="0" Grid.Column="0"  Name="pivotwidthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Width" Padding="14"/>
+                        <ComboBox Name="pivotWidthUnitCB" Grid.Column="1"   Height="50"   Width="85" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Unit" Margin="0 0 5 0" >
+                            <ComboBoxItem Content="Inch" />
+                            <ComboBoxItem Content="m" />
+                            <ComboBoxItem Content="cm" />
+                            <ComboBoxItem Content="mm" />
+                        </ComboBox>
+                    </Grid>
+
+
+
+
+
+
+
+
+
+
+                    <Grid  Grid.Row="10" Grid.Column="1" Height="50"  >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="90"/>
+                        </Grid.ColumnDefinitions >
+                        <TextBox Grid.Row="0" Grid.Column="0"  Name="pivotlenghtTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Length" Padding="14"/>
+                        <ComboBox Name="pivotLengthUnitCB" Grid.Column="1"   Height="50"   Width="85" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Unit" Margin="0 0 5 0" >
+                            <ComboBoxItem Content="Inch" />
+                            <ComboBoxItem Content="m" />
+                            <ComboBoxItem Content="cm" />
+                            <ComboBoxItem Content="mm" />
+                        </ComboBox>
+                    </Grid>
+
+
+
+
+
+
+
+
+                    <Grid  Grid.Row="11" Grid.Column="1" Height="50"  >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="90"/>
+                        </Grid.ColumnDefinitions >
+                        <TextBox Grid.Row="0" Grid.Column="0"  Name="pivotWeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Weight" Padding="14"/>
+                        <ComboBox Name="pivotWeightUnitCB" Grid.Column="1"  Height="50"   Width="85" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Unit" Margin="0 0 5 0" >
+                            <ComboBoxItem Content="g" />
+                            <ComboBoxItem Content="kg" />
+                        </ComboBox>
+                    </Grid>
+
+
                     <TextBox  Name="pivotQTYTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"    materialDesign:HintAssist.Hint="Quantity" Grid.Row="12" Grid.Column="1" Padding="14">
                         <TextBox.Style>
                             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
@@ -243,7 +322,7 @@
                     </TextBox>
 
                     <TextBox  Name="pivotQTYInSetTB"  BorderBrush="Orange"  PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Quantity in set" Grid.Row="12" Grid.Column="1" Padding="14">
-                   
+
                         <TextBox.Style>
                             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -318,7 +397,7 @@
                     <TextBox  Name="SprinklerlengthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Length" Grid.Row="5" Grid.Column="1" Padding="14"/>
                     <TextBox  Name="SprinklerWeightTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Weight" Grid.Row="6" Grid.Column="1" Padding="14"/>
                     <Button Content="Add Sprinkler" Name="AddSpinkler_Button" Click="AddSpinkler_Button_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="7" Grid.ColumnSpan="2"  Padding="14" />
-                    
+
                     <Grid.Style>
                         <Style TargetType="Grid">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -414,8 +493,8 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Name" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Length" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Diameter" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Length In Meter" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Diameter In Inches" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Pivot Type" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Cost" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
@@ -464,8 +543,8 @@
 
                 <Border  CornerRadius="19" Background="White" >
 
-                  
-                    
+
+
                     <DataGrid Name="NewPivotForSpansConnectionsGrid"  VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
                                  BorderThickness="0" Margin="10"  Grid.Row="0"  FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
@@ -688,8 +767,8 @@
                             </DataGridTemplateColumn>
 
                         </DataGrid.Columns>
-                        
-                        
+
+
                     </DataGrid>
                     <DataGrid Name="NewSpanConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
                                  BorderThickness="0" Margin="10"  Grid.Row="0" Grid.Column="1" FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
@@ -959,7 +1038,7 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>-->
 
-                           
+
 
                             <DataGridTemplateColumn  Width="0.2*">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1263,7 +1342,7 @@
                                     </Style>
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
-                            
+
                             <DataGridTextColumn Header="Overhang Type"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding OverhangType}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
@@ -1309,7 +1388,7 @@
                         </DataGrid.Resources>
                     </DataGrid>
 
-                    
+
                 </Grid>
 
                 <Border.Style>
@@ -1396,7 +1475,7 @@
                     <DataGrid  Name="BrandsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
                                BorderThickness="0"  FontSize="12" Grid.Row="3" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" SelectionChanged="BrandsDG_SelectionChanged" HorizontalAlignment="Left">
-                            <DataGrid.Columns>
+                        <DataGrid.Columns>
                             <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Category}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
@@ -1467,10 +1546,10 @@
                         <TextBox x:Name="NameARNewSection"  materialDesign:HintAssist.Hint="Section name Arabic" Grid.Column="1" VerticalAlignment="Center" Margin="10 0"/>
                         <Button x:Name="AddNewSection" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Center" Margin="10 0" Content="Add" Click="AddNewSection_Click"/>
                     </Grid>
-                    
-                    
-                    
-                    
+
+
+
+
 
                     <DataGrid ItemsSource="{Binding SectionsListOBS}" Name="SectionsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
                                  BorderThickness="0"  FontSize="12" Grid.Row="1" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
@@ -1578,16 +1657,16 @@
             <Border CornerRadius="19" BorderThickness="2" Grid.Column="0" Grid.Row="1" Margin="0 0 0 10"  Width="220" Background="White">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/> 
-                        <RowDefinition Height="*"/> 
-                        <RowDefinition Height="*"/> 
-                        <RowDefinition Height="*"/> 
-                        <RowDefinition Height="*"/> 
-                        <RowDefinition Height="*"/> 
-                        <RowDefinition Height="*"/> 
-                        <RowDefinition Height="*"/> 
-                        <RowDefinition Height="*"/> 
-                        <RowDefinition Height="*"/> 
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="Pivot_Click" />
@@ -1597,11 +1676,13 @@
                     <!--<RadioButton Name="OverhangParts" Grid.Row="3" Content="Overhang" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
                     <RadioButton Name="CategoriesRD" Grid.Row="3" Content="Categories" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
                     <!--<RadioButton Name="BrandsRD" Grid.Row="6" Content="Brands" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
-                    
-                    
+
+
                     <!--<RadioButton Name="SetsRD" Grid.Row="4" Content="Sets" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="SpanParts_Click" />-->
+
                     <RadioButton Name="ALLSparesRD" Grid.Row="4" Content="All spare parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="SpanParts_Click" />
                     
+
                     <!--<RadioButton Name="SectionsRD" Grid.Row="6" Content="Sections" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
                 </Grid>
 
@@ -1632,10 +1713,12 @@
                     <TextBlock Text="Set Name" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Set Arabic Name" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                    --><!--<TextBox  Name="SetCategory" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="0" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Set Category"/>
+                    -->
+            <!--<TextBox  Name="SetCategory" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="0" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Set Category"/>
                     <TextBox  Name="SetName" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="1" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Set Name"/>
                     <TextBox  Name="SetNameAR" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="2" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Set Arabic Name"/>
-                    <Button Content="Add Set" Name="AddNewSetBT"  Click="AddNewSetBT_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="9" Grid.ColumnSpan="2"  Padding="14" />--><!--
+                    <Button Content="Add Set" Name="AddNewSetBT"  Click="AddNewSetBT_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="9" Grid.ColumnSpan="2"  Padding="14" />-->
+            <!--
 
                     <Grid.Style>
                         <Style TargetType="Grid">
