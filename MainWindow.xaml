@@ -99,7 +99,7 @@
 
                     </Grid>
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Grid.Row="12" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Text" Value="Add Relation With"/>
@@ -117,22 +117,22 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <TextBlock Text="Category" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Section" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Brand" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Pivot Part Name" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Pivot Part Name Arabic" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Category" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Section" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Brand" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Pivot Part Name" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Pivot Part Name Arabic" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                    <TextBlock Text="Cost" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Height" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Width" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Length" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Weight" Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Quantity" Grid.Row="12" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Cost" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Height" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Width" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Length" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Weight" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Quantity" Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
 
 
-                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Width="380"  >
+                    <StackPanel Orientation="Horizontal" Grid.Row="12"  Grid.Column="1" Width="380"  >
                         <Grid >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="52*"/>
@@ -203,12 +203,12 @@
                             <icon:PackIconMaterial Kind="Plus"/>
                         </Button>
                     </StackPanel>
-                    <ComboBox Name="PivotCategoryCB" Padding="10"  SelectionChanged="PivotCategoryCB_SelectionChanged" DisplayMemberPath="NameAR" Height="50" Width="380" Grid.Row="2" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Parent category" />
-                    <ComboBox Name="PivotSectionCB" Padding="10"  Height="50" DisplayMemberPath="NameAR"  Width="380" Grid.Row="3" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Show section Pivot" />
+                    <ComboBox Name="PivotCategoryCB" Padding="10"  SelectionChanged="PivotCategoryCB_SelectionChanged" DisplayMemberPath="NameAR" Height="50" Width="380" Grid.Row="1" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Parent category" />
+                    <ComboBox Name="PivotSectionCB" Padding="10"  Height="50" DisplayMemberPath="NameAR"  Width="380" Grid.Row="2" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Show section Pivot" />
 
 
                     <!--<ComboBox Name="PivotBrandCB" Height="50" DisplayMemberPath="Brand"  Width="380" Grid.Row="4" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Brands of category" />-->
-                    <ComboBox x:Name="PivotBrandCB" Padding="10" Height="50"   Width="380" Grid.Row="4" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Brands of category" >
+                    <ComboBox x:Name="PivotBrandCB" Padding="10" Height="50"   Width="380" Grid.Row="3" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Brands of category" >
                         <ComboBox.GroupStyle>
                             <GroupStyle>
                                 <GroupStyle.HeaderTemplate>
@@ -228,12 +228,12 @@
 
 
 
-                    <TextBox Name="PivotPartTB" Height="50" Grid.Row="5" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name" Margin="5 0 5 0"/>
-                    <TextBox Name="PivotPartARTB" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="6" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name Arabic"/>
+                    <TextBox Name="PivotPartTB" Height="50" Grid.Row="4" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name" Margin="5 0 5 0"/>
+                    <TextBox Name="PivotPartARTB" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="5" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name Arabic"/>
 
-                    <TextBox  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" Grid.Row="7" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost" Margin="5 0 5 0"/>
+                    <TextBox  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" Grid.Row="6" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost" Margin="5 0 5 0"/>
 
-                    <Grid  Grid.Row="8" Grid.Column="1" Height="50"  >
+                    <Grid  Grid.Row="7" Grid.Column="1" Height="50"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="90"/>
@@ -251,7 +251,7 @@
 
 
 
-                    <Grid  Grid.Row="9" Grid.Column="1" Height="50"  >
+                    <Grid  Grid.Row="8" Grid.Column="1" Height="50"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="90"/>
@@ -274,7 +274,7 @@
 
 
 
-                    <Grid  Grid.Row="10" Grid.Column="1" Height="50"  >
+                    <Grid  Grid.Row="9" Grid.Column="1" Height="50"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="90"/>
@@ -295,7 +295,7 @@
 
 
 
-                    <Grid  Grid.Row="11" Grid.Column="1" Height="50"  >
+                    <Grid  Grid.Row="10" Grid.Column="1" Height="50"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="90"/>
@@ -308,7 +308,7 @@
                     </Grid>
 
 
-                    <TextBox  Name="pivotQTYTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"    materialDesign:HintAssist.Hint="Quantity" Grid.Row="12" Grid.Column="1" Padding="14">
+                    <TextBox  Name="pivotQTYTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"    materialDesign:HintAssist.Hint="Quantity" Grid.Row="11" Grid.Column="1" Padding="14">
                         <TextBox.Style>
                             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
                                 <Setter Property="Visibility" Value="Visible"/>
@@ -321,7 +321,7 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <TextBox  Name="pivotQTYInSetTB"  BorderBrush="Orange"  PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Quantity in set" Grid.Row="12" Grid.Column="1" Padding="14">
+                    <TextBox  Name="pivotQTYInSetTB"  BorderBrush="Orange"  PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Quantity in set" Grid.Row="11" Grid.Column="1" Padding="14">
 
                         <TextBox.Style>
                             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
@@ -721,7 +721,7 @@
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
                     <DataGrid Name="NewPivotConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0" Margin="10"  Grid.Row="0"  FontSize="12"      GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0" Margin="20 10 0 10"  Grid.Row="0"  FontSize="12"      GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
@@ -769,7 +769,7 @@
 
                     </DataGrid>
                     <DataGrid Name="NewSpanConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0" Margin="10"  Grid.Row="0" Grid.Column="1" FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0" Margin="0 10"  Grid.Row="0" Grid.Column="1" FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
@@ -827,7 +827,7 @@
 
                     </DataGrid>
                     <DataGrid Name="NewPartConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0" Margin="10"  Grid.Row="1"  FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0" Margin="20 10 0 10"  Grid.Row="1"  FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
@@ -884,7 +884,7 @@
                         </DataGrid.Resources>
                     </DataGrid>
                     <DataGrid Name="NewSetPartConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0" Margin="10"  Grid.Row="1"  Grid.Column="1" FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0" Margin="0 10"  Grid.Row="1"  Grid.Column="1" FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
@@ -1667,8 +1667,8 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="Pivot_Click" />
-                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="1" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="PivotParts_Click" />
+                    <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="Pivot_Click" />
+                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="1" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="PivotParts_Click" />
                     <!--<RadioButton Name="SpinklersParts" Grid.Row="2" Content="Spinklers Parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpinklersParts_Click" />-->
                     <RadioButton Name="SpanParts" Grid.Row="2" Content="Spans" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
                     <!--<RadioButton Name="OverhangParts" Grid.Row="3" Content="Overhang" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
