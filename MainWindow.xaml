@@ -58,11 +58,12 @@
                 </Button>
             </StackPanel>
 
-            <Border Grid.Column="1" Grid.Row="1" Margin="10" Background="White" CornerRadius="19" >
+            <Border Grid.Column="1" Grid.Row="1" Margin="10 10 0 10" Background="White" CornerRadius="19" >
                 <Grid  Name="PivotGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5"/>
                       
 
 
@@ -81,10 +82,10 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.ColumnSpan="2">
+                    <!--<Grid Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -92,83 +93,44 @@
                             <ColumnDefinition/>
 
                         </Grid.ColumnDefinitions>
-                        <RadioButton Content="Pivot" Style="{StaticResource ToggleButtonButtonStyle}" IsChecked="True" Name="PivotPartRD" Grid.Column="0" HorizontalAlignment="Center" GroupName="PartsSelectRD"/>
+                        --><!--<RadioButton Content="Pivot" Style="{StaticResource ToggleButtonButtonStyle}" IsChecked="True" Name="PivotPartRD" Grid.Column="0" HorizontalAlignment="Center" GroupName="PartsSelectRD"/>
                         <RadioButton Content="Span" Style="{StaticResource ToggleButtonButtonStyle}" Name="SpanPartRD"  Grid.Column="1" HorizontalAlignment="Center" GroupName="PartsSelectRD"/>
                         <RadioButton Content="Spare Part" Style="{StaticResource ToggleButtonButtonStyle}" Name="SparePartRD" Grid.Column="2" HorizontalAlignment="Center" GroupName="PartsSelectRD"/>
-                        <RadioButton Content="Set" Style="{StaticResource ToggleButtonButtonStyle}" IsChecked="False"  Name="SetPartRD" Grid.Column="3" HorizontalAlignment="Center" GroupName="PartsSelectRD"/>
+                        <RadioButton Content="Set" Style="{StaticResource ToggleButtonButtonStyle}" IsChecked="False"  Name="SetPartRD" Grid.Column="3" HorizontalAlignment="Center" GroupName="PartsSelectRD"/>--><!--
 
-                    </Grid>
-
-                    <TextBlock Grid.Row="12" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Text" Value="Add Relation With"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsChecked,ElementName=SpanPartRD}">
-                                        <Setter Property="Text" Value="Span type"/>
-
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsChecked,ElementName=SparePartRD}">
-                                        <Setter Property="Text" Value="Spare parts name"/>
-
-                                    </DataTrigger>
-
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <TextBlock Text="Category" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Section" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Brand" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Pivot Part Name" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Pivot Part Name Arabic" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-                    <TextBlock Text="Cost" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Height" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Width" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Length" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Weight" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Quantity" Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>-->
 
                    
+                    <TextBlock Text="Category" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Section" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Brand" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Pivot Part Name" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Pivot Part Name Arabic" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                    <StackPanel Orientation="Horizontal" Grid.Row="12"  Grid.Column="1" Width="380"  >
-                        <Grid Width="337" >
+                    <TextBlock Text="Height" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Width" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Length" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Weight" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Cost" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <TextBlock Text="Quantity" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <TextBlock Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Add Relation With">
+                      
+                    </TextBlock>
+
+                    
+                        <Grid Grid.Row="11" Grid.Column="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.6*"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="60"/>
                             </Grid.ColumnDefinitions>
-                            <ComboBox Name="PartNameCB" Padding="10"  IsTextSearchEnabled="True" DisplayMemberPath="NameAR" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be connected with a Part" SelectionChanged="PivotNameCB_SelectionChanged" Grid.ColumnSpan="2">
-                                <ComboBox.Style>
-                                    <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsChecked,ElementName=SparePartRD}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-
-                                        </Style.Triggers>
-                                    </Style>
-                                </ComboBox.Style>
-                            </ComboBox>
-                            <ComboBox Name="PivotNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="120" FontSize="12" materialDesign:HintAssist.Hint="This Part will be connected with a Pivot" SelectionChanged="PivotNameCB_SelectionChanged" Grid.Column="1" >
-                                <ComboBox.Style>
-                                    <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsChecked,ElementName=PivotPartRD}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-
-                                        </Style.Triggers>
-                                    </Style>
-                                </ComboBox.Style>
-
-                            </ComboBox>
+                    
+               
 
 
-                            <ComboBox Grid.Row="12" Grid.Column="0" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Select">
+                        <ComboBox Name="RelationTabCB" Grid.Row="12" Grid.Column="0" Style="{StaticResource MaterialDesignOutlinedComboBox}"  Margin="5 0 5 0" materialDesign:HintAssist.Hint="Select" Height="50" SelectedIndex="0" >
                                 <ComboBoxItem Content="Pivot"/>
                                 <ComboBoxItem Content="Span"/>
                                 <ComboBoxItem Content="SparePart"/>
@@ -176,51 +138,74 @@
                             </ComboBox>
 
 
-                            
+                        <ComboBox Name="PivotNameCB" Padding="10"  DisplayMemberPath="Name" Height="50"   materialDesign:HintAssist.Hint="Connecte it with a Pivot" SelectionChanged="PivotNameCB_SelectionChanged" Grid.Column="1" >
+                            <ComboBox.Style>
+                                <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedIndex, ElementName=RelationTabCB}" Value="0">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
 
-                            <ComboBox Name="SpanNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be connected with a Span" SelectionChanged="PivotNameCB_SelectionChanged" Grid.ColumnSpan="2">
+                        </ComboBox>
+
+                        <ComboBox Name="SpanNameCB" Padding="10"  DisplayMemberPath="Name" Height="50"  materialDesign:HintAssist.Hint="Connecte it with a Span" SelectionChanged="PivotNameCB_SelectionChanged" Grid.Column="1">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsChecked,ElementName=SpanPartRD}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-
-                                        </Style.Triggers>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedIndex, ElementName=RelationTabCB}" Value="1">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
                                     </Style>
                                 </ComboBox.Style>
 
                             </ComboBox>
 
+                        <ComboBox Name="PartNameCB" Padding="10"  IsTextSearchEnabled="True" DisplayMemberPath="NameAR" Height="50"  materialDesign:HintAssist.Hint="Connecte it with a Part" SelectionChanged="PivotNameCB_SelectionChanged" Grid.Column="1">
+                            <ComboBox.Style>
+                                <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedIndex, ElementName=RelationTabCB}" Value="2">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
 
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
+                        </ComboBox>
 
-                            <ComboBox Name="SetNameCB" Padding="10"  DisplayMemberPath="Name" Height="50" Width="335" materialDesign:HintAssist.Hint="This Part will be added to a Set" SelectionChanged="PivotNameCB_SelectionChanged" Grid.ColumnSpan="2">
+                        <ComboBox Name="SetNameCB" Padding="10"  DisplayMemberPath="Name" Height="50"  materialDesign:HintAssist.Hint="Add it to a Set" SelectionChanged="PivotNameCB_SelectionChanged" Grid.Column="1">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsChecked,ElementName=SetPartRD}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
 
-                                        </Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedIndex, ElementName=RelationTabCB}" Value="3">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
                                     </Style>
                                 </ComboBox.Style>
 
                             </ComboBox>
-                            <Button x:Name="AddToParents" Style="{StaticResource OrangeButton}" Click="AddToParents_Click" Grid.Column="3" Width="50">
+                            <Button x:Name="AddToParents" HorizontalAlignment="Left" Style="{StaticResource OrangeButton}" Click="AddToParents_Click" Grid.Column="3" Width="50">
                                 <icon:PackIconMaterial Kind="Plus"/>
                             </Button>
                         </Grid>
-                        
-                    </StackPanel>
-                    <ComboBox Name="PivotCategoryCB" Padding="10"  SelectionChanged="PivotCategoryCB_SelectionChanged" DisplayMemberPath="NameAR" Height="50" Width="380" Grid.Row="1" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Parent category" />
-                    <ComboBox Name="PivotSectionCB" Padding="10"  Height="50" DisplayMemberPath="NameAR"  Width="380" Grid.Row="2" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Show section Pivot" />
+                    
+                    <ComboBox Name="PivotCategoryCB" Padding="10"  SelectionChanged="PivotCategoryCB_SelectionChanged" DisplayMemberPath="NameAR" Height="50" Width="380" Grid.Row="0" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Parent category" />
+                    <ComboBox Name="PivotSectionCB" Padding="10"  Height="50" DisplayMemberPath="NameAR"  Width="380" Grid.Row="1" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Show section Pivot" />
 
 
                     <!--<ComboBox Name="PivotBrandCB" Height="50" DisplayMemberPath="Brand"  Width="380" Grid.Row="4" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Brands of category" />-->
-                    <ComboBox x:Name="PivotBrandCB" Padding="10" Height="50"   Width="380" Grid.Row="3" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Brands of category" >
+                    <ComboBox x:Name="PivotBrandCB" Padding="10" Height="50"   Width="380" Grid.Row="2" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Brands of category" >
                         <ComboBox.GroupStyle>
                             <GroupStyle>
                                 <GroupStyle.HeaderTemplate>
@@ -240,12 +225,12 @@
 
 
 
-                    <TextBox Name="PivotPartTB" Height="50" Grid.Row="4" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name" Margin="5 0 5 0"/>
-                    <TextBox Name="PivotPartARTB" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="5" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name Arabic"/>
+                    <TextBox Name="PivotPartTB" Height="50" Grid.Row="3" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name" Margin="5 0 5 0"/>
+                    <TextBox Name="PivotPartARTB" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="4" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name Arabic"/>
 
-                    <TextBox  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" Grid.Row="6" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost" Margin="5 0 5 0"/>
+                    <TextBox  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" Grid.Row="9" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost" Margin="5 0 5 0"/>
 
-                    <Grid  Grid.Row="7" Grid.Column="1" Height="50"  >
+                    <Grid  Grid.Row="5" Grid.Column="1" Height="50"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="90"/>
@@ -263,7 +248,7 @@
 
 
 
-                    <Grid  Grid.Row="8" Grid.Column="1" Height="50"  >
+                    <Grid  Grid.Row="6" Grid.Column="1" Height="50"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="90"/>
@@ -286,7 +271,7 @@
 
 
 
-                    <Grid  Grid.Row="9" Grid.Column="1" Height="50"  >
+                    <Grid  Grid.Row="7" Grid.Column="1" Height="50"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="90"/>
@@ -307,7 +292,7 @@
 
 
 
-                    <Grid  Grid.Row="10" Grid.Column="1" Height="50"  >
+                    <Grid  Grid.Row="8" Grid.Column="1" Height="50"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="90"/>
@@ -320,13 +305,13 @@
                     </Grid>
 
 
-                    <TextBox  Name="pivotQTYTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"    materialDesign:HintAssist.Hint="Quantity" Grid.Row="11" Grid.Column="1" Padding="14">
+                    <TextBox  Name="pivotQTYTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"    materialDesign:HintAssist.Hint="Quantity" Grid.Row="10" Grid.Column="1" Padding="14" TextChanged="pivotQTYTB_TextChanged">
                         <TextBox.Style>
                             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
                                 <Setter Property="Visibility" Value="Visible"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsChecked,ElementName=SetPartRD}" Value="True">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    <DataTrigger Binding="{Binding SelectedIndex, ElementName=RelationTabCB}" Value="3">
+                                        <Setter Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -339,16 +324,16 @@
                             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsChecked,ElementName=SetPartRD}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible"/>
+                                    <DataTrigger Binding="{Binding SelectedIndex, ElementName=RelationTabCB}" Value="3">
+                                        <Setter Property="Visibility" Value="Visible" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </TextBox.Style>
                     </TextBox>
 
-                    <Button Content="Add" Name="AddPivot_Button" Click="AddPivot_Button_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="225" Grid.Row="13" Grid.Column="1" Padding="14" />
-                    <Button Content="Edit" Name="EditPivot_Button" Click="EditPivot_Button_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="225" Grid.Row="13" Grid.Column="0" Padding="14" />
+                    <Button Content="Add" Name="AddPivot_Button" Click="AddPivot_Button_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="225" Grid.Row="12" Grid.Column="1" Padding="14" />
+                    <Button Content="Edit" Name="EditPivot_Button" Click="EditPivot_Button_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="225" Grid.Row="12" Grid.Column="0" Padding="14" />
 
                     <Grid.Style>
                         <Style TargetType="Grid">
@@ -720,7 +705,7 @@
             </Border>
 
 
-            <Border Grid.Column="2" Grid.Row="1" Margin="10 0 10 10" Padding="14" CornerRadius="19" Background="White">
+            <Border Grid.Column="2" Grid.Row="1" Margin="10 10 10 10" Padding="14" CornerRadius="19" Background="White">
                 <Grid Name="DataGridGrid">
 
                     <Grid.ColumnDefinitions>
@@ -1680,11 +1665,11 @@
                     </Grid.RowDefinitions>
 
                     <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="Pivot_Click" />
-                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="1" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="PivotParts_Click" />
+                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="1" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="PivotParts_Click" />
                     <!--<RadioButton Name="SpinklersParts" Grid.Row="2" Content="Spinklers Parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpinklersParts_Click" />-->
                     <RadioButton Name="SpanParts" Grid.Row="2" Content="Spans" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
                     <!--<RadioButton Name="OverhangParts" Grid.Row="3" Content="Overhang" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
-                    <RadioButton Name="CategoriesRD" Grid.Row="3" Content="Categories" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="SpanParts_Click" />
+                    <RadioButton Name="CategoriesRD" Grid.Row="3" Content="Categories" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
                     <!--<RadioButton Name="BrandsRD" Grid.Row="6" Content="Brands" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
 
 

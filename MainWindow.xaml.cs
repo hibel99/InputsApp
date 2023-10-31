@@ -994,8 +994,9 @@ namespace InputsApp
         {
           var s =  RelationstOBS;
 
-            if ((bool)PivotPartRD.IsChecked)
+            if (RelationTabCB.SelectedIndex == 0)
             {
+                
                 if (PivotNameCB.SelectedItem is PivotTable pivot)
                 {
                     SpareRelationship spareRelationship = new SpareRelationship()
@@ -1015,7 +1016,7 @@ namespace InputsApp
                 }
             }
 
-            else if ((bool)SpanPartRD.IsChecked)
+            else if (RelationTabCB.SelectedIndex == 1)
             {
                 if (SpanNameCB.SelectedItem is Spans span)
                 {
@@ -1036,7 +1037,7 @@ namespace InputsApp
                 }
             }
 
-            else if ((bool)SparePartRD.IsChecked)
+            else if (RelationTabCB.SelectedIndex == 2)
             {
                 if (PartNameCB.SelectedItem is SpareParts spares)
                 {
@@ -1059,7 +1060,7 @@ namespace InputsApp
                 }
             }
 
-            else if ((bool)SetPartRD.IsChecked)
+            else if (RelationTabCB.SelectedIndex == 3)
             {
                 if (SetNameCB.SelectedItem is Set set)
                 {
@@ -1539,6 +1540,10 @@ namespace InputsApp
 
         private bool IsAnyFieldEmpty(params string[] fields) => fields.Any((field) => field.Length == 0);
 
+        private void pivotQTYTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
 
