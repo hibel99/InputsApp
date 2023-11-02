@@ -776,7 +776,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            
+
                         </DataGrid.Columns>
                         <DataGrid.Resources>
                             <ResourceDictionary>
@@ -1427,7 +1427,7 @@
             </Border>
 
 
-            <Grid Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="1" > 
+            <Grid Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="1" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -1447,11 +1447,12 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="1*"/>
+
                         </Grid.RowDefinitions>
 
-                        <Grid Grid.Column="0" Margin="0,0,2,0">
+                        <Grid Grid.Column="0" Margin="0,0,2,0" Grid.RowSpan="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition  />
                                 <ColumnDefinition />
@@ -1462,9 +1463,9 @@
                             <Button x:Name="AddNewCategory" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Top" Margin="10 0" Content="Add" Click="AddNewCategory_Click"/>
                         </Grid>
 
-                        <DataGrid  Grid.RowSpan="2"  ItemsSource="{Binding CategoriesListOBS}" Name="CategoriesDG" Grid.Row="0" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                        <DataGrid  Grid.RowSpan="2" Grid.Row="1"  ItemsSource="{Binding CategoriesListOBS}" Name="CategoriesDG"  VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
                                  BorderThickness="0"  FontSize="12" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
-                                 ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left"   Margin="0,56,0,0">
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Center"  >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Name}" >
                                     <DataGridTextColumn.ElementStyle>
@@ -1498,7 +1499,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
@@ -1510,8 +1511,8 @@
                         </Grid>
 
                         <DataGrid Grid.Column="1"  Name="BrandsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                               BorderThickness="0"  FontSize="12" Grid.Row="0" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
-                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" SelectionChanged="BrandsDG_SelectionChanged" HorizontalAlignment="Left" Grid.RowSpan="2" Margin="0,64,0,0">
+                               BorderThickness="0"  FontSize="12" Grid.Row="1" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" SelectionChanged="BrandsDG_SelectionChanged" HorizontalAlignment="Center" Grid.RowSpan="2">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Category}" >
                                     <DataGridTextColumn.ElementStyle>
@@ -1573,7 +1574,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="60"/>
                             <RowDefinition Height="1*"/>
-             
+
 
 
                         </Grid.RowDefinitions>
@@ -1696,7 +1697,7 @@
                 </Border>
 
             </Grid>
-          
+
 
             <Border CornerRadius="19" BorderThickness="2" Grid.Column="0" Grid.Row="1" Margin="0 0 0 10"  Width="220" Background="White">
                 <Grid>
