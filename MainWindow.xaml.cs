@@ -994,6 +994,22 @@ namespace InputsApp
         {
           var s =  RelationstOBS;
 
+            double QTYInSet = 0;
+            double QTY = 0;
+            if (!string.IsNullOrEmpty(pivotQTYInSetTB.Text))
+            {
+                QTYInSet = double.Parse(pivotQTYInSetTB.Text);
+                if (string.IsNullOrEmpty(pivotQTYTB.Text))
+                {
+                    QTY = QTYInSet;
+                }
+            }
+            if (!string.IsNullOrEmpty(pivotQTYTB.Text))
+            {
+                QTY = double.Parse(pivotQTYTB.Text);
+            }
+
+
             if (RelationTabCB.SelectedIndex == 0)
             {
                 
@@ -1006,7 +1022,8 @@ namespace InputsApp
                         pivotcode = pivot.ID,
                         ParentType = "Pivot",
                         PartLevel = 2,
-                        
+                        Quantity= QTY,
+
                     };
 
                     if (!PivotParentOBS.Contains(spareRelationship))
@@ -1027,6 +1044,7 @@ namespace InputsApp
                         SpanID = span.ID,
                         ParentType = "Span",
                         PartLevel = 3,
+                        Quantity = QTY,
 
                     };
 
@@ -1049,6 +1067,7 @@ namespace InputsApp
                       
                         ParentType = "Spare",
                         PartLevel = 3,
+                        Quantity = QTY,
 
 
                     };
@@ -1071,6 +1090,7 @@ namespace InputsApp
                         SetID = set.ID,
                         ParentType = "Set",
                         PartLevel = 3,
+                        Quantity = QTYInSet,
 
 
                     };
