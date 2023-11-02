@@ -1590,16 +1590,7 @@
                 </Border>
 
 
-                <Separator Background="Red"  RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1000" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="374,402,0,400" Width="914"     >
-                    <Separator.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform ScaleX="-1"/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="90.0"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Separator.RenderTransform>
-                </Separator>
+
 
                 <Border  Grid.Column="2" Grid.Row="1"  Margin="0 0 5 10" Padding="0 0 10 0" CornerRadius="19" Background="White">
                     <Grid Name="SectionsGrid">
@@ -1632,6 +1623,18 @@
 
 
 
+                        <Separator Background="Red"  RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1000" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="-462,405,0,457" Width="914" Grid.Row="1"     >
+                            <Separator.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="-1" ScaleY="-1"/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="90.0"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Separator.RenderTransform>
+
+
+                        </Separator>
 
 
                         <DataGrid Grid.Column="0" ItemsSource="{Binding SectionsListOBS}" Name="SectionsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
@@ -1681,6 +1684,10 @@
                                 </TransformGroup>
                             </Separator.RenderTransform>
                         </Separator>
+
+
+
+
 
 
 
