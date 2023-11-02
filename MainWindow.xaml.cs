@@ -994,8 +994,25 @@ namespace InputsApp
         {
           var s =  RelationstOBS;
 
-            if ((bool)PivotPartRD.IsChecked)
+            double QTYInSet = 0;
+            double QTY = 0;
+            if (!string.IsNullOrEmpty(pivotQTYInSetTB.Text))
             {
+                QTYInSet = double.Parse(pivotQTYInSetTB.Text);
+                if (string.IsNullOrEmpty(pivotQTYTB.Text))
+                {
+                    QTY = QTYInSet;
+                }
+            }
+            if (!string.IsNullOrEmpty(pivotQTYTB.Text))
+            {
+                QTY = double.Parse(pivotQTYTB.Text);
+            }
+
+
+            if (RelationTabCB.SelectedIndex == 0)
+            {
+                
                 if (PivotNameCB.SelectedItem is PivotTable pivot)
                 {
                     SpareRelationship spareRelationship = new SpareRelationship()
@@ -1005,7 +1022,8 @@ namespace InputsApp
                         pivotcode = pivot.ID,
                         ParentType = "Pivot",
                         PartLevel = 2,
-                        
+                        Quantity= QTY,
+
                     };
 
                     if (!PivotParentOBS.Contains(spareRelationship))
@@ -1015,7 +1033,7 @@ namespace InputsApp
                 }
             }
 
-            else if ((bool)SpanPartRD.IsChecked)
+            else if (RelationTabCB.SelectedIndex == 1)
             {
                 if (SpanNameCB.SelectedItem is Spans span)
                 {
@@ -1026,6 +1044,7 @@ namespace InputsApp
                         SpanID = span.ID,
                         ParentType = "Span",
                         PartLevel = 3,
+                        Quantity = QTY,
 
                     };
 
@@ -1036,7 +1055,7 @@ namespace InputsApp
                 }
             }
 
-            else if ((bool)SparePartRD.IsChecked)
+            else if (RelationTabCB.SelectedIndex == 2)
             {
                 if (PartNameCB.SelectedItem is SpareParts spares)
                 {
@@ -1048,6 +1067,7 @@ namespace InputsApp
                       
                         ParentType = "Spare",
                         PartLevel = 3,
+                        Quantity = QTY,
 
 
                     };
@@ -1059,7 +1079,7 @@ namespace InputsApp
                 }
             }
 
-            else if ((bool)SetPartRD.IsChecked)
+            else if (RelationTabCB.SelectedIndex == 3)
             {
                 if (SetNameCB.SelectedItem is Set set)
                 {
@@ -1070,6 +1090,7 @@ namespace InputsApp
                         SetID = set.ID,
                         ParentType = "Set",
                         PartLevel = 3,
+                        Quantity = QTYInSet,
 
 
                     };
@@ -1539,6 +1560,10 @@ namespace InputsApp
 
         private bool IsAnyFieldEmpty(params string[] fields) => fields.Any((field) => field.Length == 0);
 
+        private void pivotQTYTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
 
