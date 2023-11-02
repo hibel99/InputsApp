@@ -250,7 +250,7 @@ namespace InputsApp
             NewPartConnectionsGrid.ItemsSource = SpareParentOBS;
             NewSetPartConnectionsGrid.ItemsSource = SetParentOBS;
 
-            NewPivotForSpansConnectionsGrid.ItemsSource = PivotSpanParentOBS;
+            //NewPivotForSpansConnectionsGrid.ItemsSource = PivotSpanParentOBS;
             #endregion
 
             ArrangeConnections();
@@ -274,8 +274,10 @@ namespace InputsApp
                 SpareParentOBS.Remove(SpareParentOBS.Where((item) => item.PivotPartID == part.ID).FirstOrDefault());
                 SetParentOBS.Remove( SetParentOBS.Where((item) => item.PivotPartID == part.ID).FirstOrDefault());
 
+                EditPivot_Button.Visibility = Visibility.Collapsed;
+                AddPivot_Button.Visibility = Visibility.Visible;
+                
 
-              
                 //UpdateGridandCB();
             }
         }
@@ -662,7 +664,8 @@ namespace InputsApp
 
         private void pivotPartsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            EditPivot_Button.Visibility= Visibility.Visible;
+            AddPivot_Button.Visibility = Visibility.Collapsed;
             if (pivotPartsGrid.SelectedItem is SpareParts selectedItem)
             {
                 pivotEdit = selectedItem;
@@ -1122,7 +1125,9 @@ namespace InputsApp
                 {
                   await  _pivotPartsRepository.DeletePivotPartRelation(piv.ID);
                 }
-               
+                NewPivotConnectionsGrid.ItemsSource= PivotParentOBS;
+               EditPivot_Button.Visibility = Visibility.Collapsed;
+               AddPivot_Button.Visibility = Visibility.Visible;
             }
             
         }
@@ -1136,6 +1141,9 @@ namespace InputsApp
                 {
                     await _pivotPartsRepository.DeletePivotPartRelation(spa.ID);
                 }
+                NewSpanConnectionsGrid.ItemsSource = SpanParentOBS;
+                EditPivot_Button.Visibility = Visibility.Collapsed;
+                AddPivot_Button.Visibility = Visibility.Visible;
             }
         }
 
@@ -1148,6 +1156,9 @@ namespace InputsApp
                 {
                     await _pivotPartsRepository.DeletePivotPartRelation(spp.ID);
                 }
+                NewPartConnectionsGrid.ItemsSource = SpareParentOBS;
+                EditPivot_Button.Visibility = Visibility.Collapsed;
+                AddPivot_Button.Visibility = Visibility.Visible;
             }
         }
 
@@ -1161,16 +1172,19 @@ namespace InputsApp
                 {
                     await _pivotPartsRepository.DeletePivotPartRelation(spp.ID);
                 }
+                NewSetPartConnectionsGrid.ItemsSource = SetParentOBS;
+                EditPivot_Button.Visibility = Visibility.Collapsed;
+                AddPivot_Button.Visibility = Visibility.Visible;
             }
         }
 
 
         private async void deletePivotForSpanParents_Click(object sender, RoutedEventArgs e)
         {
-            if (NewPivotForSpansConnectionsGrid.SelectedItem is PivotTable pivot)
-            {
-                PivotSpanParentOBS.Remove(pivot);
-            }
+            //if (NewPivotForSpansConnectionsGrid.SelectedItem is PivotTable pivot)
+            //{
+            //    PivotSpanParentOBS.Remove(pivot);
+            //}
         }
 
         private void AddPivotParentToSpans_Click(object sender, RoutedEventArgs e)
@@ -1372,7 +1386,11 @@ namespace InputsApp
 
                 await _pivotPartsRepository.EditPivotPart(pivotPart);
 
-
+                ClearTextBoxes();
+                pivotPartsGrid.SelectedIndex = -1;
+                pivotPartsGrid.SelectedItem = null;
+                EditPivot_Button.Visibility = Visibility.Collapsed;
+                AddPivot_Button.Visibility = Visibility.Visible;
                 //pivotPartsGrid.Items.Refresh();
 
 
@@ -1563,6 +1581,13 @@ namespace InputsApp
         private void pivotQTYTB_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void CancelAddPartBT_Click(object sender, RoutedEventArgs e)
+        {
+            ClearTextBoxes();
+            pivotPartsGrid.SelectedItem = null;
+            pivotPartsGrid.SelectedIndex = -1;
         }
     }
 }
