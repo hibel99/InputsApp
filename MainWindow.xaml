@@ -64,7 +64,6 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="5"/>
-                      
 
 
                     </Grid.ColumnDefinitions>
@@ -118,6 +117,20 @@
                     <TextBlock Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Add Relation With">
                       
                     </TextBlock>
+                    <TextBlock Text="Category" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Section" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Brand" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Pivot Part Name" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Pivot Part Name Arabic" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <TextBlock Text="Cost" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Height" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Width" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Length" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Weight" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Quantity" Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+
 
                     
                         <Grid Grid.Row="11" Grid.Column="1">
@@ -149,6 +162,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </ComboBox.Style>
+
 
                         </ComboBox>
 
@@ -199,6 +213,7 @@
                                 <icon:PackIconMaterial Kind="Plus"/>
                             </Button>
                         </Grid>
+
                     
                     <ComboBox Name="PivotCategoryCB" Padding="10"  SelectionChanged="PivotCategoryCB_SelectionChanged" DisplayMemberPath="NameAR" Height="50" Width="380" Grid.Row="0" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Parent category" />
                     <ComboBox Name="PivotSectionCB" Padding="10"  Height="50" DisplayMemberPath="NameAR"  Width="380" Grid.Row="1" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Show section Pivot" />
@@ -244,7 +259,7 @@
                         </ComboBox>
                     </Grid>
 
-      
+
 
 
 
@@ -705,6 +720,7 @@
             </Border>
 
 
+
             <Border Grid.Column="2" Grid.Row="1" Margin="10 10 10 10" Padding="14" CornerRadius="19" Background="White">
                 <Grid Name="DataGridGrid">
 
@@ -761,8 +777,20 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                        </DataGrid.Columns>
 
+                        </DataGrid.Columns>
+                        <DataGrid.Resources>
+                            <ResourceDictionary>
+                                <Style TargetType="DataGrid">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked,ElementName=PivotParts}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ResourceDictionary>
+                        </DataGrid.Resources>
 
                     </DataGrid>
                     <DataGrid Name="NewSpanConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
@@ -1393,260 +1421,343 @@
                             <DataTrigger Binding="{Binding IsChecked,ElementName=ALLSparesRD}" Value="True">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-                
-            </Border>
 
-            <Border Grid.Column="1" Grid.Row="1" Margin="10 0 10 10" Padding="14" CornerRadius="19" Background="White">
-                <Grid Name="CategoriesGrid">
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <TextBox x:Name="NameNewCategory" materialDesign:HintAssist.Hint="Category name" Grid.Column="0" VerticalAlignment="Center" Margin="10 0" PreviewTextInput="Empty_PreviewTextInput"/>
-                        <TextBox x:Name="NameARNewCategory"  materialDesign:HintAssist.Hint="Category name Arabic" Grid.Column="1" VerticalAlignment="Center" Margin="10 0" PreviewTextInput="Empty_PreviewTextInput"/>
-                        <Button x:Name="AddNewCategory" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Center" Margin="10 0" Content="Add" Click="AddNewCategory_Click"/>
-                    </Grid>
-
-                    <DataGrid ItemsSource="{Binding CategoriesListOBS}" Name="CategoriesDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0"  FontSize="12" Grid.Row="1" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
-                                 ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Name}" >
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-
-                            <DataGridTextColumn Header="Category Arabic"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding NameAR}" >
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-
-                            <DataGridTemplateColumn Header="">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Name="DeleteCategory" Click="DeleteCategory_Click" Style="{StaticResource NewAdminPanelDeleteButton}">
-                                            <icon:PackIconMaterial Kind="Delete" Width="16" Height="16"/>
-                                        </Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
-
-                        </DataGrid.Columns>
-                    </DataGrid>
-
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <ComboBox x:Name="CategoryNewBrand" DisplayMemberPath="Name" materialDesign:HintAssist.Hint="Brand category" Grid.Column="0" VerticalAlignment="Center" Margin="10 0" PreviewTextInput="Empty_PreviewTextInput"/>
-                        <TextBox x:Name="NewBrandTB"  materialDesign:HintAssist.Hint="Brand name  " Grid.Column="1" VerticalAlignment="Center" Margin="10 0" PreviewTextInput="Empty_PreviewTextInput"/>
-                        <Button x:Name="AddNewBrand" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Center" Margin="10 0" Content="Add" Click="AddNewBrand_Click"/>
-                    </Grid>
-
-                    <DataGrid  Name="BrandsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                               BorderThickness="0"  FontSize="12" Grid.Row="3" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
-                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" SelectionChanged="BrandsDG_SelectionChanged" HorizontalAlignment="Left">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Category}" >
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-
-                            <DataGridTextColumn Header="Brand"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Brand}" >
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-
-                            <DataGridTemplateColumn Header="">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Name="DeleteBrand" Click="DeleteBrand_Click" Style="{StaticResource NewAdminPanelDeleteButton}">
-                                            <icon:PackIconMaterial Kind="Delete" Width="16" Height="16"/>
-                                        </Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
-
-                        </DataGrid.Columns>
-                    </DataGrid>
-
-
-
-                </Grid>
-
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
                             <DataTrigger Binding="{Binding IsChecked,ElementName=CategoriesRD}" Value="True">
-                                <Setter Property="Visibility" Value="Visible"/>
+                                <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
+
                 </Border.Style>
+
             </Border>
 
+            <!--hk1-->
+            <Grid Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="2" Grid.Row="1" Margin="10 0 10 10" Padding="14" CornerRadius="19" Background="White">
-                <Grid Name="SectionsGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Column="0"  Margin="5 0 10 10" Padding="14" CornerRadius="19" Background="White">
+                    <Grid Name="CategoriesGrid">
 
-                    </Grid.RowDefinitions>
-
-                    <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="NameNewSection"  materialDesign:HintAssist.Hint="Section name" Grid.Column="0" VerticalAlignment="Center" Margin="10 0"/>
-                        <TextBox x:Name="NameARNewSection"  materialDesign:HintAssist.Hint="Section name Arabic" Grid.Column="1" VerticalAlignment="Center" Margin="10 0"/>
-                        <Button x:Name="AddNewSection" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Center" Margin="10 0" Content="Add" Click="AddNewSection_Click"/>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="1*"/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Column="0" Margin="0,0,2,0" Grid.RowSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition  />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="NameNewCategory" FontSize="12" materialDesign:HintAssist.Hint="Category name" Grid.Column="0" VerticalAlignment="Top" Margin="10 0" PreviewTextInput="Empty_PreviewTextInput"/>
+                            <TextBox x:Name="NameARNewCategory" FontSize="12"  materialDesign:HintAssist.Hint="Category name Arabic" Grid.Column="1" VerticalAlignment="Top" Margin="10,0,4,0" PreviewTextInput="Empty_PreviewTextInput"/>
+                            <Button x:Name="AddNewCategory" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Top" Margin="10 0" Width="75" Content="Add" Click="AddNewCategory_Click"/>
+
+
+
+                        </Grid>
+
+
+                        <Separator Background="Red"  RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1000" HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="0,445,-119,360" Width="1054" Grid.Row="1"     >
+                            <Separator.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="-1"/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="90.0"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Separator.RenderTransform>
+                        </Separator>
+
+
+
+
+
+                        <DataGrid  Grid.RowSpan="2" Grid.Row="1"  ItemsSource="{Binding CategoriesListOBS}" Name="CategoriesDG"  VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                                 BorderThickness="0"  FontSize="12" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Center"  >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Name}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Category Arabic"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding NameAR}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTemplateColumn Header="">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Name="DeleteCategory" Click="DeleteCategory_Click" Style="{StaticResource NewAdminPanelDeleteButton}">
+                                                <icon:PackIconMaterial Kind="Delete" Width="10" Height="16"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox x:Name="CategoryNewBrand" DisplayMemberPath="NameAR" FontSize="12" materialDesign:HintAssist.Hint="Brand category" Grid.Column="0" VerticalAlignment="Top"  PreviewTextInput="Empty_PreviewTextInput" />
+                            <TextBox x:Name="NewBrandTB"  materialDesign:HintAssist.Hint="Brand name  " FontSize="12" Grid.Column="1" VerticalAlignment="Top" Margin="10 0" PreviewTextInput="Empty_PreviewTextInput"/>
+                            <Button x:Name="AddNewBrand" Style="{StaticResource OrangeButton}"  Grid.Column="2" Width="75" VerticalAlignment="Top" Margin="10 0" Content="Add" Click="AddNewBrand_Click"/>
+                        </Grid>
+
+                        <DataGrid Grid.Column="1"  Name="BrandsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                               BorderThickness="0"  FontSize="12" Grid.Row="1" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" SelectionChanged="BrandsDG_SelectionChanged" HorizontalAlignment="Center" Grid.RowSpan="2">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Category}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Brand"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Brand}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTemplateColumn Header="">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Name="DeleteBrand" Click="DeleteBrand_Click" Style="{StaticResource NewAdminPanelDeleteButton}">
+                                                <icon:PackIconMaterial Kind="Delete" Width="10" Height="16"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+
+
                     </Grid>
 
 
 
 
 
-                    <DataGrid ItemsSource="{Binding SectionsListOBS}" Name="SectionsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0"  FontSize="12" Grid.Row="1" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsChecked,ElementName=CategoriesRD}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+
+
+
+
+                <Border  Grid.Column="2" Grid.Row="1"  Margin="0 0 5 10" Padding="0 0 10 0" CornerRadius="19" Background="White">
+                    <Grid Name="SectionsGrid">
+
+
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="1*"/>
+
+
+
+                        </Grid.RowDefinitions>
+
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="NameNewSection" FontSize="12"  materialDesign:HintAssist.Hint="Section name" Grid.Column="0" VerticalAlignment="Center" Margin="10 0"/>
+                            <TextBox x:Name="NameARNewSection" FontSize="12"  materialDesign:HintAssist.Hint="Section name Arabic" Grid.Column="1" Grid.ColumnSpan="1" VerticalAlignment="Center" Margin="10,0,2,0"/>
+                            <Button x:Name="AddNewSection" Style="{StaticResource OrangeButton}" Width="75" VerticalAlignment="Center" Grid.Column="2" Margin="28,0,31,0" Content="Add" Click="AddNewSection_Click"/>
+                        </Grid>
+
+
+
+                        <Separator Background="Red"  RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1000" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="-462,405,0,457" Width="914" Grid.Row="1"     >
+                            <Separator.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="-1" ScaleY="-1"/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="90.0"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Separator.RenderTransform>
+
+
+                        </Separator>
+
+
+                        <DataGrid Grid.Column="0" ItemsSource="{Binding SectionsListOBS}" Name="SectionsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                                 BorderThickness="0"  FontSize="12" Grid.Row="1"  GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Section"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Name}" >
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Section"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Name}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
 
-                            <DataGridTextColumn Header="Section Arabic"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding NameAR}" >
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
+                                <DataGridTextColumn Header="Section Arabic"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding NameAR}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
 
-                            <DataGridTemplateColumn Header="">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Name="DeleteSection" Click="DeleteSection_Click" Style="{StaticResource NewAdminPanelDeleteButton}">
-                                            <icon:PackIconMaterial Kind="Delete" Width="16" Height="16"/>
-                                        </Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
-
-                        </DataGrid.Columns>
-                    </DataGrid>
+                                <DataGridTemplateColumn Header="">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Name="DeleteSection" Click="DeleteSection_Click" Style="{StaticResource NewAdminPanelDeleteButton}">
+                                                <icon:PackIconMaterial Kind="Delete" Width="16" Height="16"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
 
+                            </DataGrid.Columns>
+                        </DataGrid>
 
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <TextBox x:Name="SetName"  materialDesign:HintAssist.Hint="Set name" Grid.Column="0" VerticalAlignment="Center" Margin="10 0"/>
-                        <TextBox  x:Name="SetNameAR"  materialDesign:HintAssist.Hint="Set name Arabic" Grid.Column="1" VerticalAlignment="Center" Margin="10 0"/>
-                        <Button  Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Center" Margin="10 0" Content="Add" Click="AddNewSetBT_Click"/>
-                    </Grid>
 
-                    <DataGrid  Name="SetDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0"  FontSize="12" Grid.Row="3" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                        <Separator Background="Red"  RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1000" HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="0,413,-97,360" Width="1024" Grid.Row="1"     >
+                            <Separator.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="-1"/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="90.0"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Separator.RenderTransform>
+                        </Separator>
+
+
+
+
+
+
+
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="SetName" FontSize="12"  materialDesign:HintAssist.Hint="Set name" Grid.Column="0" VerticalAlignment="Center" Margin="10 0"/>
+                            <TextBox  x:Name="SetNameAR" FontSize="12"  materialDesign:HintAssist.Hint="Set name Arabic" Grid.Column="1" VerticalAlignment="Center" Margin="10 0"/>
+                            <Button  Style="{StaticResource OrangeButton}" Grid.Column="2" Width="75" VerticalAlignment="Center" Margin="10 0" Content="Add" Click="AddNewSetBT_Click"/>
+                        </Grid>
+
+                        <DataGrid Grid.Column="1" Name="SetDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                                 BorderThickness="0"  FontSize="12" Grid.Row="1"  GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="SetDG_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Set"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Name}" >
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Set"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Name}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
 
-                            <DataGridTextColumn Header="Set Arabic"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding NameAR}" >
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
+                                <DataGridTextColumn Header="Set Arabic"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding NameAR}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
 
-                            <DataGridTemplateColumn Header="">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Name="DeleteSet" Click="DeleteSet_Click" Style="{StaticResource NewAdminPanelDeleteButton}">
-                                            <icon:PackIconMaterial Kind="Delete" Width="16" Height="16"/>
-                                        </Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
-
-                        </DataGrid.Columns>
-                    </DataGrid>
+                                <DataGridTemplateColumn Header="">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Name="DeleteSet" Click="DeleteSet_Click" Style="{StaticResource NewAdminPanelDeleteButton}">
+                                                <icon:PackIconMaterial Kind="Delete" Width="16" Height="16"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
 
+                            </DataGrid.Columns>
+                        </DataGrid>
 
 
-                </Grid>
 
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsChecked,ElementName=CategoriesRD}" Value="True">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-            </Border>
+
+                    </Grid>
+
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsChecked,ElementName=CategoriesRD}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+
+            </Grid>
 
 
             <Border CornerRadius="19" BorderThickness="2" Grid.Column="0" Grid.Row="1" Margin="0 0 0 10"  Width="220" Background="White">
@@ -1675,7 +1786,7 @@
                     <!--<RadioButton Name="OverhangParts" Grid.Row="3" Content="Overhang" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
 
                     <RadioButton Name="ALLSparesRD" Grid.Row="4" Content="All spare parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
-                    
+
 
                 </Grid>
 
