@@ -720,7 +720,7 @@
             </Border>
 
 
-            <Border Grid.Column="2" Grid.Row="1" Margin="10 0 10 10" Padding="14" CornerRadius="19" Background="White">
+            <Border  Grid.Column="2" Grid.Row="1" Margin="10 0 10 10" Padding="14" CornerRadius="19" Background="White">
                 <Grid Name="DataGridGrid">
 
                     <Grid.ColumnDefinitions>
@@ -778,7 +778,18 @@
 
 
                         </DataGrid.Columns>
-
+                        <DataGrid.Resources>
+                            <ResourceDictionary>
+                                <Style TargetType="DataGrid">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked,ElementName=PivotParts}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ResourceDictionary>
+                        </DataGrid.Resources>
 
                     </DataGrid>
                     <DataGrid Name="NewSpanConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
@@ -1557,7 +1568,7 @@
 
 
 
-            <Border Grid.Column="2" Grid.Row="1" Margin="5 0 10 10" Padding="14" CornerRadius="19" Background="White">
+            <Border  Grid.Column="2" Grid.Row="1"  Margin="0 0 5 10" Padding="0 0 10 0" CornerRadius="19" Background="White">
                 <Grid Name="SectionsGrid">
 
 
