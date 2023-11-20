@@ -130,7 +130,7 @@
                
 
 
-                        <ComboBox Name="RelationTabCB" Grid.Row="12" Grid.Column="0" Style="{StaticResource MaterialDesignOutlinedComboBox}"  Margin="5 0 5 0" materialDesign:HintAssist.Hint="Select" Height="50" SelectedIndex="0" >
+                        <ComboBox Name="RelationTabCB" Grid.Row="12" Grid.Column="0" Style="{StaticResource MaterialDesignOutlinedComboBox}"  Margin="5 0 5 0" materialDesign:HintAssist.Hint="Select" Height="50"  >
                                 <ComboBoxItem Content="Pivot"/>
                                 <ComboBoxItem Content="Span"/>
                                 <ComboBoxItem Content="SparePart"/>
@@ -679,8 +679,8 @@
                         </Border>
 
                         <DataGrid Name="NewPivotConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0" Margin="20 10 0 10"  Grid.Row="1"  FontSize="12"      GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
-                                              ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
+                                 BorderThickness="0"  Grid.Row="1"  FontSize="12" SelectionChanged="NewPivotConnectionsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                              ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
                                     <DataGridTextColumn.ElementStyle>
@@ -744,7 +744,7 @@
                         </Border>
 
                         <DataGrid Name="NewSpanConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0" Margin="0 10"  Grid.Row="1" Grid.Column="2" FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0" Grid.Row="1" Grid.Column="2" FontSize="12" SelectionChanged="NewSpanConnectionsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
@@ -807,7 +807,7 @@
                         </Border>
 
                         <DataGrid Name="NewPartConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0" Margin="20 10 0 10"  Grid.Row="3"  FontSize="12" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0" Grid.Row="3"  FontSize="12" GridLinesVisibility="None" SelectionChanged="NewPartConnectionsGrid_SelectionChanged" CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
@@ -869,7 +869,7 @@
                         </Border>
 
                         <DataGrid Name="NewSetPartConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0" Margin="0 10"  Grid.Row="3"  Grid.Column="2" FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0" Grid.Row="3"  Grid.Column="2" FontSize="12" SelectionChanged="NewSetPartConnectionsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
@@ -960,16 +960,6 @@
                                 </DataGridTextColumn>
 
                                 <DataGridTextColumn Header="Cost"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Cost}" >
-                                    <DataGridTextColumn.ElementStyle>
-                                        <Style>
-                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-
-                                        </Style>
-                                    </DataGridTextColumn.ElementStyle>
-                                </DataGridTextColumn>
-
-                                <DataGridTextColumn Header="Quantity"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Quantity}" >
                                     <DataGridTextColumn.ElementStyle>
                                         <Style>
                                             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
