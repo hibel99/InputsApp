@@ -681,12 +681,12 @@ namespace InputsApp
         {
             EditPivot_Button.Visibility = Visibility.Visible;
             AddPivot_Button.Visibility = Visibility.Collapsed;
-            RelationTabCB.IsEnabled = false;
-            PivotNameCB.IsEnabled = false;
-            AddToParents.IsEnabled = false;
-            SpanNameCB.IsEnabled = false;
-            PartNameCB.IsEnabled = false;
-            SetNameCB.IsEnabled = false;
+            //RelationTabCB.IsEnabled = false;
+            //PivotNameCB.IsEnabled = false;
+            //AddToParents.IsEnabled = false;
+            //SpanNameCB.IsEnabled = false;
+            //PartNameCB.IsEnabled = false;
+            //SetNameCB.IsEnabled = false;
             if (pivotPartsGrid.SelectedItem is SpareParts selectedItem)
             {
                 pivotEdit = selectedItem;
@@ -703,19 +703,12 @@ namespace InputsApp
         {
             pivotQTYTB.Visibility = Visibility.Visible;
             pivotQTYInSetTB.Visibility = Visibility.Collapsed;
-            EditPivot_Button.Visibility = Visibility.Visible;
-            AddPivot_Button.Visibility = Visibility.Collapsed;
-            RelationTabCB.IsEnabled = false;
-            PivotNameCB.IsEnabled = false;
-            AddToParents.IsEnabled = false;
-            SpanNameCB.IsEnabled = false;
-            PartNameCB.IsEnabled = false;
-            SetNameCB.IsEnabled = false;
-
             if (NewPivotConnectionsGrid.SelectedItem is SpareRelationship piv)
             {
                 pivotQTYTB.Text = piv.Quantity.ToString();
-                //NewPivotConnectionsGrid.UnselectAllCells();
+                RelationTabCB.SelectedIndex = 0;
+                var selectedPivotID = RelationstOBS.FirstOrDefault(x => x.pivotcode == piv.pivotcode);
+                PivotNameCB.Text = PivotsOBS.Where(s => s.ID == selectedPivotID.pivotcode).FirstOrDefault().Name;
                 NewSpanConnectionsGrid.UnselectAllCells();
                 NewPartConnectionsGrid.UnselectAllCells();
                 NewSetPartConnectionsGrid.UnselectAllCells();
@@ -723,56 +716,46 @@ namespace InputsApp
                 NewSetPartConnectionsGrid.SelectedItem = null;
                 NewSpanConnectionsGrid.SelectedItem = null;
             }
-            
+
         }
 
         private void NewSpanConnectionsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             pivotQTYTB.Visibility = Visibility.Visible;
             pivotQTYInSetTB.Visibility = Visibility.Collapsed;
-            EditPivot_Button.Visibility = Visibility.Visible;
-            AddPivot_Button.Visibility = Visibility.Collapsed;
-            RelationTabCB.IsEnabled = false;
-            PivotNameCB.IsEnabled = false;
-            AddToParents.IsEnabled = false;
-            SpanNameCB.IsEnabled = false;
-            PartNameCB.IsEnabled = false;
-            SetNameCB.IsEnabled = false;
-
             if (NewSpanConnectionsGrid.SelectedItem is SpareRelationship span)
             {
                 pivotQTYTB.Text = span.Quantity.ToString();
+                RelationTabCB.SelectedIndex = 1;
+                var selectedSpanID = RelationstOBS.FirstOrDefault(x => x.SpanID == span.SpanID);
+                SpanNameCB.Text = SpansOBS.Where(s => s.ID == selectedSpanID.SpanID).FirstOrDefault().Name;
+                
                 NewPivotConnectionsGrid.UnselectAllCells();
                 NewPartConnectionsGrid.UnselectAllCells();
                 NewSetPartConnectionsGrid.UnselectAllCells();
-                
+
                 NewPivotConnectionsGrid.SelectedItem = null;
                 NewPartConnectionsGrid.SelectedItem = null;
                 NewSetPartConnectionsGrid.SelectedItem = null;
             }
-            
+
         }
         
         private void NewPartConnectionsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             pivotQTYTB.Visibility = Visibility.Visible;
             pivotQTYInSetTB.Visibility = Visibility.Collapsed;
-            EditPivot_Button.Visibility = Visibility.Visible;
-            AddPivot_Button.Visibility = Visibility.Collapsed;
-            RelationTabCB.IsEnabled = false;
-            PivotNameCB.IsEnabled = false;
-            AddToParents.IsEnabled = false;
-            SpanNameCB.IsEnabled = false;
-            PartNameCB.IsEnabled = false;
-            SetNameCB.IsEnabled = false;
-
             if (NewPartConnectionsGrid.SelectedItem is SpareRelationship part)
             {
                 pivotQTYTB.Text = part.Quantity.ToString();
+                RelationTabCB.SelectedIndex = 2;
+                var selectedPartID = RelationstOBS.FirstOrDefault(x => x.SpareID == part.SpareID);
+                var SelectedPart = SparePartsOBS.Where(s => s.ID == selectedPartID.SpareID).FirstOrDefault();
+                PartNameCB.Text = SelectedPart.Name;
                 NewPivotConnectionsGrid.UnselectAllCells();
                 NewSpanConnectionsGrid.UnselectAllCells();
                 NewSetPartConnectionsGrid.UnselectAllCells();
-                
+
                 NewPivotConnectionsGrid.SelectedItem = null;
                 NewSpanConnectionsGrid.SelectedItem = null;
                 NewSetPartConnectionsGrid.SelectedItem = null;
@@ -783,27 +766,22 @@ namespace InputsApp
         {
             pivotQTYTB.Visibility = Visibility.Collapsed;
             pivotQTYInSetTB.Visibility = Visibility.Visible;
-            EditPivot_Button.Visibility = Visibility.Visible;
-            AddPivot_Button.Visibility = Visibility.Collapsed;
-            RelationTabCB.IsEnabled = false;
-            PivotNameCB.IsEnabled = false;
-            AddToParents.IsEnabled = false;
-            SpanNameCB.IsEnabled = false;
-            PartNameCB.IsEnabled = false;
-            SetNameCB.IsEnabled = false;
-
             if (NewSetPartConnectionsGrid.SelectedItem is SpareRelationship set)
             {
                 pivotQTYInSetTB.Text = set.Quantity.ToString();
+                RelationTabCB.SelectedIndex = 3;
+                var selectedSetID = RelationstOBS.FirstOrDefault(x => x.SetID==set.SetID);
+                var SelectedSet = SetOBS.Where(s => s.ID == selectedSetID.SetID).FirstOrDefault();
+                SetNameCB.Text = SelectedSet.Name;
                 NewPivotConnectionsGrid.UnselectAllCells();
                 NewSpanConnectionsGrid.UnselectAllCells();
                 NewPartConnectionsGrid.UnselectAllCells();
-                
+
                 NewPivotConnectionsGrid.SelectedItem = null;
                 NewSpanConnectionsGrid.SelectedItem = null;
                 NewPartConnectionsGrid.SelectedItem = null;
             }
-            
+
         }
 
         private void UpdateTextBoxesFromItem_Pivots(SpareParts pivotEdit)
@@ -817,7 +795,7 @@ namespace InputsApp
             pivotwidthTB.Text = pivotEdit.Width.ToString();
             pivotlenghtTB.Text = pivotEdit.Length.ToString();
             pivotWeightTB.Text = pivotEdit.Weight.ToString();
-            //pivotQTYTB.Text = pivotEdit.Quantity.ToString();
+            pivotQTYTB.Text = pivotEdit.Quantity.ToString();
             
             PivotPartARTB.Text = pivotEdit.NameAR.ToString();
 
@@ -1447,26 +1425,35 @@ namespace InputsApp
             return isQtyChanged;
         }
 
-        private async Task EditSparePartReilations(List<SpareRelationship> partRels,double newQty)
+        private async Task EditSparePartReilations(SpareRelationship partRels,double newQty)
         {
             double QTYInSet = 0;
+
             if (!string.IsNullOrEmpty(pivotQTYInSetTB.Text))
             {
                 QTYInSet = double.Parse(pivotQTYInSetTB.Text);
             }
 
-            foreach (var rel in partRels)
+            if(partRels.SetID > 0)
             {
-                if (rel.SetID > 0)
-                {
-                    rel.Quantity = QTYInSet;
-                }
-                else
-                {
-                    rel.Quantity = newQty;
-                }
-                await _pivotPartsRepository.EditPivotPartRelation(rel);
+                partRels.Quantity = QTYInSet;
             }
+            else
+            {
+                partRels.Quantity = newQty;
+            }
+            await _pivotPartsRepository.EditPivotPartRelation(partRels);
+
+            //foreach (var rel in partRels)
+            //{
+            //    if (rel.SetID > 0)
+            //    {
+            //    }
+            //    else
+            //    {
+            //        rel.Quantity = newQty;
+            //    }
+            //}
         }
         private async void EditPivot_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -1503,10 +1490,28 @@ namespace InputsApp
                 }
                 var isQtyChanged = EditSparePartFields(pivotPart, qtyInSet);
 
+        
 
                 if (isQtyChanged)
                 {
-                    await EditSparePartReilations(PartRelations, pivotPart.Quantity);
+                    var selectedRelation = rel;
+                    if (NewPivotConnectionsGrid.SelectedItem is SpareRelationship piv)
+                    {
+                        selectedRelation = PartRelations.Where(x => x.pivotcode == piv.pivotcode).FirstOrDefault();
+                    }
+                    if (NewSpanConnectionsGrid.SelectedItem is SpareRelationship span)
+                    {
+                        selectedRelation = PartRelations.Where(x => x.SpanID == span.SpanID).FirstOrDefault();
+                    }
+                    if (NewPartConnectionsGrid.SelectedItem is SpareRelationship part)
+                    {
+                        selectedRelation = PartRelations.Where(x => x.SpareID == part.SpareID).FirstOrDefault();
+                    }
+                    if (NewSetPartConnectionsGrid.SelectedItem is SpareRelationship set)
+                    {
+                        selectedRelation = PartRelations.Where(x => x.SetID == set.SetID).FirstOrDefault();
+                    }
+                    await EditSparePartReilations(selectedRelation, pivotPart.Quantity);
                 }
 
 
@@ -1703,10 +1708,7 @@ namespace InputsApp
 
         private bool IsAnyFieldEmpty(params string[] fields) => fields.Any((field) => field.Length == 0);
 
-        private void pivotQTYTB_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+        
 
         private void CancelAddPartBT_Click(object sender, RoutedEventArgs e)
         {

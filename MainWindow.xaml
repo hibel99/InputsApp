@@ -309,7 +309,7 @@
                     </Grid>
 
 
-                    <TextBox  Name="pivotQTYTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"    materialDesign:HintAssist.Hint="Quantity" Grid.Row="10" Grid.Column="1" Padding="14" TextChanged="pivotQTYTB_TextChanged">
+                    <TextBox  Name="pivotQTYTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"    materialDesign:HintAssist.Hint="Quantity" Grid.Row="10" Grid.Column="1" Padding="14" >
                         <TextBox.Style>
                             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
                                 <Setter Property="Visibility" Value="Visible"/>
@@ -322,7 +322,7 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <TextBox  Name="pivotQTYInSetTB"  BorderBrush="Orange"  PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Quantity in set" Grid.Row="10" Grid.Column="1" Padding="14">
+                    <TextBox  Name="pivotQTYInSetTB" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Quantity in set" Grid.Row="10" Grid.Column="1" Padding="14">
 
                         <TextBox.Style>
                             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
