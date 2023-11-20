@@ -770,7 +770,7 @@ namespace InputsApp
             {
                 pivotQTYInSetTB.Text = set.Quantity.ToString();
                 RelationTabCB.SelectedIndex = 3;
-                var selectedSetID = RelationstOBS.FirstOrDefault(x => x.SetID==set.SetID);
+                var selectedSetID = RelationstOBS.FirstOrDefault(x => x.SetID == set.SetID);
                 var SelectedSet = SetOBS.Where(s => s.ID == selectedSetID.SetID).FirstOrDefault();
                 SetNameCB.Text = SelectedSet.Name;
                 NewPivotConnectionsGrid.UnselectAllCells();
@@ -1225,62 +1225,80 @@ namespace InputsApp
         {
             if (NewPivotConnectionsGrid.SelectedItem is SpareRelationship piv)
             {
-                PivotParentOBS.Remove(piv);
-                if (piv.ID != 0)
+                if (MessageBox.Show($"Are you sure you want to remove this part from pivot with ID {piv.pivotcode}?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                  await  _pivotPartsRepository.DeletePivotPartRelation(piv.ID);
+                    PivotParentOBS.Remove(piv);
+                    if (piv.ID != 0)
+                    {
+                        await _pivotPartsRepository.DeletePivotPartRelation(piv.ID);
+                    }
+                    NewPivotConnectionsGrid.ItemsSource = PivotParentOBS;
+                    NewPivotConnectionsGrid.Items.Refresh();
+                    EditPivot_Button.Visibility = Visibility.Collapsed;
+                    AddPivot_Button.Visibility = Visibility.Visible;
                 }
-                NewPivotConnectionsGrid.ItemsSource= PivotParentOBS;
-               EditPivot_Button.Visibility = Visibility.Collapsed;
-               AddPivot_Button.Visibility = Visibility.Visible;
             }
-            
         }
 
         private async void deleteSpanParents_Click(object sender, RoutedEventArgs e)
         {
-            if (NewSpanConnectionsGrid.SelectedItem is SpareRelationship spa)
-            {
-                SpanParentOBS.Remove(spa);
-                if (spa.ID != 0)
+                if (NewSpanConnectionsGrid.SelectedItem is SpareRelationship spa)
                 {
-                    await _pivotPartsRepository.DeletePivotPartRelation(spa.ID);
+                if (MessageBox.Show($"Are you sure you want to remove this part from span with ID {spa.SpanID}?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    SpanParentOBS.Remove(spa);
+                    if (spa.ID != 0)
+                    {
+                        await _pivotPartsRepository.DeletePivotPartRelation(spa.ID);
+                    }
+                    NewSpanConnectionsGrid.ItemsSource = SpanParentOBS;
+                    NewSpanConnectionsGrid.Items.Refresh();
+                    EditPivot_Button.Visibility = Visibility.Collapsed;
+                    AddPivot_Button.Visibility = Visibility.Visible;
                 }
-                NewSpanConnectionsGrid.ItemsSource = SpanParentOBS;
-                EditPivot_Button.Visibility = Visibility.Collapsed;
-                AddPivot_Button.Visibility = Visibility.Visible;
-            }
+                    
+                }
         }
 
         private async void deleteSpareParents_Click(object sender, RoutedEventArgs e)
         {
-            if (NewPartConnectionsGrid.SelectedItem is SpareRelationship spp)
-            {
-                SpareParentOBS.Remove(spp);
-                if (spp.ID != 0)
+                if (NewPartConnectionsGrid.SelectedItem is SpareRelationship spp)
                 {
-                    await _pivotPartsRepository.DeletePivotPartRelation(spp.ID);
+                if (MessageBox.Show($"Are you sure you want to remove this part from spare part with ID {spp.SpareID}?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    SpareParentOBS.Remove(spp);
+                    if (spp.ID != 0)
+                    {
+                        await _pivotPartsRepository.DeletePivotPartRelation(spp.ID);
+                    }
+                    NewPartConnectionsGrid.ItemsSource = SpareParentOBS;
+                    NewPartConnectionsGrid.Items.Refresh();
+                    EditPivot_Button.Visibility = Visibility.Collapsed;
+                    AddPivot_Button.Visibility = Visibility.Visible;
                 }
-                NewPartConnectionsGrid.ItemsSource = SpareParentOBS;
-                EditPivot_Button.Visibility = Visibility.Collapsed;
-                AddPivot_Button.Visibility = Visibility.Visible;
-            }
+                    
+                }
         }
 
 
         private async void deleteSetParents_Click(object sender, RoutedEventArgs e)
         {
-            if (NewSetPartConnectionsGrid.SelectedItem is SpareRelationship spp)
-            {
-                SetParentOBS.Remove(spp);
-                if (spp.ID != 0)
+                if (NewSetPartConnectionsGrid.SelectedItem is SpareRelationship spp)
                 {
-                    await _pivotPartsRepository.DeletePivotPartRelation(spp.ID);
+                if (MessageBox.Show($"Are you sure you want to remove this part from set with ID {spp.SetID}?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    SetParentOBS.Remove(spp);
+                    if (spp.ID != 0)
+                    {
+                        await _pivotPartsRepository.DeletePivotPartRelation(spp.ID);
+                    }
+                    NewSetPartConnectionsGrid.ItemsSource = SetParentOBS;
+                    NewSetPartConnectionsGrid.Items.Refresh();
+                    EditPivot_Button.Visibility = Visibility.Collapsed;
+                    AddPivot_Button.Visibility = Visibility.Visible;
                 }
-                NewSetPartConnectionsGrid.ItemsSource = SetParentOBS;
-                EditPivot_Button.Visibility = Visibility.Collapsed;
-                AddPivot_Button.Visibility = Visibility.Visible;
-            }
+                    
+                }
         }
 
 
