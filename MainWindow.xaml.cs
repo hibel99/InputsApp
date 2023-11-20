@@ -613,6 +613,7 @@ namespace InputsApp
                 pivotWeightTB.Text = string.Empty;
                 PivotPartARTB.Text = string.Empty;
                 pivotQTYTB.Text = string.Empty;
+                pivotQTYInSetTB.Text = string.Empty;
 
                 PivotBrandCB.SelectedItem = null;
                 PivotSectionCB.SelectedItem = null;
@@ -625,6 +626,20 @@ namespace InputsApp
                 pivotLengthUnitCB.SelectedItem = null;
                 pivotWidthUnitCB.SelectedItem = null;
                 pivotWeightUnitCB.SelectedItem = null;
+
+                RelationTabCB.IsEnabled = true;
+                SpanNameCB.IsEnabled = true;
+                PartNameCB.IsEnabled = true;
+                SetNameCB.IsEnabled = true;
+                PivotNameCB.IsEnabled = true;
+                AddToParents.IsEnabled = true;
+
+
+                RelationTabCB.SelectedIndex = -1;
+                SpanNameCB.SelectedIndex = -1;
+                PartNameCB.SelectedIndex = -1;
+                PivotNameCB.SelectedIndex = -1;
+                SetNameCB.SelectedIndex = -1;
 
                 SpareParentOBS.Clear();
                 SpanParentOBS.Clear();
@@ -970,7 +985,7 @@ namespace InputsApp
         {
 
 
-            if (IsAnyFieldEmpty(LengthTB.Text, DiameterTB.Text, SpanNameTB.Text, SpanCostTB.Text))
+            if (IsAnyFieldEmpty(LengthTB.Text, DiameterTB.Text, SpanNameTB.Text, SpanCostTB.Text, SpanCostTB.Text, SpanOutletsTB.Text, SpanHeightFromGroundTB.Text, HeightFromGroundUnitCB.Text))
             {
                 MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
 
@@ -984,6 +999,9 @@ namespace InputsApp
                 "Span",
                 SpanNameTB.Text,
                 decimal.Parse(SpanCostTB.Text),
+                int.Parse(SpanOutletsTB.Text),
+                decimal.Parse(SpanHeightFromGroundTB.Text),
+                HeightFromGroundUnitCB.Text,
                 string.Join(",", PivotSpanParentOBS.Select(x=>x.ID).ToList())
             );
 
@@ -1692,13 +1710,10 @@ namespace InputsApp
 
         private void CancelAddPartBT_Click(object sender, RoutedEventArgs e)
         {
+
             ClearTextBoxes();
-            RelationTabCB.IsEnabled = true;
-            SpanNameCB.IsEnabled = true;
-            PartNameCB.IsEnabled = true;
-            SetNameCB.IsEnabled = true;
-            PivotNameCB.IsEnabled = true;
-            AddToParents.IsEnabled = true;
+
+
             pivotPartsGrid.SelectedItem = null;
             pivotPartsGrid.SelectedIndex = -1;
 
@@ -1713,6 +1728,13 @@ namespace InputsApp
 
             NewSetPartConnectionsGrid.SelectedItem = null;
             NewSetPartConnectionsGrid.SelectedIndex = -1;
+
+            RelationTabCB.SelectedIndex = -1;
+
+            SpanNameCB.SelectedIndex = -1;
+            PartNameCB.SelectedIndex = -1;
+            PivotNameCB.SelectedIndex = -1;
+            SetNameCB.SelectedIndex = -1;
 
             EditPivot_Button.Visibility = Visibility.Collapsed;
             AddPivot_Button.Visibility = Visibility.Visible;

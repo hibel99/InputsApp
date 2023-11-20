@@ -57,6 +57,9 @@ public class SpanRepository : ISpanRepository
                    Category = span.Category,
                    Name = span.Name,
                    Cost = span.Cost,
+                   Outlets = span.Outlets,
+                   HeightFromGround = span.HeightFromGround,
+                   HeightFromGroundUnit = span.HeightFromGroundUnit,
                    PivotID = span.PivotID,
                },
                AppConnection.ConnectionString);
@@ -83,6 +86,9 @@ public class SpanRepository : ISpanRepository
          Category = span.Category,
          Name = span.Name,
          Cost = span.Cost,
+         Outlets = span.Outlets,
+         HeightFromGround = span.HeightFromGround,
+         HeightFromGroundUnit = span.HeightFromGroundUnit,
          PivotID = span.PivotID,
      },
     AppConnection.ConnectionString);
