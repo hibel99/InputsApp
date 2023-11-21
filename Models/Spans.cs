@@ -21,19 +21,22 @@ namespace InputsApp.Models
         {
         }
 
-        public Spans(decimal length, decimal diameter, string category, string name, decimal cost,  string pivotID)
+        public Spans(decimal length, decimal diameter, string category, string name, decimal cost, int outlets, decimal heightFromGround, string heightFromGroundUnit, string pivotID)
         {
             Length = length;
             Diameter = diameter;
             Category = category;
             Name = name;
             Cost = cost;
+            Outlets = outlets;
+            HeightFromGround = heightFromGround;
+            HeightFromGroundUnit = heightFromGroundUnit;
             PivotID = pivotID;
-
+            
         }
 
 
-        public Spans(int iD, decimal length, decimal diameter, string category, string name, decimal cost,   string pivotID)
+        public Spans(int iD, decimal length, decimal diameter, string category, string name, decimal cost, int outlets, decimal heightFromGround, string heightFromGroundUnit, string pivotID)
         {
             ID = iD;
             Length = length;
@@ -41,7 +44,11 @@ namespace InputsApp.Models
             Category = category;
             Name = name;
             Cost = cost;
+            Outlets = outlets;
+            HeightFromGround = heightFromGround;
+            HeightFromGroundUnit = heightFromGroundUnit;
             PivotID = pivotID;
+           
         }
 
         public int ID { get; set; }
@@ -50,6 +57,13 @@ namespace InputsApp.Models
         public string Category { get; set; }
         public string Name { get; set; }
         public decimal Cost { get; set; }
+
+        public int Outlets { get; set; }
+        public decimal HeightFromGround { get; set; }
+
+        public string HeightFromGroundUnit { get; set; }
+
+        public string? HeightFromGroundForDG => $"{HeightFromGround} {HeightFromGroundUnit}";
         public string PivotID { get; set; }
         public List<PivotTable> ParentPivots { get; set; }
     }
