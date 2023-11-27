@@ -58,7 +58,7 @@
                 </Button>
             </StackPanel>
 
-            <Border Grid.Column="1" Grid.Row="1" Margin="0 0 10 10" Background="White" CornerRadius="19" >
+            <Border Visibility="Visible"  Grid.Column="1" Grid.Row="1" Margin="0 0 10 10" Background="White" CornerRadius="19" >
                 <Grid  Name="PivotGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -367,6 +367,55 @@
             </Border>
 
             <Border Grid.Column="1" Grid.Row="1" CornerRadius="19" Background="White" Margin="0 0 10 10">
+                <Grid Name="PivotsGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Pivot Name" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Pivot Category" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <TextBox Name="PivotCategory" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="0" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Pivot Category"/>
+                    <TextBox  Name="PivotName" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="1" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Pivot Name"/>
+                    <Button Content="Add Pivot" Name="AddNewPivotBT" Click="AddNewPivotBT_Click"  Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="9" Grid.ColumnSpan="2"  Padding="14" />
+
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsChecked,ElementName=Pivots}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                </Grid>
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChecked,ElementName=Pivots}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+
+            <Border Visibility="Hidden" Grid.Column="1" Grid.Row="1" CornerRadius="19" Background="White" Margin="0 0 10 10">
                 <Grid Name="SprinklerGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -424,55 +473,6 @@
             </Border>
 
 
-            <Border Grid.Column="1" Grid.Row="1" CornerRadius="19" Background="White" Margin="0 0 10 10">
-                <Grid Name="PivotsGrid">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Text="Pivot Name" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Pivot Category" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-                    <TextBox Name="PivotCategory" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="0" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Pivot Category"/>
-                    <TextBox  Name="PivotName" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="1" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Pivot Name"/>
-                    <Button Content="Add Pivot" Name="AddNewPivotBT" Click="AddNewPivotBT_Click"  Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="9" Grid.ColumnSpan="2"  Padding="14" />
-
-                    <Grid.Style>
-                        <Style TargetType="Grid">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsChecked,ElementName=Pivots}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Grid.Style>
-                </Grid>
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsChecked,ElementName=Pivots}" Value="True">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-            </Border>
-
             <Border Grid.Column="1" Grid.Row="1" CornerRadius="19" Background="White" Margin="0 0 10 10" Panel.ZIndex="100">
                 <Grid Name="SpansGrid" Margin="10">
                     <Grid.ColumnDefinitions>
@@ -489,8 +489,8 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                       
-                        
+
+
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Name" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -682,11 +682,287 @@
                 </Border.Style>
             </Border>
 
-            <Border Grid.Column="2" Grid.Row="1" Margin="0 0 10 10" Padding="14" CornerRadius="19" Background="White">
+
+
+
+
+
+            <!--hk2s-->
+
+
+            <Border   Grid.Column="1" Grid.Row="1" Margin="0 0 10 10" Background="White" CornerRadius="19" >
+
+                <Grid Name="DataGrwGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+
+
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox Name="OpenFilterForPivotPartsDG" Grid.Row="0"  Grid.Column="0" Style="{StaticResource ToggleButtonButtonStyle}" Content="Filter" IsChecked="False"   HorizontalAlignment="Left"  VerticalAlignment="Center" Height="64" Width="99">
+                        </CheckBox>
+
+
+                        <Button Name="ClearFilterForPivotPartDG" Grid.Row="0" Grid.Column="1" Content="Clear"   Style="{StaticResource MaterialDesignFlatButton}"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="ClearFilterForPivotPartDG_Click">
+
+                        </Button>
+
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName=PivotPartsRelations}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                    </Grid>
+
+
+                    <Grid Grid.Row="1" Panel.ZIndex="2" Width="500" Height="510" VerticalAlignment="Top" HorizontalAlignment="Left"  Name="UsersFilterBorderForPivotPartsDG" Margin="10,5,0,0" RenderTransformOrigin="0.5,0.5" >
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="0.42"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Border  CornerRadius="20" Background="#F2F2F2" >
+                            <ScrollViewer Style="{StaticResource MaterialDesignScrollViewer}" VerticalScrollBarVisibility="Auto" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition MinHeight="100" Height="auto"/>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition MinHeight="100" Height="auto"/>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition Height="*"/>
+
+
+
+
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Text="Category" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.ColumnSpan="3"/>
+                                    <CheckBox HorizontalAlignment="Right" Checked="PivotPartFilterSelectAll_Checked" Unchecked="PivotPartFilterSelectAll_Unchecked" Margin="0 0 40 0" Name="PivotPartFilterSelectAll" Style="{StaticResource MaterialDesignActionLightCheckBox}" Grid.ColumnSpan="3">
+                                        <icon:PackIconMaterial Kind="CheckboxMarkedOutline"/>
+                                    </CheckBox>
+                                    <Separator VerticalAlignment="Bottom" BorderBrush="#FD8207"  Foreground="#FD8207" Margin="25 0"  Grid.ColumnSpan="3"/>
+
+                                    <ItemsControl x:Name="PivotPartCategoriesFilterIC"  Grid.Row="1" Margin="25 0" VerticalAlignment="Center"  d:ItemsSource="{d:SampleData ItemCount=5}"  Grid.ColumnSpan="3">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Content="{Binding NameAR}" Margin="10" IsChecked="{Binding IsSelect,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl >
+
+
+                                    <Separator Grid.Row="1" Grid.ColumnSpan="4" VerticalAlignment="Bottom" BorderBrush="#FD8207"  Foreground="#FD8207" Margin="25 0"/>
+
+
+                                    <TextBlock Grid.Row="2" Text="Name" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0"/>
+
+                                    <TextBox Grid.Row="2" Name="PivotPartFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="25 0" Width="240"  Grid.Column="1" Padding="14" Grid.ColumnSpan="2" materialDesign:HintAssist.Hint="Name" />
+
+                                    <Separator Grid.Row="2" Grid.ColumnSpan="4" VerticalAlignment="Bottom" BorderBrush="#FD8207"  Foreground="#FD8207" Margin="25 0"/>
+
+
+                                    <!--hmkk-->
+
+                                    <TextBlock Grid.Row="3" Text="Arabic Name" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0"/>
+
+                                    <TextBox Grid.Row="3" Name="PivotPartARNameFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="25 0" Width="240"  Grid.Column="1" Padding="14" Grid.ColumnSpan="2" materialDesign:HintAssist.Hint="Arabic Name" />
+
+                                    <Separator  Grid.Row="3" Grid.ColumnSpan="4" VerticalAlignment="Bottom" BorderBrush="#FD8207"  Foreground="#FD8207" Margin="25 0"/>
+
+
+
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Cost Range" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0"/>
+                                    <TextBox Name="PivotPartMinCorstFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" Margin="25,12,0,13" Grid.Row="4" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Min" HorizontalAlignment="Left" Width="100" />
+                                    <TextBox Name="PivotPartMaxCostFiltrerTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="0 0" Width="100" Grid.Row="4" Grid.Column="2" Padding="14"  materialDesign:HintAssist.Hint="Max" />
+
+
+                                    <Button Grid.Column="1" x:Name="ApplyFiltersForPivotPartsDG" Grid.Row="5" Content="Apply" Click="ApplyFiltersForPivotPartsDG_Click" HorizontalAlignment="Center"  Style="{StaticResource OrangeButton}" />
+
+
+                                </Grid>
+                            </ScrollViewer>
+
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked,ElementName=OpenFilterForPivotPartsDG}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsChecked, ElementName=OpenFilterForPivotPartsDG}" Value="True"/>
+                                            <Condition Binding="{Binding IsChecked, ElementName=PivotPartsRelations}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+
+                    </Grid>
+
+
+
+                    <DataGrid Grid.Row="1"  d:ItemsSource="{d:SampleData ItemCount=5}" Name="pivotPartsRelationsGrid" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                                 BorderThickness="0" Margin="10"   Grid.ColumnSpan="3"   FontSize="12"    CanUserResizeColumns="True"      GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left" SelectionChanged="pivotPartsRelationsGrid_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotCategory}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Part Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Arabic"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding NameAR}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Cost"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Cost}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTemplateColumn  Width="0.5*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Name="EditPivotPartRelationsButtoninDG"  Click="EditPivotPartRelationsButtoninDG_Click" Style="{StaticResource NewAdminPanelDeleteButton}"  HorizontalAlignment="Right">
+                                            <icon:PackIconMaterial Kind="Cog" Width="12" Height="16"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header=""  Width="0.5*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Name="DeleteButtoninDG" Click="DeleteButtoninDG_Click" Style="{StaticResource NewAdminPanelDeleteButton}"  HorizontalAlignment="Left">
+                                            <icon:PackIconMaterial Kind="Delete" Width="12" Height="16"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                        </DataGrid.Columns>
+
+                        <DataGrid.Resources>
+                            <ResourceDictionary>
+                                <Style x:Key="{x:Type DataGridCell}" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="BorderBrush" Value="Transparent" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                                <Style TargetType="DataGrid">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked,ElementName=PivotPartsRelations}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ResourceDictionary>
+                        </DataGrid.Resources>
+                    </DataGrid>
+                </Grid>
+
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChecked,ElementName=PivotPartsRelations}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+
+
+
+
+            <Border  Grid.Column="2" Grid.Row="1" Margin="0 0 10 10" Padding="14" CornerRadius="19" Background="White">
+
                 <Grid Name="DataGridGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
 
 
-                    <Grid Name="PivotPartsDatagridsGrid" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="5">
+                    <Grid Name="PivotPartsDatagridsGrid" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="6">
+
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="0.02*"/>
@@ -704,9 +980,9 @@
                             <TextBlock Text="Pivot Parts" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
                         </Border>
 
-                        <DataGrid Name="NewPivotConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                        <DataGrid  Name="NewPivotConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
                                  BorderThickness="0"  Grid.Row="1"  FontSize="12" SelectionChanged="NewPivotConnectionsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
-                                              ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
+                                              ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
                                     <DataGridTextColumn.ElementStyle>
@@ -1067,10 +1343,304 @@
                                 </Style.Triggers>
                             </Style>
                         </Grid.Style>
+                        <!--hkmend-->
                     </Grid>
 
 
-                    <DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Name="SprinklerPartsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+
+
+
+
+
+                    <Grid Name="PivotPartsRelationsDatagridsGrid" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                        <!--hkms-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.02*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height=".10*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height=".10*"/>
+                            <RowDefinition Height="*"/>
+                            
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="0" Background="Orange" CornerRadius="5">
+                            <TextBlock Text="Pivot Parts" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <DataGrid Name="NewPivotRelationsConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                                 BorderThickness="0"  Grid.Row="1"  FontSize="12"  GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                              ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotCategory}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Quantity"   CanUserResize ="True"  Width="*" Binding="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTemplateColumn Header="" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Name="deletePivotParents" Click="deletePivotParents_Click" Style="{StaticResource NewAdminPanelDeleteButton}">
+                                                <icon:PackIconMaterial Kind="Delete" Width="16" Height="16"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+
+                            </DataGrid.Columns>
+                            <DataGrid.Resources>
+                                <ResourceDictionary>
+                                    <Style TargetType="DataGrid">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked,ElementName=PivotPartsRelations}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ResourceDictionary>
+                            </DataGrid.Resources>
+
+                        </DataGrid>
+
+                        <Border Grid.Row="0" Grid.Column="2" Background="Orange" CornerRadius="5">
+                            <TextBlock Text="Span Parts"  HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <DataGrid Name="NewSpanRelationsConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                                 BorderThickness="0" Grid.Row="1" Grid.Column="2" FontSize="12" SelectionChanged="NewSpanConnectionsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotCategory}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Quantity"   CanUserResize ="True"  Width="*" Binding="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTemplateColumn Header="" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Name="deleteSpanParents" Click="deleteSpanParents_Click" Style="{StaticResource NewAdminPanelDeleteButton}">
+                                                <icon:PackIconMaterial Kind="Delete" Width="16" Height="16"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                            <DataGrid.Resources>
+                                <ResourceDictionary>
+                                    <Style TargetType="DataGrid">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked,ElementName=PivotPartsRelations}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ResourceDictionary>
+                            </DataGrid.Resources>
+
+                        </DataGrid>
+
+                        <Border Grid.Row="2" Grid.Column="0" CornerRadius="5" Background="Orange">
+                            <TextBlock Text="Part Components"  HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <DataGrid Name="NewPartRelationsConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                                 BorderThickness="0" Grid.Row="3"  FontSize="12" GridLinesVisibility="None" SelectionChanged="NewPartConnectionsGrid_SelectionChanged" CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotCategory}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Quantity"   CanUserResize ="True"  Width="*" Binding="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTemplateColumn Header="" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Name="deleteSpareParents" Click="deleteSpareParents_Click" Style="{StaticResource NewAdminPanelDeleteButton}">
+                                                <icon:PackIconMaterial Kind="Delete" Width="16" Height="16"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                            <DataGrid.Resources>
+                                <ResourceDictionary>
+                                    <Style TargetType="DataGrid">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked,ElementName=PivotPartsRelations}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ResourceDictionary>
+                            </DataGrid.Resources>
+                        </DataGrid>
+
+                        <Border CornerRadius="5" Background="Orange" Grid.Row="2" Grid.Column="2">
+                            <TextBlock Text="Set Items"  HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <DataGrid Name="NewSetPartRelationsConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                                 BorderThickness="0" Grid.Row="3"  Grid.Column="2" FontSize="12" SelectionChanged="NewSetPartConnectionsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotCategory}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Quantity"   CanUserResize ="True"  Width="*" Binding="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTemplateColumn Header="" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Name="deleteSpareParents" Click="deleteSetParents_Click" Style="{StaticResource NewAdminPanelDeleteButton}">
+                                                <icon:PackIconMaterial Kind="Delete" Width="16" Height="16"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                            <DataGrid.Resources>
+                                <ResourceDictionary>
+                                    <Style TargetType="DataGrid">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked,ElementName=PivotPartsRelations}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ResourceDictionary>
+                            </DataGrid.Resources>
+                        </DataGrid>
+
+
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked,ElementName=PivotPartsRelations}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <!--hkmend-->
+                    </Grid>
+
+
+
+
+
+
+
+
+                    <DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Name="SprinklerPartsDG" VerticalScrollBarVisibility="Disabled"  Grid.Row="1"  AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
                                    BorderThickness="0" FontSize="12" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White" SelectionChanged="SprinklerPartsDG_SelectionChanged"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                         <DataGrid.Columns>
@@ -1191,8 +1761,35 @@
                         </DataGrid.Resources>
                     </DataGrid>
 
+                    <!--<TextBlock Grid.Row="0" Grid.Column="0" Text="Length Ranged" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0"/>-->
 
-                    <DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Name="PivotsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding PivotsOBS}"
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="*"/>
+
+
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="PivotCategoryFilterTB" Style="{StaticResource MaterialDesignTextBox }" Height="40" HorizontalAlignment="Left" Margin="25 0" Width="200" Grid.Row="0" Grid.Column="0" Padding="10"  materialDesign:HintAssist.Hint="Search By Category" />
+                        <TextBox Name="PivotNameFilterTB" Style="{StaticResource  MaterialDesignTextBox}" Height="40"  HorizontalAlignment="Left" Width="200" Grid.Row="0" Grid.Column="1" Padding="10"  materialDesign:HintAssist.Hint="Search By Name" />
+                        <Button x:Name="PivotFilterApplyBT" Style="{StaticResource OrangeButton}"  Grid.Column="2" Width="75" VerticalAlignment="Center" HorizontalAlignment="Left"  Content="Apply" Click="PivotFilterApplyBT_Click"/>
+
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName=Pivots}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                    </Grid>
+
+                    <Separator Grid.Row="1" Grid.ColumnSpan="4" VerticalAlignment="Bottom" BorderBrush="#FD8207"  Foreground="#FD8207" Margin="25 0"/>
+
+                    <DataGrid  d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="1" Name="PivotsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding PivotsOBS}"
                                  BorderThickness="0" FontSize="12" Grid.RowSpan="3" Grid.ColumnSpan="2" SelectionChanged="pivotPartsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                         <DataGrid.Columns>
@@ -1251,7 +1848,7 @@
                         </DataGrid.Resources>
                     </DataGrid>
 
-                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Name="OverhangDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="1" Name="OverhangDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
                                  BorderThickness="0" FontSize="12"   SelectionChanged="pivotPartsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                         <DataGrid.Columns>
@@ -1337,8 +1934,182 @@
                         </DataGrid.Resources>
                     </DataGrid>
 
+
+
+
+
+
+                    <!--Spans data grid with filters-->
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+
+
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox Name="OpenFilterForSpansDG" Grid.Row="0"  Grid.Column="0" Style="{StaticResource ToggleButtonButtonStyle}" Content="Filter" IsChecked="False"   HorizontalAlignment="Left"  VerticalAlignment="Center" Height="64" Width="99">
+                        </CheckBox>
+
+
+                        <Button Name="ClearFilterForSpansDG" Grid.Row="0" Grid.Column="1" Content="Clear"   Style="{StaticResource MaterialDesignFlatButton}"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="ClearFilterForSpansDG_Click">
+
+                        </Button>
+
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName=SpanParts}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                    </Grid>
+
+
+
+                    <Grid Grid.Row="1" Width="500" Height="600" VerticalAlignment="Top" HorizontalAlignment="Left" Panel.ZIndex="2" Name="UsersFilterBorderForSpansDG" Margin="10,5,0,0" RenderTransformOrigin="0.5,0.5">
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="0.42"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Border  CornerRadius="20" Background="#F2F2F2" >
+                            <ScrollViewer Style="{StaticResource MaterialDesignScrollViewer}" VerticalScrollBarVisibility="Auto" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+
+
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition MinHeight="100" Height="auto"/>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition MinHeight="100" Height="auto"/>
+                                        <RowDefinition Height="75"/>
+                                        <RowDefinition MinHeight="100" Height="auto"/>
+                                        <RowDefinition Height="75"/>
+
+
+
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Text="Name" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0"/>
+
+                                    <TextBox Name="SpanNameFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="25 0" Width="240" Grid.Row="0" Grid.Column="1" Padding="14" Grid.ColumnSpan="2" materialDesign:HintAssist.Hint="Name" />
+
+                                    <Separator Grid.ColumnSpan="4" VerticalAlignment="Bottom" BorderBrush="#FD8207"  Foreground="#FD8207" Margin="25 0"/>
+
+
+
+
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Length Ranged" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0"/>
+                                    <TextBox Name="SpanMinLengthFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="25 0" Width="100" Grid.Row="1" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Min" />
+                                    <TextBox Name="SpanMaxLengthFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="0 0" Width="100" Grid.Row="1" Grid.Column="2" Padding="14"  materialDesign:HintAssist.Hint="Max" />
+
+                                    <Separator Grid.Row="1" Grid.ColumnSpan="4" VerticalAlignment="Bottom" BorderBrush="#FD8207"  Foreground="#FD8207" Margin="25 0"/>
+
+
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Diameter" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0"/>
+
+                                    <TextBox Name="SpanDiameterFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="25 0" Width="240" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Padding="14"  materialDesign:HintAssist.Hint="Diameter" />
+
+                                    <Separator Grid.Row="2" Grid.ColumnSpan="4" VerticalAlignment="Bottom" BorderBrush="#FD8207"  Foreground="#FD8207" Margin="25 0"/>
+
+
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Outlets" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0"/>
+
+                                    <TextBox Name="SpanOutletsFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="25 0" Width="240" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Padding="14"  materialDesign:HintAssist.Hint="Outlets" />
+
+                                    <Separator Grid.Row="3" Grid.ColumnSpan="4" VerticalAlignment="Bottom" BorderBrush="#FD8207"  Foreground="#FD8207" Margin="25 0"/>
+
+
+
+
+
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Height From Ground" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0"/>
+
+                                    <TextBox Name="SpanHeightFromGroundFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="25 0" Width="240" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Padding="14"  materialDesign:HintAssist.Hint="Height From Ground " />
+
+                                    <Separator Grid.Row="4" Grid.ColumnSpan="4" VerticalAlignment="Bottom" BorderBrush="#FD8207"  Foreground="#FD8207" Margin="25 0"/>
+
+
+
+
+                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Cost Range" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0"/>
+                                    <TextBox Name="SpanMinCostFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="25 0" Width="100" Grid.Row="5" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Min" />
+                                    <TextBox Name="SpanMaxCostFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="0 0" Width="100" Grid.Row="5" Grid.Column="2" Padding="14"  materialDesign:HintAssist.Hint="Max" />
+
+                                    <Separator Grid.Row="5" Grid.ColumnSpan="4" VerticalAlignment="Bottom" BorderBrush="#FD8207"  Foreground="#FD8207" Margin="25 0"/>
+
+
+
+
+
+                                    <Button Grid.Column="1" x:Name="ApplyFiltersForSpansDG" Grid.Row="6" Content="Apply" HorizontalAlignment="Center"  Style="{StaticResource OrangeButton}" Click="ApplyFiltersForSpansDG_Click"/>
+
+
+                                </Grid>
+                            </ScrollViewer>
+
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked,ElementName=OpenFilterForSpansDG}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+
+                        <!--<MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsChecked, ElementName=CheckBox1}" Value="True"/>
+                                <Condition Binding="{Binding IsChecked, ElementName=CheckBox2}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </MultiDataTrigger>-->
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsChecked, ElementName=OpenFilterForSpansDG}" Value="True"/>
+                                            <Condition Binding="{Binding IsChecked, ElementName=SpanParts}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+
+
+
+                    </Grid>
+
+
+
                     <DataGrid Name="SpansDG" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                  BorderThickness="0" Margin="10" Grid.Row="0"  FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                  BorderThickness="0" Margin="10" Grid.Row="1"  FontSize="12"           GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Name}" >
@@ -1445,6 +2216,8 @@
 
             </Border>
 
+
+
             <!--hk1-->
             <Grid Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="1" Margin="0 0 10 10" >
                 <Grid.ColumnDefinitions>
@@ -1457,7 +2230,8 @@
                 <Border Name="BrandsGrid" Grid.Column="1" Margin="0 0 10 10" Padding="14" CornerRadius="19" Background="White">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.06*"/>
+                            <RowDefinition Height="0.07*"/>
+                            <RowDefinition Height="0.08*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
@@ -1466,13 +2240,38 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="0.7*"/>
                             </Grid.ColumnDefinitions>
-                            <ComboBox x:Name="CategoryNewBrand" DisplayMemberPath="NameAR" FontSize="12" materialDesign:HintAssist.Hint="Brand category" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" PreviewTextInput="Empty_PreviewTextInput" />
+                            <ComboBox x:Name="CategoryNewBrand" DisplayMemberPath="Name" FontSize="12" materialDesign:HintAssist.Hint="Brand category" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" PreviewTextInput="Empty_PreviewTextInput" />
                             <TextBox x:Name="NewBrandTB"  materialDesign:HintAssist.Hint="Brand name  " FontSize="12" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" PreviewTextInput="Empty_PreviewTextInput"/>
                             <Button x:Name="AddNewBrand" Style="{StaticResource OrangeButton}"  Grid.Column="2" Width="75" VerticalAlignment="Center"  Content="Add" Click="AddNewBrand_Click"/>
                         </Grid>
 
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.7*"/>
+
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="BrandCategoryFilterTB" FontSize="12" materialDesign:HintAssist.Hint="Filter by Category" Grid.Column="0" VerticalAlignment="Center" Width="120" HorizontalAlignment="Center" />
+                            <TextBox x:Name="BrandFilterTB" FontSize="12"  materialDesign:HintAssist.Hint="Filter by Brand" Grid.Column="1" VerticalAlignment="Center" Width="120" HorizontalAlignment="Center"  />
+                            <Button x:Name="BrandFilterApplyBT" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Center" Width="60" Height="25" Content="Apply" Click="BrandFilterApplyBT_Click"/>
+
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=CategoriesRD}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                        </Grid>
+
+
                         <DataGrid Grid.Column="1"  Name="BrandsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                               BorderThickness="0"  FontSize="12" Grid.Row="1" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                               BorderThickness="0"  FontSize="12" Grid.Row="2" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" SelectionChanged="BrandsDG_SelectionChanged" HorizontalAlignment="Center" Grid.RowSpan="2">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Category}" >
@@ -1512,7 +2311,8 @@
                 <Border Grid.Column="0"  Margin="0 0 10 10" Padding="14" CornerRadius="19" Background="White">
                     <Grid Name="CategoriesGrid">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.06*"/>
+                            <RowDefinition Height="0.07*"/>
+                            <RowDefinition Height="0.08*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
@@ -1528,18 +2328,33 @@
                         </Grid>
 
 
-                        <!--<Separator Background="Red"  RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1000" HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="0,445,-119,360" Width="1054" Grid.Row="1"     >
-                            <Separator.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="-1"/>
-                                    <SkewTransform/>
-                                    <RotateTransform Angle="90.0"/>
-                                    <TranslateTransform/>
-                                </TransformGroup>
-                            </Separator.RenderTransform>
-                        </Separator>-->
 
-                        <DataGrid Grid.Row="1" ItemsSource="{Binding CategoriesListOBS}" Name="CategoriesDG"  VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.7*"/>
+
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="NameCategoryFilterTB" FontSize="12" materialDesign:HintAssist.Hint="Filter by Category" Grid.Column="0" VerticalAlignment="Center" Width="120" HorizontalAlignment="Center" />
+                            <TextBox x:Name="NameARCategoryFilterTB" FontSize="12"  materialDesign:HintAssist.Hint="Filter by Arabic name" Grid.Column="1" VerticalAlignment="Center" Width="120" HorizontalAlignment="Center"  />
+                            <Button x:Name="CategoryFilterApplyBT" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Center" Width="60" Height="25" Content="Apply" Click="CategoryFilterApplyBT_Click"/>
+
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=CategoriesRD}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                        </Grid>
+
+
+                        <DataGrid Grid.Row="2" ItemsSource="{Binding CategoriesListOBS}" Name="CategoriesDG"  VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
                                  BorderThickness="0"  FontSize="12" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Center"  >
                             <DataGrid.Columns>
@@ -1580,7 +2395,8 @@
                 <Border Grid.Column="3"  Margin="0 0 10 10" Padding="14" CornerRadius="19" Background="White">
                     <Grid Name="SetsGrid">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.06*"/>
+                            <RowDefinition Height="0.07*"/>
+                            <RowDefinition Height="0.08*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0" Grid.Column="1">
@@ -1594,8 +2410,33 @@
                             <Button  Style="{StaticResource OrangeButton}" Grid.Column="2" Width="75" VerticalAlignment="Center" Content="Add" Click="AddNewSetBT_Click"/>
                         </Grid>
 
+
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.7*"/>
+
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="SetNameFilterTB" FontSize="12" materialDesign:HintAssist.Hint="Filter by Set" Grid.Column="0" VerticalAlignment="Center" Width="120" HorizontalAlignment="Center" />
+                            <TextBox x:Name="SetNameARFilterTB" FontSize="12"  materialDesign:HintAssist.Hint="Filter by Arabic name" Grid.Column="1" VerticalAlignment="Center" Width="120" HorizontalAlignment="Center"  />
+                            <Button x:Name="SetFilterBT" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Center" Width="60" Height="25" Content="Apply" Click="SetFilterBT_Click"/>
+
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=CategoriesRD}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                        </Grid>
+
                         <DataGrid Grid.Column="1" Name="SetDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0"  FontSize="12" Grid.Row="1"  GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0"  FontSize="12" Grid.Row="2"  GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="SetDG_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Set"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Name}" >
@@ -1633,7 +2474,8 @@
                 <Border  Grid.Column="2" Margin="0 0 10 10" Padding="14" CornerRadius="19" Background="White">
                     <Grid Name="SectionsGrid">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.06*"/>
+                            <RowDefinition Height="0.07*"/>
+                            <RowDefinition Height="0.08*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
@@ -1648,20 +2490,33 @@
                             <Button x:Name="AddNewSection" Style="{StaticResource OrangeButton}" Width="75" VerticalAlignment="Center" Grid.Column="2" Content="Add" HorizontalAlignment="Center" Click="AddNewSection_Click"/>
                         </Grid>
 
-                        <!--<Separator Background="Red"  RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1000" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="-462,405,0,457" Width="914" Grid.Row="1"     >
-                            <Separator.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="-1" ScaleY="-1"/>
-                                    <SkewTransform/>
-                                    <RotateTransform Angle="90.0"/>
-                                    <TranslateTransform/>
-                                </TransformGroup>
-                            </Separator.RenderTransform>
-                        </Separator>-->
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.7*"/>
+
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="SectionNameFilterTB" FontSize="12" materialDesign:HintAssist.Hint="Filter by Section" Grid.Column="0" VerticalAlignment="Center" Width="120" HorizontalAlignment="Center" />
+                            <TextBox x:Name="SectionNameARFilterTB" FontSize="12"  materialDesign:HintAssist.Hint="Filter by Arabic name" Grid.Column="1" VerticalAlignment="Center" Width="120" HorizontalAlignment="Center"  />
+                            <Button x:Name="SectionFilterBT" Style="{StaticResource OrangeButton}" Grid.Column="2" VerticalAlignment="Center" Width="60" Height="25" Content="Apply" Click="SectionFilterBT_Click"/>
+
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=CategoriesRD}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                        </Grid>
 
 
                         <DataGrid ItemsSource="{Binding SectionsListOBS}" Name="SectionsDG" VerticalScrollBarVisibility="Disabled"   AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
-                                 BorderThickness="0"  FontSize="12" Grid.Row="1"  GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
+                                 BorderThickness="0"  FontSize="12" Grid.Row="2"  GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Section"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Name}" >
@@ -1749,17 +2604,19 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="Pivot_Click" />
+                    <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="Pivot_Click" />
                     <RadioButton Name="CategoriesRD" Grid.Row="1" Content="Categories" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
 
-                    <RadioButton Name="SpanParts" Grid.Row="2" Content="Spans" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
+                    <RadioButton Name="SpanParts" Grid.Row="2" Content="Spans" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click"/>
 
-                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="3" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="PivotParts_Click" />
+                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="3" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="PivotParts_Click" />
+                    <RadioButton Name="PivotPartsRelations" Content="Pivot Part Relations" Grid.Row="4" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False"/>
+
 
                     <!--<RadioButton Name="SpinklersParts" Grid.Row="2" Content="Spinklers Parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpinklersParts_Click" />-->
                     <!--<RadioButton Name="OverhangParts" Grid.Row="3" Content="Overhang" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
 
-                    <RadioButton Name="ALLSparesRD" Grid.Row="4" Content="All spare parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
+                    <RadioButton Name="ALLSparesRD" Grid.Row="5" Content="All spare parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
 
 
                 </Grid>
@@ -1915,18 +2772,6 @@
                                         <RowDefinition Height="75"/>
                                         <RowDefinition MinHeight="100" Height="auto"/>
 
-                                        <!--<RowDefinition Height="75"/>
-                                        <RowDefinition Height="75"/>
-                                        <RowDefinition MinHeight="100" Height="auto"/>
-                                        <RowDefinition Height="75"/>
-                                        <RowDefinition Height="75"/>
-                                        <RowDefinition MinHeight="100" Height="auto"/>
-                                        <RowDefinition Height="75"/>
-                                        <RowDefinition MinHeight="100" Height="auto"/>
-                                        <RowDefinition Height="75"/>
-                                        <RowDefinition MinHeight="100" Height="auto"/>
-                                        <RowDefinition Height="75"/>
-                                        <RowDefinition MinHeight="100" Height="auto"/>-->
 
                                     </Grid.RowDefinitions>
 
@@ -1990,196 +2835,6 @@
 
 
                                     <Button x:Name="ApplyFilters" Grid.Row="6" Content="Apply" HorizontalAlignment="Right" Margin="0 0 25 0" Style="{StaticResource OrangeButton}" Click="ApplyFilters_Click"/>
-                                    <!--<Grid Grid.Row="4" Grid.RowSpan="2">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="75"/>
-                                            <RowDefinition MinHeight="100" Height="auto"/>
-                                        </Grid.RowDefinitions>
-
-
-
-
-
-
-                                        <TextBlock Text="التأمين الصحي" Style="{StaticResource CardsText}" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 25 0" Grid.Column="1"/>
-                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Row="0" Grid.Column="1"/>
-
-                                        <Grid x:Name="usersFilterSigorta" Grid.Row="7" Margin="0 0 0 0" VerticalAlignment="Center"  Grid.Column="1">
-
-
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 15 0">
-                                                <RadioButton x:Name="usersFilterSocialSigortaYes" Margin="10"  Content="موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}" HorizontalAlignment="Center" FontSize="15" Grid.Column="0" GroupName="UsersFiltersigora"/>
-                                                <RadioButton x:Name="usersFilterSocialSigortaNo" Margin="10" Content="غير موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" Grid.Column="1" GroupName="UsersFiltersigora"/>
-                                                <RadioButton x:Name="usersFilterSigortaND" IsChecked="True" Margin="10"  Content="غير محدد" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" Grid.Column="2" GroupName="UsersFiltersigora"/>
-
-                                            </StackPanel>
-                                        </Grid >
-
-                                    </Grid>
-
-
-                                    -->
-                                    <!--<TextBlock Text="العمر الأدنى" Style="{StaticResource CardsText}" Grid.Row="8" HorizontalAlignment="Right" Margin="0 0 25 0"/>
-                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Row="8"/>
-
-                                        <Slider Name="UsersFilterMinAge" Grid.Row="9" VerticalAlignment="Center" Margin="50 0" Minimum="18" Maximum="{Binding Value,ElementName=UsersFilterMaxAge}" TickFrequency="1" IsSelectionRangeEnabled="True" Style="{StaticResource MaterialDesignDiscreteHorizontalSlider}"/>
-
-                                        <TextBlock Text="العمر الأقصى" Style="{StaticResource CardsText}" Grid.Row="10" HorizontalAlignment="Right" Margin="0 0 25 0"/>
-                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Row="8"/>
-
-                                        <Slider Name="UsersFilterMaxAge" Grid.Row="11" VerticalAlignment="Center" Margin="50 0" Minimum="{Binding Value,ElementName=UsersFilterMinAge}" Maximum="100" TickFrequency="1" IsSelectionRangeEnabled="True" Style="{StaticResource MaterialDesignDiscreteHorizontalSlider}"/>-->
-                                    <!--
-
-                                    <TextBlock Text="المستوى الوظيفي" Style="{StaticResource CardsText}" Grid.Row="6" HorizontalAlignment="Right" Margin="0 0 25 0"/>
-                                    <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Row="6"/>
-
-                                    <ItemsControl x:Name="usersFilterJobGrades" FlowDirection="RightToLeft" Grid.Row="7" Margin="0 0 0 0" VerticalAlignment="Center"  d:ItemsSource="{d:SampleData ItemCount=5}">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <WrapPanel/>
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <CheckBox Content="{Binding Name}" Margin="10" IsChecked="{Binding IsSelect,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"/>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl >
-
-
-                                    <Grid Grid.Row="9" Grid.RowSpan="2">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="75"/>
-                                            <RowDefinition MinHeight="100" Height="auto"/>
-                                        </Grid.RowDefinitions>
-
-                                        <TextBlock Text="الحالة الاجتماعية" Style="{StaticResource CardsText}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 25 0"/>
-                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Column="1"  Grid.Row="0"/>
-                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 15 0">
-                                            <RadioButton x:Name="usersFilterSocialMarried" Margin="10"  Content="متزوج" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}" HorizontalAlignment="Center" FontSize="15"  GroupName="UsersFilterSocial"/>
-                                            <RadioButton x:Name="usersFilterSocialSingle" Margin="10"  Content="عازب" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterSocial"/>
-                                            <RadioButton x:Name="usersFilterSocialND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterSocial"/>
-
-                                        </StackPanel>
-
-                                        <TextBlock Text="الأطفال" Style="{StaticResource CardsText}" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 25 0"/>
-                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0" Grid.Row="0"/>
-                                        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 15 0">
-                                            -->
-                                    <!--<CheckBox x:Name="usersFilterKidsND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"  HorizontalAlignment="Center" FontSize="15"/>-->
-                                    <!--
-
-                                            <CheckBox x:Name="usersFilterKids4" Margin="10"  Content="4+" IsChecked="True" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}" HorizontalAlignment="Center" FontSize="15" />
-                                            <CheckBox x:Name="usersFilterKids3" Margin="10"  Content="3" IsChecked="True" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}" HorizontalAlignment="Center" FontSize="15" />
-                                            <CheckBox x:Name="usersFilterKids2" Margin="10"  Content="2" IsChecked="True" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"  HorizontalAlignment="Center" FontSize="15"/>
-                                            <CheckBox x:Name="usersFilterKids1" Margin="10"  IsChecked="True" Content="1" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"  HorizontalAlignment="Center" FontSize="15"/>
-                                            <CheckBox x:Name="usersFilterKids0" Margin="10"  IsChecked="True" Content="0" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"  HorizontalAlignment="Center" FontSize="15"/>
-
-                                        </StackPanel>
-
-
-
-
-                                    </Grid>
-
-
-                                    <TextBlock Text="زمرة الدم" Style="{StaticResource CardsText}" Grid.Row="12" HorizontalAlignment="Right" Margin="0 0 25 0"/>
-                                    <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Row="12"/>
-
-                                    <ItemsControl x:Name="usersFilterBlood" FlowDirection="RightToLeft" Grid.Row="13" Margin="0 0 0 0" VerticalAlignment="Center"  d:ItemsSource="{d:SampleData ItemCount=5}">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <WrapPanel/>
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <CheckBox Content="{Binding BloodType}" Margin="10" IsChecked="{Binding IsSelect,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"/>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl >
-
-                                    <Grid Grid.Row="14" Grid.RowSpan="2">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="75"/>
-                                            <RowDefinition MinHeight="100" Height="auto"/>
-                                        </Grid.RowDefinitions>
-
-                                        <TextBlock Text="امراض مزمنة" Style="{StaticResource CardsText}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 25 0"/>
-                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Column="1"  Grid.Row="0"/>
-                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 15 0">
-                                            <RadioButton x:Name="usersFilterChronicYes" Margin="10"  Content="موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}" HorizontalAlignment="Center" FontSize="15"  GroupName="UsersFilterChronic"/>
-                                            <RadioButton x:Name="usersFilterChronicNo" Margin="10"  Content="غير موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterChronic"/>
-                                            <RadioButton x:Name="usersFilterChronicND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterChronic"/>
-
-                                        </StackPanel>
-
-                                        <TextBlock Text="التدخين" Style="{StaticResource CardsText}" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 25 0"/>
-                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0" Grid.Row="0"/>
-                                        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 15 0">
-                                            -->
-                                    <!--<CheckBox x:Name="usersFilterKidsND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"  HorizontalAlignment="Center" FontSize="15"/>-->
-                                    <!--
-
-                                            <RadioButton x:Name="usersFilterSmokeYes" Margin="10"  Content="مدخن" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}" HorizontalAlignment="Center" FontSize="15"  GroupName="UsersFilterSmoke"/>
-                                            <RadioButton x:Name="usersFilterSmokeNo" Margin="10"  Content="غير مدخن" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterSmoke"/>
-                                            <RadioButton x:Name="usersFilterSmokeND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterSmoke"/>
-
-                                        </StackPanel>
-
-
-
-
-                                    </Grid>
-
-
-                                    <Grid Grid.Row="16" Grid.RowSpan="2">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="75"/>
-                                            <RowDefinition MinHeight="100" Height="auto"/>
-                                        </Grid.RowDefinitions>
-
-                                        <TextBlock Text="تاريخ مرضي" Style="{StaticResource CardsText}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 25 0"/>
-                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0"  Grid.Column="1"  Grid.Row="0"/>
-                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 15 0">
-                                            <RadioButton x:Name="usersFilterHistoryYes" Margin="10"  Content="موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}" HorizontalAlignment="Center" FontSize="15"  GroupName="UsersFilterHistory"/>
-                                            <RadioButton x:Name="usersFilterHistoryNo" Margin="10"  Content="غير موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterHistory"/>
-                                            <RadioButton x:Name="usersFilterHistoryND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterHistory"/>
-
-                                        </StackPanel>
-
-                                        <TextBlock Text="مخدرات" Style="{StaticResource CardsText}" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 25 0"/>
-                                        <Separator VerticalAlignment="Bottom" Foreground="#F0F0F0" Margin="25 0" Grid.Row="0"/>
-                                        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 15 0">
-                                            -->
-                                    <!--<CheckBox x:Name="usersFilterKidsND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"  HorizontalAlignment="Center" FontSize="15"/>-->
-                                    <!--
-
-                                            <RadioButton x:Name="usersFilterDrugsYes" Margin="10"  Content="موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}" HorizontalAlignment="Center" FontSize="15"  GroupName="UsersFilterDrugs"/>
-                                            <RadioButton x:Name="usersFilterDrugsNo" Margin="10"  Content="غير موجود" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterDrugs"/>
-                                            <RadioButton x:Name="usersFilterDrugsND" Margin="10"  IsChecked="True" Content="غير محدد" Style="{StaticResource MaterialDesignChoiceChipOutlineRadioButton}"  HorizontalAlignment="Center" FontSize="15" GroupName="UsersFilterDrugs"/>
-
-                                        </StackPanel>
-
-
-
-
-                                    </Grid>-->
 
 
                                 </Grid>

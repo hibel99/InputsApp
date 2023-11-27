@@ -57,6 +57,13 @@ namespace InputsApp
         ObservableCollection<SpareRelationship> SetParentOBS = new ObservableCollection<SpareRelationship>();
 
 
+
+        ObservableCollection<SpareRelationship> PivotParentRelationsOBS = new ObservableCollection<SpareRelationship>();
+        ObservableCollection<SpareRelationship> SpanParentRelationsOBS = new ObservableCollection<SpareRelationship>();
+        ObservableCollection<SpareRelationship> SpareParentRelationsOBS = new ObservableCollection<SpareRelationship>();
+        ObservableCollection<SpareRelationship> SetParentRelationsOBS = new ObservableCollection<SpareRelationship>();
+
+
         ObservableCollection<PivotTable> PivotSpanParentOBS = new ObservableCollection<PivotTable>();
 
         ObservableCollection<Brands> BrandsOBS = new ObservableCollection<Brands>();
@@ -142,7 +149,8 @@ namespace InputsApp
 
             ALLpivotPartsGrid.ItemsSource = SparePartsOBS;
             pivotPartsGrid.ItemsSource = SparePartsOBS;
-            PartNameCB.ItemsSource = SparePartsOBS; 
+            PartNameCB.ItemsSource = SparePartsOBS;
+            pivotPartsRelationsGrid.ItemsSource = SparePartsOBS;
 
             var relations = await _pivotPartsRepository.GetPivotPartsRelations();
       
@@ -232,6 +240,7 @@ namespace InputsApp
             PivotCategoryCB.ItemsSource = CategoriesListOBS;
             CategoryNewBrand.ItemsSource = CategoriesListOBS;
             CategoriesFilterIC.ItemsSource = CategoriesListOBS;
+            PivotPartCategoriesFilterIC.ItemsSource = CategoriesListOBS;
 
 
             foreach (var item in CategoriesList.Where(x => x.Type == "Section"))
@@ -249,6 +258,14 @@ namespace InputsApp
             NewSpanConnectionsGrid.ItemsSource = SpanParentOBS;
             NewPartConnectionsGrid.ItemsSource = SpareParentOBS;
             NewSetPartConnectionsGrid.ItemsSource = SetParentOBS;
+
+
+            NewPivotRelationsConnectionsGrid.ItemsSource = PivotParentRelationsOBS;
+            NewSpanRelationsConnectionsGrid.ItemsSource = SpanParentRelationsOBS;
+            NewPartRelationsConnectionsGrid.ItemsSource = SpareParentRelationsOBS;
+            NewSetPartRelationsConnectionsGrid.ItemsSource = SetParentRelationsOBS;
+
+
 
             //NewPivotForSpansConnectionsGrid.ItemsSource = PivotSpanParentOBS;
             #endregion
@@ -886,6 +903,8 @@ namespace InputsApp
         private void PivotParts_Click(object sender, RoutedEventArgs e)
         {
             //UpdateGridandCB();
+
+            
         }
 
         async private void AddNewPivotBT_Click(object sender, RoutedEventArgs e)
@@ -938,6 +957,7 @@ namespace InputsApp
 
         private void SpanParts_Click(object sender, RoutedEventArgs e)
         {
+            OpenFilterForSpansDG.IsChecked = false;
             //UpdateGridandCB();
         }
 
@@ -1697,7 +1717,7 @@ namespace InputsApp
         (Targetbrands.Count == 0 || Targetbrands.Contains(x.Brand)) &&
         (Targetcategories.Count == 0 || Targetcategories.Contains(x.PivotCategory.ToLower())) &&
         (Targetsections.Count == 0 || Targetsections.Contains(x.Section))
-    ).ToList());
+         ).ToList());
             //ALLpivotPartsGrid.ItemsSource = FilteredSparePartsOBS;
             ALLpivotPartsGrid.ItemsSource = JoinedSparePartsOBS;
             OpenFilter.IsChecked = false;
@@ -1758,6 +1778,262 @@ namespace InputsApp
 
             EditPivot_Button.Visibility = Visibility.Collapsed;
             AddPivot_Button.Visibility = Visibility.Visible;
+
+
+        }
+
+        private void ApplyFiltersForSpansDG_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            string nameFilter = SpanNameFilterTB.Text;
+
+            decimal minLengthFilter, maxLengthFilter;
+            decimal diameterFilter;
+            int outletsFilter;
+            decimal heightFilter;
+            decimal minCostFilter, maxCostFilter;
+         
+
+
+            decimal.TryParse(SpanMinLengthFilterTB.Text, out minLengthFilter);
+            decimal.TryParse(SpanMaxLengthFilterTB.Text, out maxLengthFilter);
+            decimal.TryParse(SpanDiameterFilterTB.Text, out diameterFilter);
+            int.TryParse(SpanOutletsFilterTB.Text, out outletsFilter);
+            decimal.TryParse(SpanHeightFromGroundFilterTB.Text, out heightFilter);
+            decimal.TryParse(SpanMinCostFilterTB.Text, out minCostFilter);
+            decimal.TryParse(SpanMaxCostFilterTB.Text, out maxCostFilter);
+
+
+            var filteredItems = SpansOBS.Where(item =>
+                (string.IsNullOrEmpty(nameFilter) || item.Name.Contains(nameFilter, StringComparison.OrdinalIgnoreCase)) &&
+                (minLengthFilter == 0 || item.Length >= minLengthFilter) &&
+                (maxLengthFilter == 0 || item.Length <= maxLengthFilter) &&
+                (diameterFilter == 0 || item.Diameter == diameterFilter) &&
+                (outletsFilter == 0 || item.Outlets == outletsFilter) &&
+                (heightFilter == 0 || item.HeightFromGround == heightFilter) &&
+                (minCostFilter == 0 || item.Cost == minCostFilter) &&
+                (maxCostFilter == 0 || item.Cost == maxCostFilter));
+
+            SpansDG.ItemsSource = new ObservableCollection<Spans>(filteredItems);
+
+            OpenFilterForSpansDG.IsChecked = false;
+
+        }
+
+        private void ClearFilterForSpansDG_Click(object sender, RoutedEventArgs e)
+        {
+            SpansDG.ItemsSource = SpansOBS;
+
+            SpanNameFilterTB.Text = string.Empty;
+            SpanMinLengthFilterTB.Text = string.Empty;
+            SpanMaxLengthFilterTB.Text = string.Empty;
+            SpanDiameterFilterTB.Text = string.Empty;
+            SpanOutletsFilterTB.Text = string.Empty;
+            SpanHeightFromGroundFilterTB.Text = string.Empty;
+            SpanMinCostFilterTB.Text = string.Empty;
+            SpanMaxCostFilterTB.Text = string.Empty;
+
+        }
+
+        private void PivotFilterApplyBT_Click(object sender, RoutedEventArgs e)
+        {
+            string nameFilter = PivotNameFilterTB.Text;
+            string categoryFilter = PivotCategoryFilterTB.Text;
+
+
+            var filteredItems = PivotsOBS.Where(item =>
+                (string.IsNullOrEmpty(nameFilter) || item.pivotname.Contains(nameFilter, StringComparison.OrdinalIgnoreCase)) &&
+                (string.IsNullOrEmpty(categoryFilter) || item.pivotcategory.Contains(categoryFilter, StringComparison.OrdinalIgnoreCase)));
+
+            PivotsDG.ItemsSource = new ObservableCollection<PivotTable>(filteredItems);
+
+        }
+
+        private void CategoryFilterApplyBT_Click(object sender, RoutedEventArgs e)
+        {
+          
+            string nameFilter = NameCategoryFilterTB.Text;
+            string nameARFilter = NameARCategoryFilterTB.Text;
+
+           var filteredItems = CategoriesListOBS.Where(item =>
+                    (string.IsNullOrEmpty(nameFilter) || item.Name.Contains(nameFilter, StringComparison.OrdinalIgnoreCase)) &&
+                    (string.IsNullOrEmpty(nameARFilter) || item.NameAR.Contains(nameARFilter, StringComparison.OrdinalIgnoreCase))
+                );
+
+
+            CategoriesDG.ItemsSource = new ObservableCollection<Categories>(filteredItems);
+        }
+
+        private void BrandFilterApplyBT_Click(object sender, RoutedEventArgs e)
+        {
+            string brandCategoryFilter = BrandCategoryFilterTB.Text;
+            string brandFilter = BrandFilterTB.Text;
+          
+
+            var filteredItems = BrandsOBS.Where(item =>       
+            (string.IsNullOrEmpty(brandCategoryFilter) || item.Category.Contains(brandCategoryFilter, StringComparison.OrdinalIgnoreCase)) &&
+            (string.IsNullOrEmpty(brandFilter) || item.Brand.Contains(brandFilter, StringComparison.OrdinalIgnoreCase))
+        );
+
+
+            BrandsDG.ItemsSource = new ObservableCollection<Brands>(filteredItems);
+        }
+
+        private void SectionFilterBT_Click(object sender, RoutedEventArgs e)
+        {
+           
+            string sectionNameFilter = SectionNameFilterTB.Text;
+            string sectionNameARFilter = SectionNameARFilterTB.Text;
+
+            var filteredItems = SectionsListOBS.Where(item =>
+                     (string.IsNullOrEmpty(sectionNameFilter) || item.Name.Contains(sectionNameFilter, StringComparison.OrdinalIgnoreCase)) &&
+                     (string.IsNullOrEmpty(sectionNameARFilter) || item.NameAR.Contains(sectionNameARFilter, StringComparison.OrdinalIgnoreCase))
+                 );
+
+
+            SectionsDG.ItemsSource = new ObservableCollection<Categories>(filteredItems);
+
+        }
+
+        private void SetFilterBT_Click(object sender, RoutedEventArgs e)
+        {
+            string setNameFilter = SetNameFilterTB.Text;
+            string setNameARFilter = SetNameARFilterTB.Text;
+
+            var filteredItems = SetOBS.Where(item =>
+                    (string.IsNullOrEmpty(setNameFilter) || item.Name.Contains(setNameFilter, StringComparison.OrdinalIgnoreCase)) &&
+                    (string.IsNullOrEmpty(setNameARFilter) || item.NameAR.Contains(setNameARFilter, StringComparison.OrdinalIgnoreCase))
+                );
+
+            SetDG.ItemsSource = new ObservableCollection<Set>(filteredItems);
+
+        }
+
+        private void EditPivotPartRelationsButtoninDG_Click(object sender, RoutedEventArgs e)
+        {
+
+            SpareParts part = (SpareParts)((Button)sender).DataContext;
+
+            PivotPartsRelations.IsChecked = false;
+
+            pivotPartsGrid.SelectedItem = part;
+            EditPivot_Button.Visibility = Visibility.Visible;
+            AddPivot_Button.Visibility = Visibility.Collapsed;
+
+            PivotParts.IsChecked = true;
+        }
+
+        private void PivotPartFilterSelectAll_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in CategoriesListOBS)
+            {
+
+                item.IsSelect = true;
+
+            }
+            PivotPartCategoriesFilterIC.Items.Refresh();
+        }
+
+        private void PivotPartFilterSelectAll_Unchecked(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in CategoriesListOBS)
+            {
+
+                item.IsSelect = false;
+
+            }
+            PivotPartCategoriesFilterIC.Items.Refresh();
+        }
+
+        private void ApplyFiltersForPivotPartsDG_Click(object sender, RoutedEventArgs e)
+        {
+
+
+
+
+            string nameFilter = PivotPartFilterTB.Text;
+            string nameARFilter = PivotPartARNameFilterTB.Text;
+
+            decimal minCostFilter, maxCostFilter;
+
+
+            decimal.TryParse(PivotPartMinCorstFilterTB.Text, out minCostFilter);
+            decimal.TryParse(PivotPartMaxCostFiltrerTB.Text, out maxCostFilter);
+
+
+            List<string> Targetcategories = PivotPartCategoriesFilterIC.ItemsSource.Cast<Categories>().Where(x => x.IsSelect).Select(x => x.NameAR).ToList();
+
+            var filtered = (
+                SparePartsOBS.Where(item =>
+                    (Targetcategories.Count == 0 || Targetcategories.Contains(item.PivotCategory.ToLower())) &&
+                    (string.IsNullOrEmpty(nameFilter) || item.Name.Contains(nameFilter, StringComparison.OrdinalIgnoreCase)) &&
+                    (string.IsNullOrEmpty(nameARFilter) || item.NameAR.Contains(nameFilter, StringComparison.OrdinalIgnoreCase)) &&
+                    (minCostFilter == 0 || item.Cost >= minCostFilter) &&
+                    (maxCostFilter == 0 || item.Cost <= maxCostFilter) 
+                 ));
+            
+            pivotPartsRelationsGrid.ItemsSource = new ObservableCollection<SpareParts>(filtered);
+            OpenFilterForPivotPartsDG.IsChecked = false;
+
+        }
+
+        private void pivotPartsRelationsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (pivotPartsRelationsGrid.SelectedItem is SpareParts selectedItem)
+            {
+                var pivotPart = selectedItem;
+
+
+                if (pivotPart.ParentSpans is not null)
+                {
+                    SpanParentRelationsOBS.Clear();
+                    foreach (var item in pivotPart.ParentSpans)
+                    {
+                        SpanParentRelationsOBS.Add(item);
+                    }
+                }
+
+                if (pivotPart.ParentSpares is not null)
+                {
+                    SpareParentRelationsOBS.Clear();
+                    foreach (var item2 in pivotPart.ParentSpares)
+                    {
+                        SpareParentRelationsOBS.Add(item2);
+                    }
+                }
+
+                if (pivotPart.ParentPivots is not null)
+                {   
+                    PivotParentRelationsOBS.Clear();
+                    foreach (var item3 in pivotPart.ParentPivots)
+                    {
+                        PivotParentRelationsOBS.Add(item3);
+                    }
+                }
+
+                if (pivotPart.ParentSets is not null)
+                {  
+                    SetParentRelationsOBS.Clear();
+                    foreach (var item3 in pivotPart.ParentSets)
+                    {
+                        SetParentRelationsOBS.Add(item3);
+                    }
+                }
+            }
+
+
+        }
+
+        private void ClearFilterForPivotPartDG_Click(object sender, RoutedEventArgs e)
+        {
+            pivotPartsRelationsGrid.ItemsSource = SparePartsOBS;
+            PivotPartFilterTB.Text = string.Empty;
+            PivotPartARNameFilterTB.Text = string.Empty;
+            PivotPartMaxCostFiltrerTB.Text = string.Empty;
+            PivotPartMinCorstFilterTB.Text = string.Empty;
+            PivotPartFilterSelectAll_Unchecked(null, null);
 
 
         }
