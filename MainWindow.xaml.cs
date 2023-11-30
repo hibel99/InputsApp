@@ -1997,7 +1997,23 @@ namespace InputsApp
 
         }
 
-     
+        private void RelationTabCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (pivotPartsGrid != null)
+            {
+                NewPivotConnectionsGrid.UnselectAllCells();
+
+                NewSpanConnectionsGrid.UnselectAllCells();
+
+                NewPartConnectionsGrid.UnselectAllCells();
+
+                NewSetPartConnectionsGrid.UnselectAllCells();
+            }
+            else return;
+
+        }
+
+
     }
 }
 

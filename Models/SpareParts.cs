@@ -112,7 +112,7 @@ public class SpareParts:INotifyPropertyChanged
         
     }
     
-    public SpareParts(string pivotCategory, string pivotPart, decimal cost, 
+    public SpareParts(string pivotCategory, string pivotPart, decimal cost, string costCurrency,
         DateTime date, decimal height, string? heightUnit, decimal width, string? widthUnit, decimal length, string? lengthUnit,
         decimal weight, string? weightUnit,int PivotCode,int partLevel, int setID,
         int spareID, int spanID, string nameAR,string section,string brand,bool haschild = false)
@@ -120,6 +120,7 @@ public class SpareParts:INotifyPropertyChanged
         PivotCategory = pivotCategory;
         PivotPart = pivotPart;
         Cost = cost;
+        CostCurrency = costCurrency;
         Date = date;
         Height = height;
         Width = width;
@@ -141,7 +142,7 @@ public class SpareParts:INotifyPropertyChanged
 
     }
 
-    public SpareParts(int iD, string pivotCategory, string pivotPart, decimal cost, 
+    public SpareParts(int iD, string pivotCategory, string pivotPart, decimal cost, string costCurrency,
         DateTime date, decimal height, string? heightUnit, decimal width, string? widthUnit, decimal length, string? lengthUnit,
         decimal weight, string? weightUnit,
         int PivotCode, int partLevel, int setID, int spareID, double quantity, int spanID, string nameAR, string section, string brand, bool haschild = false)

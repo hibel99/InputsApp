@@ -30,9 +30,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Window.DataContext>
-        <models:PivotTable/>
-    </Window.DataContext>
+
 
     <Grid>
         <Grid Background="#F5F6F8">
