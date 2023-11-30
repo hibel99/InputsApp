@@ -422,6 +422,7 @@ namespace InputsApp
                    PivotCategoryCB.Text,
                    PivotPartTB.Text,
                    decimal.Parse(pivotCostTB.Text),
+                   pivotCostCurrencyCB.Text,
                    DateTime.UtcNow,
                    decimal.Parse(pivotHegitTB.Text),
                    pivotHegitUnitCB.Text,
@@ -632,6 +633,9 @@ namespace InputsApp
                 pivotQTYTB.Text = string.Empty;
                 pivotQTYInSetTB.Text = string.Empty;
 
+                pivotCostCurrencyCB.Text = string.Empty;
+
+
                 PivotBrandCB.SelectedItem = null;
                 PivotSectionCB.SelectedItem = null;
                 PivotCategoryCB.SelectedItem = null;
@@ -676,6 +680,10 @@ namespace InputsApp
                 LengthTB.Text = string.Empty;
                 DiameterTB.Text = string.Empty;
                 SpanCostTB.Text = string.Empty;
+                SpanHeightFromGroundTB.Text = string.Empty;
+                HeightFromGroundUnitCB.Text = string.Empty;
+                SpanOutletsTB.Text = string.Empty;
+                SpanCostCurrencyCB.Text = string.Empty;
                 //PipeTypeCBCB.SelectedIndex = 0;
                 SpanNameTB.Text = string.Empty; 
             }
@@ -823,6 +831,7 @@ namespace InputsApp
             pivotLengthUnitCB.Text = pivotEdit.LengthUnit;
             pivotWidthUnitCB.Text = pivotEdit.WidthUnit;
             pivotWeightUnitCB.Text = pivotEdit.WeightUnit;
+            pivotCostCurrencyCB.Text = pivotEdit.CostCurrency;
 
             PivotBrandCB.SelectedItem = BrandsOBS.Where(x=>x.Brand == pivotEdit.Brand).FirstOrDefault();
 
@@ -983,7 +992,7 @@ namespace InputsApp
         {
 
 
-            if (IsAnyFieldEmpty(LengthTB.Text, DiameterTB.Text, SpanNameTB.Text, SpanCostTB.Text, SpanCostTB.Text, SpanOutletsTB.Text, SpanHeightFromGroundTB.Text, HeightFromGroundUnitCB.Text))
+            if (IsAnyFieldEmpty(LengthTB.Text, DiameterTB.Text, SpanNameTB.Text, SpanCostTB.Text, SpanCostCurrencyCB.Text, SpanOutletsTB.Text, SpanHeightFromGroundTB.Text, HeightFromGroundUnitCB.Text))
             {
                 MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
 
@@ -997,6 +1006,7 @@ namespace InputsApp
                 "Span",
                 SpanNameTB.Text,
                 decimal.Parse(SpanCostTB.Text),
+                SpanCostCurrencyCB.Text,
                 int.Parse(SpanOutletsTB.Text),
                 decimal.Parse(SpanHeightFromGroundTB.Text),
                 HeightFromGroundUnitCB.Text,
@@ -1832,7 +1842,7 @@ namespace InputsApp
             SpanOutletsFilterTB.Text = string.Empty;
             SpanHeightFromGroundFilterTB.Text = string.Empty;
             SpanMinCostFilterTB.Text = string.Empty;
-            SpanMaxCostFilterTB.Text = string.Empty;
+            SpanMaxCostFilterTB.Text = string.Empty;  
 
         }
 
@@ -2037,6 +2047,8 @@ namespace InputsApp
 
 
         }
+
+     
     }
 }
 

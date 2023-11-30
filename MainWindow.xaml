@@ -155,7 +155,83 @@
 
                         </ComboBox>
 
-                        <ComboBox Name="SpanNameCB" Padding="10"  DisplayMemberPath="Name" Height="50"  materialDesign:HintAssist.Hint="Connect it with a Span" SelectionChanged="PivotNameCB_SelectionChanged" Grid.Column="1">
+                        <ComboBox Name="SpanNameCB" Padding="10"   Height="50"  materialDesign:HintAssist.Hint="Connect it with a Span" SelectionChanged="PivotNameCB_SelectionChanged" Grid.Column="1" ItemsSource="{Binding SpansOBS}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}">
+                                        <TextBlock.ToolTip>
+                                            <ToolTip x:Name="propertyToolTip" Visibility="Collapsed" Placement="Left" Margin="15 0 0 0" Padding="5">
+                                                <StackPanel>
+                                                    <TextBlock FontWeight="Bold">Span Properties:</TextBlock>
+                                               
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="*"/>
+
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="*"/>
+
+
+
+                                                        </Grid.RowDefinitions>
+                                                        <TextBlock Grid.Column="0" Text="Length:" />
+                                                        <TextBlock Grid.Column="1" Text="{Binding LengthForDG}" />
+                                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Diameter:" />
+                                                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding DiameterForDG}" />
+                                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Cost:" />
+                                                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding CostForDG}" />
+
+                                                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Outlets:" />
+                                                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Outlets}" />
+
+
+
+                                                    </Grid>
+                                                </StackPanel>
+                                                <ToolTip.DataContext>
+                                                    <Binding Path="PlacementTarget.DataContext" RelativeSource="{RelativeSource Self}"/>
+                                                </ToolTip.DataContext>
+                                                <ToolTip.Triggers>
+                                                    <EventTrigger RoutedEvent="ToolTip.Loaded">
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetProperty="Width" From="0" To="150" Duration="0:0:0.3"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger>
+                                                </ToolTip.Triggers>
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
+                                        <TextBlock.Triggers>
+                                            <EventTrigger RoutedEvent="MouseEnter">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="ToolTip.Visibility">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                            <EventTrigger RoutedEvent="MouseLeave">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="ToolTip.Visibility">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </TextBlock.Triggers>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            
+                            
                             <ComboBox.Style>
                                 <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
                                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -166,7 +242,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </ComboBox.Style>
-
+                           
                         </ComboBox>
 
                         <ComboBox Name="PartNameCB" Padding="10"  IsTextSearchEnabled="True" DisplayMemberPath="NameAR" Height="50"  materialDesign:HintAssist.Hint="Connect it with a Part" SelectionChanged="PivotNameCB_SelectionChanged" Grid.Column="1">
@@ -232,7 +308,22 @@
                     <TextBox Name="PivotPartTB" Height="50" Grid.Row="3" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name" Margin="5 0 5 0"/>
                     <TextBox Name="PivotPartARTB" Height="50" HorizontalAlignment="Center" Width="380" Grid.Row="4" Grid.Column="1" Padding="14" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="New part Name Arabic"/>
 
-                    <TextBox  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" Grid.Row="9" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost" Margin="5 0 5 0"/>
+                    <!--<TextBox  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" Grid.Row="9" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost" Margin="5 0 5 0"/>-->
+
+                    <Grid  Grid.Row="9" Grid.Column="1" Height="50"  >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="90"/>
+                        </Grid.ColumnDefinitions >
+                        <TextBox Grid.Row="0" Grid.Column="0"  Name="pivotCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Cost" Padding="14"/>
+                        <ComboBox Name="pivotCostCurrencyCB" Grid.Column="1"  Height="50"   Width="85" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Curr" Margin="0 0 5 0" >
+                            <ComboBoxItem Content="TL" />
+                            <ComboBoxItem Content="EU" />
+                            <ComboBoxItem Content="USD" />
+                        </ComboBox>
+                    </Grid>
+
+
 
                     <Grid  Grid.Row="5" Grid.Column="1" Height="50"  >
                         <Grid.ColumnDefinitions>
@@ -506,7 +597,7 @@
                     <TextBox Name="SpanNameTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Width="350" Grid.Row="1" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Name" Margin="17,21,0,20"/>
                     <TextBox Name="LengthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="350" Grid.Row="2" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Length" Margin="17,20,0,21"/>
                     <TextBox  Name="DiameterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" Grid.Row="3" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Diameter" Margin="0,21,18,20" HorizontalAlignment="Right" Width="350"/>
-                    <TextBox  Name="SpanOutletsTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="350" Grid.Row="4" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Outlets" Margin="17,20,0,21"/>
+                    <TextBox  Name="SpanOutletsTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="350" Grid.Row="4" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Outlets" Margin="17,20,0,21" />
 
                     <Grid  Grid.Row="5" Grid.Column="1" Height="50"  >
                         <Grid.ColumnDefinitions>
@@ -522,11 +613,22 @@
                         </ComboBox>
                     </Grid>
 
+                    <Grid  Grid.Row="6" Grid.Column="1" Height="50"  >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="90"/>
+                        </Grid.ColumnDefinitions >
+                        <TextBox Grid.Row="0" Grid.Column="0"  Name="SpanCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="270" Margin="17 0 0 0"  materialDesign:HintAssist.Hint="Cost" Padding="14"/>
+                        <ComboBox Name="SpanCostCurrencyCB" Grid.Column="1"  Height="50"   Width="85" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Curr" Margin="0 0 5 0" >
+                            <ComboBoxItem Content="TL" />
+                            <ComboBoxItem Content="EU" />
+                            <ComboBoxItem Content="USD" />
+                        </ComboBox>
+                    </Grid>
 
 
 
 
-                    <TextBox  Name="SpanCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Right" Width="350" Grid.Row="6" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Cost" Margin="0,20,18,21"/>
                     <StackPanel Width="350" Margin="10 0 0 0" Orientation="Horizontal" Grid.Row="0" Grid.Column="1" >
                         <ComboBox Name="PivotTypeCB" DisplayMemberPath="Name" materialDesign:HintAssist.Hint="Pivot type that will be connected" Width="300" HorizontalAlignment="Stretch" Style="{StaticResource MaterialDesignComboBox}" Height="50"  VerticalAlignment="Center"/>
                         <Button Name="AddPivotParentToSpans" Margin="10 0 0 0" Style="{StaticResource OrangeButton}" Click="AddPivotParentToSpans_Click">
@@ -878,7 +980,7 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTextColumn Header="Cost"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Cost}" >
+                            <DataGridTextColumn Header="Cost"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding CostForDG}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
                                         <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -1261,7 +1363,7 @@
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
 
-                                <DataGridTextColumn Header="Cost"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Cost}" >
+                                <DataGridTextColumn Header="Cost"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding CostForDG}" >
                                     <DataGridTextColumn.ElementStyle>
                                         <Style>
                                             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -2122,7 +2224,7 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTextColumn Header="Length"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Length}" >
+                            <DataGridTextColumn Header="Length"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding LengthForDG}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
                                         <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -2132,7 +2234,7 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTextColumn Header="Diameter"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Diameter}" >
+                            <DataGridTextColumn Header="Diameter"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding DiameterForDG}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
                                         <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -2161,7 +2263,7 @@
                             </DataGridTextColumn>
 
 
-                            <DataGridTextColumn Header="Cost"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Cost}" >
+                            <DataGridTextColumn Header="Cost"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding CostForDG}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
                                         <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -2604,12 +2706,12 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="Pivot_Click" />
+                    <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="Pivot_Click" />
                     <RadioButton Name="CategoriesRD" Grid.Row="1" Content="Categories" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
 
                     <RadioButton Name="SpanParts" Grid.Row="2" Content="Spans" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click"/>
 
-                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="3" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="PivotParts_Click" />
+                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="3" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="PivotParts_Click" />
                     <RadioButton Name="PivotPartsRelations" Content="Pivot Part Relations" Grid.Row="4" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False"/>
 
 
@@ -2670,7 +2772,7 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTextColumn Header="Cost"  IsReadOnly="True"  Width="*" Binding="{Binding Cost}" >
+                            <DataGridTextColumn Header="Cost"  IsReadOnly="True"  Width="*" Binding="{Binding CostForDG}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
                                         <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -2680,7 +2782,7 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTextColumn Header="Height"  IsReadOnly="True"  Width="*" Binding="{Binding Height}" >
+                            <DataGridTextColumn Header="Height"  IsReadOnly="True"  Width="*" Binding="{Binding HeightForDG}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
                                         <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -2690,7 +2792,7 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTextColumn Header="Width"  IsReadOnly="True"  Width="*" Binding="{Binding Width}" >
+                            <DataGridTextColumn Header="Width"  IsReadOnly="True"  Width="*" Binding="{Binding WidthForDG}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
                                         <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -2700,7 +2802,7 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTextColumn Header="Length"  IsReadOnly="True"   Width="*" Binding="{Binding Length}" >
+                            <DataGridTextColumn Header="Length"  IsReadOnly="True"   Width="*" Binding="{Binding LengthForDG}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
                                         <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -2710,7 +2812,7 @@
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTextColumn Header="Weight"  IsReadOnly="True"  Width="*" Binding="{Binding Weight}" >
+                            <DataGridTextColumn Header="Weight"  IsReadOnly="True"  Width="*" Binding="{Binding WeighthForDG}" >
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
                                         <Setter Property="TextBlock.TextWrapping" Value="Wrap" />

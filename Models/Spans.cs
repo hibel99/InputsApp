@@ -21,22 +21,23 @@ namespace InputsApp.Models
         {
         }
 
-        public Spans(decimal length, decimal diameter, string category, string name, decimal cost, int outlets, decimal heightFromGround, string heightFromGroundUnit, string pivotID)
+        public Spans(decimal length, decimal diameter, string category, string name, decimal cost, string costCurrency, int outlets, decimal heightFromGround, string heightFromGroundUnit, string pivotID)
         {
             Length = length;
             Diameter = diameter;
             Category = category;
             Name = name;
             Cost = cost;
+            CostCurrency = costCurrency;
             Outlets = outlets;
             HeightFromGround = heightFromGround;
             HeightFromGroundUnit = heightFromGroundUnit;
             PivotID = pivotID;
-            
+          
         }
 
 
-        public Spans(int iD, decimal length, decimal diameter, string category, string name, decimal cost, int outlets, decimal heightFromGround, string heightFromGroundUnit, string pivotID)
+        public Spans(int iD, decimal length, decimal diameter, string category, string name, decimal cost, string costCurrency, int outlets, decimal heightFromGround, string heightFromGroundUnit, string pivotID)
         {
             ID = iD;
             Length = length;
@@ -44,6 +45,7 @@ namespace InputsApp.Models
             Category = category;
             Name = name;
             Cost = cost;
+            CostCurrency = costCurrency;
             Outlets = outlets;
             HeightFromGround = heightFromGround;
             HeightFromGroundUnit = heightFromGroundUnit;
@@ -63,7 +65,23 @@ namespace InputsApp.Models
 
         public string HeightFromGroundUnit { get; set; }
 
+        public string CostCurrency { get; set; }
+
+
+
+
         public string? HeightFromGroundForDG => $"{HeightFromGround} {HeightFromGroundUnit}";
+
+
+        public string? LengthForDG => $"{Length} m";
+
+        public string? DiameterForDG => $"{Diameter} inch";
+
+
+        public string? CostForDG => $"{CostCurrency}{Cost}";
+
+
+
         public string PivotID { get; set; }
         public List<PivotTable> ParentPivots { get; set; }
     }

@@ -25,6 +25,7 @@ public class SpareParts:INotifyPropertyChanged
     public string Section { get; set; }
     public string PivotPart { get; set; }
     public decimal Cost { get; set; }
+    public string CostCurrency { get; set; }
     public DateTime Date { get; set; }
     public decimal Height { get; set; }
     public string? HeightUnit { get; set; }
@@ -56,20 +57,40 @@ public class SpareParts:INotifyPropertyChanged
 
     public int? PivotPartID { get; set; }
 
+
+
+
+    public string? CostForDG => $"{CostCurrency}{Cost}";
+
+
+
+    public string? LengthForDG => $"{Length} {LengthUnit}";
+    public string? HeightForDG => $"{Height} {HeightUnit}";
+
+    public string? WidthForDG => $"{Width} {WidthUnit}";
+
+    public string? WeighthForDG => $"{Weight} {WeightUnit}";
+
+
+
+
+
+
     public SpareParts()
     {
 
     }
 
-  
-    public SpareParts(string pivotCategory, string pivotPart, decimal cost, 
+
+    public SpareParts(string pivotCategory, string pivotPart, decimal cost, string costCurrency,
         DateTime date, decimal height, string? heightUnit, decimal width, string? widthUnit, decimal length, string? lengthUnit,
-        decimal weight, string? weightUnit,int PivotCode,int partLevel, int setID,
-        int spareID, double quantity, int spanID, string nameAR,string section,string brand,bool haschild = false)
+        decimal weight, string? weightUnit, int PivotCode, int partLevel, int setID,
+        int spareID, double quantity, int spanID, string nameAR, string section, string brand, bool haschild = false)
     {
         PivotCategory = pivotCategory;
         PivotPart = pivotPart;
         Cost = cost;
+        CostCurrency = costCurrency;
         Date = date;
         Height = height;
         Width = width;
@@ -89,10 +110,10 @@ public class SpareParts:INotifyPropertyChanged
         WidthUnit = widthUnit;
         LengthUnit = lengthUnit;
         WeightUnit = weightUnit;
-
+        
     }
 
-    public SpareParts(int iD, string pivotCategory, string pivotPart, decimal cost, 
+    public SpareParts(int iD, string pivotCategory, string pivotPart, decimal cost, string costCurrency,
         DateTime date, decimal height, string? heightUnit, decimal width, string? widthUnit, decimal length, string? lengthUnit,
         decimal weight, string? weightUnit,
         int PivotCode, int partLevel, int setID, int spareID, double quantity, int spanID, string nameAR, string section, string brand, bool haschild = false)
@@ -101,6 +122,7 @@ public class SpareParts:INotifyPropertyChanged
         PivotCategory = pivotCategory;
         PivotPart = pivotPart;
         Cost = cost;
+        CostCurrency = costCurrency;
         Date = date;
         Height = height;
         Width = width;
@@ -120,55 +142,9 @@ public class SpareParts:INotifyPropertyChanged
         WidthUnit = widthUnit;
         LengthUnit = lengthUnit;
         WeightUnit = weightUnit;
-
+       
     }
 
 }
 
 
-public static class SparePartsExtensions
-{
-
-    //public static ObservableCollection<SpareParts> JoinSpanIdPivotCodeSpareId(this IEnumerable<SpareParts> spareParts)
-    //{
-    //    var groupedSpareParts = spareParts.GroupBy(s => new
-    //    {
-    //        s.PivotCategory,
-    //        s.Date,
-    //        s.Section,
-    //        s.PivotPart,
-    //        s.NameAR,
-    //        s.Cost,
-    //        s.Height,
-    //        s.Width,
-    //        s.Length,
-    //        s.Weight
-    //    });
-
-    //    var joinedSpareParts = groupedSpareParts.Select(g => new SpareParts
-    //    {
-
-    //        PivotCategory = g.Key.PivotCategory,
-    //        Date = g.Key.Date,
-    //        Section = g.Key.Section,
-    //        PivotPart = g.Key.PivotPart,
-    //        Cost = g.Key.Cost,
-    //        Height = g.Key.Height,
-    //        Width = g.Key.Width,
-    //        Length = g.Key.Length,
-    //        Weight = g.Key.Weight,
-    //        NameAR = g.Key.NameAR,
-    //        SpanID = string.Join(",", g.Where(x => x.SpanID != null).Select(s => s.SpanID)),
-    //        pivotcode = string.Join(",", g.Where(x => x.pivotcode != "").Select(s => s.pivotcode)),
-    //        SpareID = string.Join(",", g.Where(x => x.SpareID != "").Select(s => s.SpareID))
-    //    });
-    //    ObservableCollection<SpareParts> values = new ObservableCollection<SpareParts>();
-    //    foreach (var item in joinedSpareParts)
-    //    {
-    //        values.Add(item);
-    //    }
-    //    return values;
-
-    //}
-
-}
