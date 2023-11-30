@@ -31,6 +31,9 @@
     </Window.Resources>
 
 
+    <Window.DataContext>
+        <models:PivotTable/>
+    </Window.DataContext>
 
     <Grid>
         <Grid Background="#F5F6F8">
@@ -882,7 +885,7 @@
                                     <TextBox Name="PivotPartMaxCostFiltrerTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="0 0" Width="100" Grid.Row="4" Grid.Column="2" Padding="14"  materialDesign:HintAssist.Hint="Max" />
 
 
-                                    <Button Grid.Column="1" x:Name="ApplyFiltersForPivotPartsDG" Grid.Row="5" Content="Apply" Click="ApplyFiltersForPivotPartsDG_Click" HorizontalAlignment="Center"  Style="{StaticResource OrangeButton}" />
+                                    <Button Grid.Column="2" x:Name="ApplyFiltersForPivotPartsDG" Grid.Row="5" Content="Apply" Click="ApplyFiltersForPivotPartsDG_Click" HorizontalAlignment="Center"  Style="{StaticResource OrangeButton}" />
 
 
                                 </Grid>
@@ -2082,7 +2085,7 @@
 
 
 
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Length Ranged" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Length Range" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0"/>
                                     <TextBox Name="SpanMinLengthFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="25 0" Width="100" Grid.Row="1" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Min" />
                                     <TextBox Name="SpanMaxLengthFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="0 0" Width="100" Grid.Row="1" Grid.Column="2" Padding="14"  materialDesign:HintAssist.Hint="Max" />
 
@@ -2107,9 +2110,9 @@
 
 
 
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Height From Ground" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Margin="25 0"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Height From Ground" Style="{StaticResource CardsText}" HorizontalAlignment="Left" Grid.ColumnSpan="2" FontSize="16" Margin="25 0"/>
 
-                                    <TextBox Name="SpanHeightFromGroundFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="25 0" Width="240" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Padding="14"  materialDesign:HintAssist.Hint="Height From Ground " />
+                                    <TextBox Name="SpanHeightFromGroundFilterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="25 0" Width="240" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Padding="14"  materialDesign:HintAssist.Hint="Height From Ground" />
 
                                     <Separator Grid.Row="4" Grid.ColumnSpan="4" VerticalAlignment="Bottom" BorderBrush="#FD8207"  Foreground="#FD8207" Margin="25 0"/>
 
@@ -2126,7 +2129,7 @@
 
 
 
-                                    <Button Grid.Column="1" x:Name="ApplyFiltersForSpansDG" Grid.Row="6" Content="Apply" HorizontalAlignment="Center"  Style="{StaticResource OrangeButton}" Click="ApplyFiltersForSpansDG_Click"/>
+                                    <Button Grid.Column="2" x:Name="ApplyFiltersForSpansDG" Grid.Row="6" Content="Apply" HorizontalAlignment="Center"  Style="{StaticResource OrangeButton}" Click="ApplyFiltersForSpansDG_Click"/>
 
 
                                 </Grid>
