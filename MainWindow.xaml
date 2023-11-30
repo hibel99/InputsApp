@@ -114,15 +114,13 @@
                     <TextBlock Text="Weight" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Cost" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                    <TextBlock Text="Quantity" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Quantity" Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                    <TextBlock Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Add Relation With">
-
-                    </TextBlock>
+                    <TextBlock Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Add Relation With"/>
 
 
 
-                    <Grid Grid.Row="11" Grid.Column="1">
+                    <Grid Grid.Row="10" Grid.Column="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.6*"/>
                             <ColumnDefinition Width="*"/>
@@ -132,7 +130,7 @@
 
 
 
-                        <ComboBox Name="RelationTabCB" Grid.Row="12" Grid.Column="0" Style="{StaticResource MaterialDesignOutlinedComboBox}"  Margin="5 0 5 0" materialDesign:HintAssist.Hint="Select" Height="50"  >
+                        <ComboBox Name="RelationTabCB" Grid.Row="12" SelectedIndex="0" Grid.Column="0" Style="{StaticResource MaterialDesignOutlinedComboBox}" SelectionChanged="RelationTabCB_SelectionChanged" Margin="5 0 5 0" materialDesign:HintAssist.Hint="Select" Height="50"  >
                             <ComboBoxItem Content="Pivot"/>
                             <ComboBoxItem Content="Span"/>
                             <ComboBoxItem Content="SparePart"/>
@@ -400,32 +398,7 @@
                     </Grid>
 
 
-                    <TextBox  Name="pivotQTYTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"    materialDesign:HintAssist.Hint="Quantity" Grid.Row="10" Grid.Column="1" Padding="14" >
-                        <TextBox.Style>
-                            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
-                                <Setter Property="Visibility" Value="Visible"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedIndex, ElementName=RelationTabCB}" Value="3">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
-
-                    <TextBox  Name="pivotQTYInSetTB" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380"   materialDesign:HintAssist.Hint="Quantity in set" Grid.Row="10" Grid.Column="1" Padding="14">
-
-                        <TextBox.Style>
-                            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedIndex, ElementName=RelationTabCB}" Value="3">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                    <TextBox  Name="pivotQTYTB"  PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Center" Width="380" Style="{StaticResource MaterialDesignOutlinedTextBox}"   materialDesign:HintAssist.Hint="Quantity" Grid.Row="11" Grid.Column="1" Padding="14" />
 
                     <Button Content="Submit" Name="AddPivot_Button" Click="AddPivot_Button_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="225" Grid.Row="12" Grid.Column="1" Padding="14" />
                     <Button Content="Edit" Name="EditPivot_Button" Visibility="Collapsed" Click="EditPivot_Button_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="225" Grid.Row="12" Grid.Column="1" Padding="14" />
@@ -1082,7 +1055,7 @@
                             <TextBlock Text="Pivot Parts" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
                         </Border>
 
-                        <DataGrid  Name="NewPivotConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                        <DataGrid Name="NewPivotConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden" 
                                  BorderThickness="0"  Grid.Row="1"  FontSize="12" SelectionChanged="NewPivotConnectionsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  >
                             <DataGrid.Columns>
@@ -1272,20 +1245,11 @@
                             <TextBlock Text="Set Items"  HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
                         </Border>
 
-                        <DataGrid Name="NewSetPartConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden"
+                        <DataGrid Name="NewSetPartConnectionsGrid" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False"  HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding SetParentOBS}"
                                  BorderThickness="0" Grid.Row="3"  Grid.Column="2" FontSize="12" SelectionChanged="NewSetPartConnectionsGrid_SelectionChanged" GridLinesVisibility="None"  CanUserAddRows="False" ScrollViewer.CanContentScroll="True" Background="White"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotPart}" >
-                                    <DataGridTextColumn.ElementStyle>
-                                        <Style>
-                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-
-                                        </Style>
-                                    </DataGridTextColumn.ElementStyle>
-                                </DataGridTextColumn>
-                                <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding PivotCategory}" >
                                     <DataGridTextColumn.ElementStyle>
                                         <Style>
                                             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />

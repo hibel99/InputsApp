@@ -5,11 +5,15 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Artboard-1.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Image\1.png" />
-    <None Remove="Image\logo.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Artboard-1.ico" />
   </ItemGroup>
 
   <ItemGroup>
