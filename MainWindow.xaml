@@ -805,7 +805,7 @@
                     </Grid>
 
 
-                    <Grid Grid.Row="1" Panel.ZIndex="2" Width="500" Height="510" VerticalAlignment="Top" HorizontalAlignment="Left"  Name="UsersFilterBorderForPivotPartsDG" Margin="10,5,0,0" RenderTransformOrigin="0.5,0.5" >
+                    <Grid Grid.Row="1" Panel.ZIndex="2" Width="500" Height="554" VerticalAlignment="Top" HorizontalAlignment="Left"  Name="UsersFilterBorderForPivotPartsDG" Margin="10,5,0,0" RenderTransformOrigin="0.5,0.5" >
                         <Grid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -830,10 +830,10 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="75"/>
                                         <RowDefinition MinHeight="100" Height="auto"/>
-                                        <RowDefinition Height="75"/>
+                                        <RowDefinition Height="100"/>
                                         <RowDefinition MinHeight="100" Height="auto"/>
+                                        <RowDefinition Height="100"/>
                                         <RowDefinition Height="75"/>
-                                        <RowDefinition Height="*"/>
 
 
 
@@ -885,8 +885,9 @@
                                     <TextBox Name="PivotPartMaxCostFiltrerTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Margin="0 0" Width="100" Grid.Row="4" Grid.Column="2" Padding="14"  materialDesign:HintAssist.Hint="Max" />
 
 
-                                    <Button Grid.Column="2" x:Name="ApplyFiltersForPivotPartsDG" Grid.Row="5" Content="Apply" Click="ApplyFiltersForPivotPartsDG_Click" HorizontalAlignment="Center"  Style="{StaticResource OrangeButton}" />
+                                    <Separator  Grid.Row="4" Grid.ColumnSpan="4" VerticalAlignment="Bottom" BorderBrush="#FD8207"  Foreground="#FD8207" Margin="25 0"/>
 
+                                    <Button Grid.Column="2" x:Name="ApplyFiltersForPivotPartsDG" Grid.Row="5" Content="Apply" Click="ApplyFiltersForPivotPartsDG_Click" HorizontalAlignment="Right" Margin="25 0" Style="{StaticResource OrangeButton}" />
 
                                 </Grid>
                             </ScrollViewer>
@@ -2129,7 +2130,7 @@
 
 
 
-                                    <Button Grid.Column="2" x:Name="ApplyFiltersForSpansDG" Grid.Row="6" Content="Apply" HorizontalAlignment="Center"  Style="{StaticResource OrangeButton}" Click="ApplyFiltersForSpansDG_Click"/>
+                                    <Button Grid.Column="2" x:Name="ApplyFiltersForSpansDG" Grid.Row="6" Content="Apply" HorizontalAlignment="Right" Margin="25 0" Style="{StaticResource OrangeButton}" Click="ApplyFiltersForSpansDG_Click"/>
 
 
                                 </Grid>
