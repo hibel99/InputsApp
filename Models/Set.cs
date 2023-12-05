@@ -19,22 +19,24 @@ public class Set
     public int ID { get; set; }
     public string Name { get; set; }
     public string NameAR { get; set; }
-
+    public string Category { get; set; }
 
     public Set()
     {
     }
 
-    public Set(string name,  string nameAR)
+    public Set(string name,  string nameAR, string category)
     {
         Name = name;
         NameAR = nameAR;
+        Category = category;
     }
 
-    public Set(int iD, string name,string nameAR)
+    public Set(int iD, string name,string nameAR, string category)
     {
         ID = iD;
         Name = name;
         NameAR = nameAR;
+        Category = category;
     }
 }

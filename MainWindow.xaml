@@ -431,6 +431,174 @@
                 </Border.Style>
             </Border>
 
+            <Border  Grid.Column="1" Grid.Row="1" CornerRadius="19" Background="White" Margin="0 0 10 10">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid x:Name="ComponentsGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Name="Components1" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="Orange" CornerRadius="5">
+                                <TextBlock Text="Overhang End" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <TextBlock Text="Booster Pump" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="Endgun Type" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                            <TextBox Grid.Row="1" Grid.Column="1"  Name="BoosterPumpTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Booster Pump" Padding="14"/>
+                            <TextBox Grid.Row="2" Grid.Column="1"  Name="EndgunTypeTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Endgun Type" Padding="14"/>
+
+                            <Button Content="Add Overhang End" Name="AddNewOverhangEndBT" Click="AddNewOverhangEndBT_Click"  Style="{DynamicResource NewAdminPanelDeleteButton}" Height="30" Width="450" Grid.Row="3" Grid.ColumnSpan="2"  Padding="14" />
+
+
+                            <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Background="Orange" CornerRadius="5">
+                                <TextBlock Text="Control Panel" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <TextBlock Text="Deg Standard" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="Type" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                            <TextBox Grid.Row="5" Grid.Column="1"  Name="ControlPanelDegTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Control Panel DEG STANDARD" Padding="14"/>
+                            <TextBox Grid.Row="6" Grid.Column="1"  Name="ControlPanelTypeTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Control Panel Type" Padding="14"/>
+
+                            <Button Grid.Row="7" Content="Add Control Panel" Name="AddNewControlPanelBT" Height="30" Click="AddNewControlPanelBT_Click"  Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.ColumnSpan="2"  Padding="14" />
+
+                            <Border Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Background="Orange" CornerRadius="5">
+                                <TextBlock Text="Sprinkler" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <TextBlock Text="Sprinkler Type" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="9" Grid.Column="1"  Name="SprinklerTypeTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Sprinkler Type" Padding="14"/>
+
+                            <Button Grid.Row="10" Content="Add Sprinkler" Name="AddNewSprinklerBT" Height="30" Click="AddNewSprinklerBT_Click"  Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.ColumnSpan="2"  Padding="14" />
+
+                            <Border Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Background="Orange" CornerRadius="5">
+                                <TextBlock Text="Regulator" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <TextBlock Text="Regulator Brand" Grid.Row="12" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="Regulator Pressure" Grid.Row="13" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                            <TextBox Grid.Row="12" Grid.Column="1"  Name="RegulatorBrandTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Regulator Brand" Padding="14"/>
+                            <TextBox Grid.Row="13" Grid.Column="1"  Name="RegulatorPressureTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Regulator Pressure" Padding="14"/>
+
+                            <Button Grid.Row="14" Content="Add Regulator" Name="AddNewRegulatorBT" Height="30" Click="AddNewRegulatorBT_Click"  Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.ColumnSpan="2"  Padding="14" />
+                        </Grid>
+                        <Grid Name="Components2" Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="Orange" CornerRadius="5">
+                                <TextBlock Text="Tire" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <TextBlock Text="Tube" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="Tire Size" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                            <TextBox Grid.Row="1" Grid.Column="1"  Name="TireTubeTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Tire Tube" Padding="14"/>
+                            <TextBox Grid.Row="2" Grid.Column="1"  Name="TireSizeTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Tire Size" Padding="14"/>
+
+                            <Button Grid.Row="3" Content="Add Tire" Name="AddNewTireBT" Height="30" Click="AddNewTireBT_Click"  Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.ColumnSpan="2"  Padding="14" />
+
+                            <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Background="Orange" CornerRadius="5">
+                                <TextBlock Text="Dozing Pump" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <TextBlock Text="Accessories" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="Capacity" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                            <TextBox Grid.Row="5" Grid.Column="1"  Name="DozingPumpAccessoriesTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Dozing Pump Accessories" Padding="14"/>
+                            <TextBox Grid.Row="6" Grid.Column="1"  Name="DozingPumpCapacityTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Dozing Pump Capacity" Padding="14"/>
+
+                            <Button Grid.Row="7" Content="Add Dozing Pump" Height="30" Name="AddNewDozingPumpBT" Click="AddNewDozingPumpBT_Click"  Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.ColumnSpan="2"  Padding="14" />
+
+                            <Border Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Background="Orange" CornerRadius="5">
+                                <TextBlock Text="Mixer" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <TextBlock Text="Accessories" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            
+                            <TextBox Grid.Row="9" Grid.Column="1"  Name="MixerAccessoriesTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Mixer Accessories" Padding="14"/>
+
+                            <Button Grid.Row="10" Content="Add Mixer" Height="30" Name="AddNewMixerBT" Click="AddNewMixerBT_Click"  Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.ColumnSpan="2"  Padding="14" />
+
+                            <Border Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Background="Orange" CornerRadius="5">
+                                <TextBlock Text="Collector" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <TextBlock Text="Collector Encoder" Grid.Row="12" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            
+                            <TextBox Grid.Row="12" Grid.Column="1"  Name="CollectorEncoderTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Collector Encoder" Padding="14"/>
+
+                            <Button Grid.Row="13" Content="Add Collector" Height="30" Name="AddNewCollectorBT" Click="AddNewCollectorBT_Click"  Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.ColumnSpan="2"  Padding="14" />
+
+                            <Border Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" Background="Orange" CornerRadius="5">
+                                <TextBlock Text="Gearbox" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <TextBlock Text="Gearbox Type" Grid.Row="15" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            
+                            <TextBox Grid.Row="15" Grid.Column="1"  Name="GearboxTypeTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Center" Width="290" Margin="5 0 0 0"  materialDesign:HintAssist.Hint="Gearbox Type" Padding="14"/>
+
+                            <Button Grid.Row="16" Content="Add Gearbox" Height="30" Name="AddNewGearboxBT" Click="AddNewGearboxBT_Click"  Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.ColumnSpan="2"  Padding="14" />
+
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChecked,ElementName=Components}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+
             <Border Grid.Column="1" Grid.Row="1" CornerRadius="19" Background="White" Margin="0 0 10 10">
                 <Grid Name="PivotsGrid">
                     <Grid.ColumnDefinitions>
@@ -554,32 +722,41 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
 
 
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Name" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Length In Meter" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Diameter In Inches" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Type" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Name" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Length In Meter" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Diameter In Inches" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Pivot Type" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text="Outlets" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Full Span Outlets" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Empty Span Outlets" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Text="Height From Ground" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                     <TextBlock Text="Cost" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
+                    <ComboBox Name="SpanTypeCB" Grid.Row="1" Grid.Column="1" materialDesign:HintAssist.Hint="Span or Overhang" Width="350" HorizontalAlignment="Stretch" Style="{StaticResource MaterialDesignComboBox}" Height="50"  VerticalAlignment="Center">
+                        <ComboBoxItem Content="Span"/>
+                        <ComboBoxItem Content="Overhang"/>
+                    </ComboBox>
 
-                    <TextBox Name="SpanNameTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Width="350" Grid.Row="1" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Name" Margin="17,21,0,20"/>
-                    <TextBox Name="LengthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="350" Grid.Row="2" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Length" Margin="17,20,0,21"/>
-                    <TextBox  Name="DiameterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" Grid.Row="3" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Diameter" Margin="0,21,18,20" HorizontalAlignment="Right" Width="350"/>
-                    <TextBox  Name="SpanOutletsTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="350" Grid.Row="4" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Outlets" Margin="17,20,0,21" />
+                    <TextBox Name="SpanNameTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" Height="50" HorizontalAlignment="Left" Width="350" Grid.Row="2" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Name" Margin="17,21,0,20"/>
+                    <TextBox Name="LengthTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="350" Grid.Row="3" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Length" Margin="17,20,0,21"/>
+                    <TextBox  Name="DiameterTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" Grid.Row="4" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Diameter" Margin="0,21,18,20" HorizontalAlignment="Right" Width="350"/>
+                    <TextBox  Name="EmptySpanOutletsTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="350" Grid.Row="7" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Empty Span Outlets" Margin="17,20,0,21" />
+                    <TextBox  Name="FullSpanOutletsTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="350" Grid.Row="8" Grid.Column="1" Padding="14"  materialDesign:HintAssist.Hint="Full Span Outlets" Margin="17,20,0,21" />
 
                     <Grid  Grid.Row="5" Grid.Column="1" Height="50"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width=".4*"/>
                         </Grid.ColumnDefinitions >
-                        <TextBox Grid.Row="0" Grid.Column="0"  Name="SpanHeightFromGroundTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="270" Margin="17 0 0 0"  materialDesign:HintAssist.Hint="Height From Ground" Padding="14"/>
-                        <ComboBox Name="HeightFromGroundUnitCB" Grid.Column="1"  Height="50"   Width="85" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Unit" Margin="0 0 5 0" >
+                        <TextBox Grid.Row="0" Grid.Column="0"  Name="SpanHeightFromGroundTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="250" Margin="17 0 0 0"  materialDesign:HintAssist.Hint="Height From Ground" Padding="14"/>
+                        <ComboBox Name="HeightFromGroundUnitCB" Grid.Column="1"  Height="50"   Width="85" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Unit" Margin="0 0 18 0" >
                             <ComboBoxItem Content="Inch" />
                             <ComboBoxItem Content="m" />
                             <ComboBoxItem Content="cm" />
@@ -590,10 +767,10 @@
                     <Grid  Grid.Row="6" Grid.Column="1" Height="50"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width=".4*"/>
                         </Grid.ColumnDefinitions >
-                        <TextBox Grid.Row="0" Grid.Column="0"  Name="SpanCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="270" Margin="17 0 0 0"  materialDesign:HintAssist.Hint="Cost" Padding="14"/>
-                        <ComboBox Name="SpanCostCurrencyCB" Grid.Column="1"  Height="50"   Width="85" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Curr" Margin="0 0 5 0" >
+                        <TextBox Grid.Row="0" Grid.Column="0"  Name="SpanCostTB" Style="{StaticResource MaterialDesignOutlinedTextBox }" PreviewTextInput="NumericTextBox_PreviewTextInput" Height="50" HorizontalAlignment="Left" Width="250" Margin="17 0 0 0"  materialDesign:HintAssist.Hint="Cost" Padding="14"/>
+                        <ComboBox Name="SpanCostCurrencyCB" Grid.Column="1"  Height="50"   Width="85" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Curr" Margin="0 0 18 0" >
                             <ComboBoxItem Content="TL" />
                             <ComboBoxItem Content="EU" />
                             <ComboBoxItem Content="USD" />
@@ -609,7 +786,7 @@
                             <icon:PackIconMaterial Kind="Plus"/>
                         </Button>
                     </StackPanel>
-                    <Button Content="Add" Name="AddSpanBT" Click="AddSpanBT_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="7" Grid.ColumnSpan="2"  Padding="14" />
+                    <Button Content="Add" Name="AddSpanBT" Click="AddSpanBT_Click" Style="{DynamicResource NewAdminPanelDeleteButton}" Width="450" Grid.Row="9" Grid.ColumnSpan="2"  Padding="14" />
 
                     <Grid.Style>
                         <Style TargetType="Grid">
@@ -2277,6 +2454,11 @@
                             <DataTrigger Binding="{Binding IsChecked,ElementName=CategoriesRD}" Value="True">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
+                            
+                            <DataTrigger Binding="{Binding IsChecked,ElementName=Components}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            
                         </Style.Triggers>
                     </Style>
 
@@ -2471,11 +2653,13 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="0.7*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="SetName" FontSize="12"  materialDesign:HintAssist.Hint="Set name" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120"/>
-                            <TextBox  x:Name="SetNameAR" FontSize="12"  materialDesign:HintAssist.Hint="Set name Arabic" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120"/>
-                            <Button  Style="{StaticResource OrangeButton}" Grid.Column="2" Width="75" VerticalAlignment="Center" Content="Add" Click="AddNewSetBT_Click"/>
+                            <TextBox x:Name="SetName" FontSize="12"  materialDesign:HintAssist.Hint="Set name" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="90"/>
+                            <TextBox x:Name="SetCategory" FontSize="12"  materialDesign:HintAssist.Hint="Category" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="90"/>
+                            <TextBox  x:Name="SetNameAR" FontSize="12"  materialDesign:HintAssist.Hint="Set name Arabic" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="90"/>
+                            <Button  Style="{StaticResource OrangeButton}" Grid.Column="3" Width="65" VerticalAlignment="Center" Content="Add" Click="AddNewSetBT_Click"/>
                         </Grid>
 
 
@@ -2508,6 +2692,15 @@
                                  ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="SetDG_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single"  HorizontalAlignment="Left">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Set"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Name}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                
+                                <DataGridTextColumn Header="Category"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding Category}" >
                                     <DataGridTextColumn.ElementStyle>
                                         <Style>
                                             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -2672,13 +2865,14 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="Pivot_Click" />
+                    <RadioButton Name="Pivots" Content="Pivots" Grid.Row="0" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="Pivot_Click" />
                     <RadioButton Name="CategoriesRD" Grid.Row="1" Content="Categories" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
 
                     <RadioButton Name="SpanParts" Grid.Row="2" Content="Spans" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click"/>
+                    <RadioButton Name="Components" Grid.Row="3" Content="Components" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="True" Click="SpanParts_Click"/>
 
-                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="3" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="PivotParts_Click" />
-                    <RadioButton Name="PivotPartsRelations" Content="Pivot Part Relations" Grid.Row="4" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False"/>
+                    <RadioButton Name="PivotParts" Content="Pivot Part" Grid.Row="4" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="PivotParts_Click" />
+                    <RadioButton Name="PivotPartsRelations" Content="Pivot Part Relations" Grid.Row="5" Style="{StaticResource ToggleButtonButtonStyle}"  Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False"/>
 
 
                     <!--<RadioButton Name="SpinklersParts" Grid.Row="2" Content="Spinklers Parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpinklersParts_Click" />-->

@@ -62,6 +62,7 @@ public class SpanRepository : ISpanRepository
                    HeightFromGround = span.HeightFromGround,
                    HeightFromGroundUnit = span.HeightFromGroundUnit,
                    PivotID = span.PivotID,
+                   SpanFlow = span.SpanFlow,
                },
                AppConnection.ConnectionString);
             return result.FirstOrDefault();
@@ -92,6 +93,7 @@ public class SpanRepository : ISpanRepository
          HeightFromGround = span.HeightFromGround,
          HeightFromGroundUnit = span.HeightFromGroundUnit,
          PivotID = span.PivotID,
+         SpanFlow = span.SpanFlow,
      },
     AppConnection.ConnectionString);
     }

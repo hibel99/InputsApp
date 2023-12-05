@@ -21,7 +21,7 @@ namespace InputsApp.Models
         {
         }
 
-        public Spans(decimal length, decimal diameter, string category, string name, decimal cost, string costCurrency, int outlets, decimal heightFromGround, string heightFromGroundUnit, string pivotID)
+        public Spans(decimal length, decimal diameter, string category, string name, decimal cost, string costCurrency, int outlets, decimal heightFromGround, string heightFromGroundUnit, string pivotID, string spanFlow)
         {
             Length = length;
             Diameter = diameter;
@@ -33,11 +33,11 @@ namespace InputsApp.Models
             HeightFromGround = heightFromGround;
             HeightFromGroundUnit = heightFromGroundUnit;
             PivotID = pivotID;
-          
+            SpanFlow = spanFlow;
         }
 
 
-        public Spans(int iD, decimal length, decimal diameter, string category, string name, decimal cost, string costCurrency, int outlets, decimal heightFromGround, string heightFromGroundUnit, string pivotID)
+        public Spans(int iD, decimal length, decimal diameter, string category, string name, decimal cost, string costCurrency, int outlets, decimal heightFromGround, string heightFromGroundUnit, string pivotID, string spanFlow)
         {
             ID = iD;
             Length = length;
@@ -50,7 +50,7 @@ namespace InputsApp.Models
             HeightFromGround = heightFromGround;
             HeightFromGroundUnit = heightFromGroundUnit;
             PivotID = pivotID;
-           
+            SpanFlow = spanFlow;
         }
 
         public int ID { get; set; }
@@ -80,9 +80,10 @@ namespace InputsApp.Models
 
         public string? CostForDG => $"{CostCurrency}{Cost}";
 
-
-
         public string PivotID { get; set; }
+        public string SpanFlow { get; set; }
         public List<PivotTable> ParentPivots { get; set; }
+
+
     }
 }

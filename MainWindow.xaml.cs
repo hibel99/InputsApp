@@ -685,7 +685,8 @@ namespace InputsApp
                 SpanCostTB.Text = string.Empty;
                 SpanHeightFromGroundTB.Text = string.Empty;
                 HeightFromGroundUnitCB.Text = string.Empty;
-                SpanOutletsTB.Text = string.Empty;
+                FullSpanOutletsTB.Text = string.Empty;
+                EmptySpanOutletsTB.Text = string.Empty;
                 SpanCostCurrencyCB.Text = string.Empty;
                 //PipeTypeCBCB.SelectedIndex = 0;
                 SpanNameTB.Text = string.Empty; 
@@ -970,32 +971,74 @@ namespace InputsApp
 
         async private void AddSpanBT_Click(object sender, RoutedEventArgs e)
         {
+            decimal SpanDistancefromGround = 0;
+            string SpanDistancefromGroundUnit = "";
 
 
-            if (IsAnyFieldEmpty(LengthTB.Text, DiameterTB.Text, SpanNameTB.Text, SpanCostTB.Text, SpanCostCurrencyCB.Text, SpanOutletsTB.Text, SpanHeightFromGroundTB.Text, HeightFromGroundUnitCB.Text))
+            if (IsAnyFieldEmpty(LengthTB.Text, DiameterTB.Text, SpanNameTB.Text, SpanCostTB.Text, SpanCostCurrencyCB.Text, SpanTypeCB.Text, FullSpanOutletsTB.Text, EmptySpanOutletsTB.Text))
             {
                 MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
 
                 return;
             }
+            if (!string.IsNullOrEmpty(SpanHeightFromGroundTB.Text))
+            {
+                SpanDistancefromGround = decimal.Parse(SpanHeightFromGroundTB.Text);
+                SpanDistancefromGroundUnit = HeightFromGroundUnitCB.Text;
+            }
 
-            var Span = new Spans
+            var FullSpan = new Spans
                 (
                 decimal.Parse(LengthTB.Text),
                 decimal.Parse(DiameterTB.Text),
-                "Span",
+                SpanTypeCB.Text,
                 SpanNameTB.Text,
                 decimal.Parse(SpanCostTB.Text),
                 SpanCostCurrencyCB.Text,
-                int.Parse(SpanOutletsTB.Text),
-                decimal.Parse(SpanHeightFromGroundTB.Text),
-                HeightFromGroundUnitCB.Text,
-                string.Join(",", PivotSpanParentOBS.Select(x=>x.ID).ToList())
+                int.Parse(FullSpanOutletsTB.Text),
+                SpanDistancefromGround,
+                SpanDistancefromGroundUnit,
+                string.Join(",", PivotSpanParentOBS.Select(x=>x.ID).ToList()),
+                "Full"
+            );
+            
+            var DoubleSpan = new Spans
+                (
+                decimal.Parse(LengthTB.Text),
+                decimal.Parse(DiameterTB.Text),
+                SpanTypeCB.Text,
+                SpanNameTB.Text,
+                decimal.Parse(SpanCostTB.Text),
+                SpanCostCurrencyCB.Text,
+                int.Parse(FullSpanOutletsTB.Text),
+                SpanDistancefromGround,
+                SpanDistancefromGroundUnit,
+                string.Join(",", PivotSpanParentOBS.Select(x=>x.ID).ToList()),
+                "Double"
+            );
+            
+            var EmptySpan = new Spans
+                (
+                decimal.Parse(LengthTB.Text),
+                decimal.Parse(DiameterTB.Text),
+                SpanTypeCB.Text,
+                SpanNameTB.Text,
+                decimal.Parse(SpanCostTB.Text),
+                SpanCostCurrencyCB.Text,
+                int.Parse(EmptySpanOutletsTB.Text),
+                SpanDistancefromGround,
+                SpanDistancefromGroundUnit,
+                string.Join(",", PivotSpanParentOBS.Select(x=>x.ID).ToList()),
+                "Empty"
             );
 
-            Span.ID = await _spanRepository.AddSpan(Span);
-            SpansOBS.Add(Span);
-            //UpdateGridandCB();
+            FullSpan.ID = await _spanRepository.AddSpan(FullSpan);
+            EmptySpan.ID = await _spanRepository.AddSpan(EmptySpan);
+            DoubleSpan.ID = await _spanRepository.AddSpan(DoubleSpan);
+            SpansOBS.Add(FullSpan);
+            SpansOBS.Add(EmptySpan);
+            SpansOBS.Add(DoubleSpan);
+
             ClearTextBoxes();
         }
 
@@ -1087,7 +1130,7 @@ namespace InputsApp
         {
             if (SetName.Text != "" && SetNameAR.Text != "")
             {
-                Set set = new Set(SetName.Text, SetNameAR.Text);
+                Set set = new Set(SetName.Text, SetNameAR.Text, SetCategory.Text);
                 await _setRepository.AddSet(set);
                 SetOBS.Add(set);
             }
@@ -1685,7 +1728,7 @@ namespace InputsApp
 
         private async void AddNewSetBT_Click(object sender, RoutedEventArgs e)
         {
-            var set = new Set(SetName.Text,   SetNameAR.Text);
+            var set = new Set(SetName.Text, SetNameAR.Text, SetCategory.Text);
             await _setRepository.AddSet(set);
             SetOBS.Add(set);
 
@@ -2013,7 +2056,50 @@ namespace InputsApp
 
         }
 
+        private void AddNewOverhangEndBT_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
+
+        private void AddNewControlPanelBT_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNewSprinklerBT_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNewRegulatorBT_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNewTireBT_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNewDozingPumpBT_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNewMixerBT_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNewCollectorBT_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNewGearboxBT_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
 
