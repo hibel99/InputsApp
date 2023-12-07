@@ -1726,14 +1726,17 @@ namespace InputsApp
 
         }
 
+        private async Task CreateSet(string setName, string setNameAr, string setCategory)
+        {
+            var set = new Set(setName, setNameAr, setCategory);
+            set.ID = await _setRepository.AddSet(set);
+            SetOBS.Add(set);
+        }
+
+
         private async void AddNewSetBT_Click(object sender, RoutedEventArgs e)
         {
-            var set = new Set(SetName.Text, SetNameAR.Text, SetCategory.Text);
-            await _setRepository.AddSet(set);
-            SetOBS.Add(set);
-
-            //UpdateGridandCB();
-            
+            await CreateSet(SetName.Text, SetNameAR.Text, SetCategory.Text);
         }
 
         private void SetsDG_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1748,7 +1751,8 @@ namespace InputsApp
 
         private bool IsAnyFieldEmpty(params string[] fields) => fields.Any((field) => field.Length == 0);
 
-        
+
+
 
         private void CancelAddPartBT_Click(object sender, RoutedEventArgs e)
         {
@@ -2056,49 +2060,121 @@ namespace InputsApp
 
         }
 
-        private void AddNewOverhangEndBT_Click(object sender, RoutedEventArgs e)
+        private async  void AddNewOverhangEndBT_Click(object sender, RoutedEventArgs e)
         {
+            if(IsAnyFieldEmpty(BoosterPumpTB.Text, EndgunTypeTB.Text))
+            {
+                MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
+                return;
+            }
+            await CreateSet(BoosterPumpTB.Text, EndgunTypeTB.Text, "Bosster Pump");
 
+            BoosterPumpTB.Text = string.Empty;
+            EndgunTypeTB.Text = string.Empty;
         }
 
-        private void AddNewControlPanelBT_Click(object sender, RoutedEventArgs e)
+        private async void AddNewControlPanelBT_Click(object sender, RoutedEventArgs e)
         {
 
+            
+            if (IsAnyFieldEmpty(ControlPanelDegTB.Text, ControlPanelTypeTB.Text))
+            {
+                MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
+                return;
+            }
+            await CreateSet(ControlPanelDegTB.Text, ControlPanelTypeTB.Text, "Control Panel");
+
+            ControlPanelDegTB.Text = string.Empty;
+            ControlPanelTypeTB.Text = string.Empty;
         }
 
-        private void AddNewSprinklerBT_Click(object sender, RoutedEventArgs e)
+        private async void AddNewSprinklerBT_Click(object sender, RoutedEventArgs e)
         {
+            if (IsAnyFieldEmpty(SprinklerTypeTB.Text))
+            {
+                MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
+                return;
+            }
+            await CreateSet(SprinklerTypeTB.Text, SprinklerTypeTB.Text, "Sprinkler");
 
+            SprinklerTypeTB.Text = string.Empty;
         }
 
-        private void AddNewRegulatorBT_Click(object sender, RoutedEventArgs e)
+        private async void AddNewRegulatorBT_Click(object sender, RoutedEventArgs e)
         {
 
+            if (IsAnyFieldEmpty(RegulatorPressureTB.Text, RegulatorBrandTB.Text))
+            {
+                MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
+                return;
+            }
+            await CreateSet(RegulatorPressureTB.Text, RegulatorBrandTB.Text, "TireSizeTB");
+
+            RegulatorPressureTB.Text = string.Empty;
+            RegulatorBrandTB.Text = string.Empty;
         }
 
-        private void AddNewTireBT_Click(object sender, RoutedEventArgs e)
+        private async void AddNewTireBT_Click(object sender, RoutedEventArgs e)
         {
 
+            if (IsAnyFieldEmpty(TireTubeTB.Text, TireSizeTB.Text))
+            {
+                MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
+                return;
+            }
+            await CreateSet(TireTubeTB.Text, TireSizeTB.Text, "Tire");
+
+            TireTubeTB.Text = string.Empty;
+            TireSizeTB.Text = string.Empty;
         }
 
-        private void AddNewDozingPumpBT_Click(object sender, RoutedEventArgs e)
+        private async void AddNewDozingPumpBT_Click(object sender, RoutedEventArgs e)
         {
+            if (IsAnyFieldEmpty(DozingPumpCapacityTB.Text, DozingPumpAccessoriesTB.Text))
+            {
+                MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
+                return;
+            }
+            await CreateSet(DozingPumpCapacityTB.Text, DozingPumpAccessoriesTB.Text, "Dozing Pump");
 
+            DozingPumpCapacityTB.Text = string.Empty;
+            DozingPumpAccessoriesTB.Text = string.Empty;
         }
 
-        private void AddNewMixerBT_Click(object sender, RoutedEventArgs e)
+        private async void AddNewMixerBT_Click(object sender, RoutedEventArgs e)
         {
+            if (IsAnyFieldEmpty(MixerAccessoriesTB.Text))
+            {
+                MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
+                return;
+            }
+            await CreateSet(MixerAccessoriesTB.Text, MixerAccessoriesTB.Text, "Mixer");
 
+            MixerAccessoriesTB.Text = string.Empty;
         }
 
-        private void AddNewCollectorBT_Click(object sender, RoutedEventArgs e)
+        private async void AddNewCollectorBT_Click(object sender, RoutedEventArgs e)
         {
+            if (IsAnyFieldEmpty(CollectorEncoderTB.Text))
+            {
+                MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
+                return;
+            }
+            await CreateSet(CollectorEncoderTB.Text, CollectorEncoderTB.Text, "Collector");
 
+            CollectorEncoderTB.Text = string.Empty;
         }
 
-        private void AddNewGearboxBT_Click(object sender, RoutedEventArgs e)
+        private async void AddNewGearboxBT_Click(object sender, RoutedEventArgs e)
         {
+            if (IsAnyFieldEmpty(GearboxTypeTB.Text))
+            {
+                MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
+                return;
+            }
+            await CreateSet(GearboxTypeTB.Text, GearboxTypeTB.Text, "Gearbox");
 
+            GearboxTypeTB.Text = string.Empty;
         }
     }
 }

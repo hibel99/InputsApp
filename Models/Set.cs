@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Media3D;
 
 namespace InputsApp.Models;
 
@@ -20,6 +21,8 @@ public class Set
     public string Name { get; set; }
     public string NameAR { get; set; }
     public string Category { get; set; }
+    public string? NameDG => $"{Category} {Name}";
+
 
     public Set()
     {

@@ -2709,7 +2709,7 @@
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
 
-                                <DataGridTextColumn Header="Set Arabic"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding NameAR}" >
+                                <DataGridTextColumn Header="Set Arabic"  IsReadOnly="True"  CanUserResize ="True"  Width="*" Binding="{Binding NameDG}" >
                                     <DataGridTextColumn.ElementStyle>
                                         <Style>
                                             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -2878,7 +2878,7 @@
                     <!--<RadioButton Name="SpinklersParts" Grid.Row="2" Content="Spinklers Parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpinklersParts_Click" />-->
                     <!--<RadioButton Name="OverhangParts" Grid.Row="3" Content="Overhang" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />-->
 
-                    <RadioButton Name="ALLSparesRD" Grid.Row="5" Content="All spare parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
+                    <RadioButton Name="ALLSparesRD" Grid.Row="6" Content="All spare parts" Style="{StaticResource ToggleButtonButtonStyle}" Width="180" Height="60" BorderThickness="2" GroupName="Inputs_Groups" IsChecked="False" Click="SpanParts_Click" />
 
 
                 </Grid>
