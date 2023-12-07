@@ -102,5 +102,8 @@ namespace InputsApp.Models
             }
         }
 
+        public string? PivotCode => $"PIV{pivotname?.Substring(0, Math.Min(pivotname.Length, 3))}{ID}";
+
+
     }
 }

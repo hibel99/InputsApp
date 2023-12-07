@@ -67,8 +67,7 @@ namespace InputsApp.Models
 
         public string CostCurrency { get; set; }
 
-
-
+        public string? SpanCode => $"SP{Name?.Substring(0, Math.Min(Name.Length, 3))}{Category?.Substring(0, Math.Min(Category.Length, 1))}{ID}";
 
         public string? HeightFromGroundForDG => $"{HeightFromGround} {HeightFromGroundUnit}";
 
