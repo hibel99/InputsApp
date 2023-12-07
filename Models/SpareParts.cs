@@ -61,7 +61,7 @@ public class SpareParts:INotifyPropertyChanged
 
     public string? CostForDG => $"{CostCurrency}{Cost}";
 
-
+    public string? PartCode => $"Part{PivotPart?.Substring(0, Math.Min(PivotPart.Length, 3))}{PivotCategory?.Substring(0, Math.Min(PivotCategory.Length, 1))}{ID}";
 
     public string? LengthForDG => $"{Length} {LengthUnit}";
     public string? HeightForDG => $"{Height} {HeightUnit}";

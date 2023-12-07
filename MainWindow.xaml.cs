@@ -286,20 +286,53 @@ namespace InputsApp
             {
                 SpareParts part = (SpareParts)((Button)sender).DataContext;
 
-                await _pivotPartsRepository.DeletePivotPart(part.ID);
+                UpdateGridandCB();
 
                 SparePartsOBS.Remove(part);
                 JoinedSparePartsOBS.Remove(part);
 
-                PivotParentOBS.Remove(PivotParentOBS.Where((item) => item.PivotPartID == part.ID).FirstOrDefault());
-                SpanParentOBS.Remove(SpanParentOBS.Where((item) => item.PivotPartID == part.ID).FirstOrDefault());
-                SpareParentOBS.Remove(SpareParentOBS.Where((item) => item.PivotPartID == part.ID).FirstOrDefault());
-                SetParentOBS.Remove( SetParentOBS.Where((item) => item.PivotPartID == part.ID).FirstOrDefault());
+                //PivotParentOBS.Remove(PivotParentOBS.Where((item) => item.PivotPartID == part.ID).FirstOrDefault());
+                //SpanParentOBS.Remove(SpanParentOBS.Where((item) => item.PivotPartID == part.ID).FirstOrDefault());
+                //SpareParentOBS.Remove(SpareParentOBS.Where((item) => item.PivotPartID == part.ID).FirstOrDefault());
+                //SetParentOBS.Remove(SetParentOBS.Where((item) => item.PivotPartID == part.ID).FirstOrDefault());
+
+                List<SpareRelationship> pivotpart = PivotParentOBS.Where((item) => item.PivotPartID == part.ID).ToList();
+                List<SpareRelationship> spanpart = SpanParentOBS.Where((item) => item.PivotPartID == part.ID).ToList();
+                List<SpareRelationship> sparepart = SpareParentOBS.Where((item) => item.PivotPartID == part.ID).ToList();
+                List<SpareRelationship> setpart = SetParentOBS.Where((item) => item.PivotPartID == part.ID).ToList();
+
+                foreach (var item in pivotpart)
+                {
+                    PivotParentOBS.Remove(item);
+                    await _pivotPartsRepository.DeletePivotPartRelation(item.ID);
+                }
+                
+                foreach (var item in spanpart)
+                {
+                    SpanParentOBS.Remove(item);
+                    await _pivotPartsRepository.DeletePivotPartRelation(item.ID);
+                }
+                
+                foreach (var item in sparepart)
+                {
+                    SpareParentOBS.Remove(item);
+                    await _pivotPartsRepository.DeletePivotPartRelation(item.ID);
+                }
+                
+                foreach (var item in setpart)
+                {
+                    SetParentOBS.Remove(item);
+                    await _pivotPartsRepository.DeletePivotPartRelation(item.ID);
+                }
+
+                
+                await _pivotPartsRepository.DeletePivotPart(part.ID);
 
                 EditPivot_Button.Visibility = Visibility.Collapsed;
                 AddPivot_Button.Visibility = Visibility.Visible;
-                
-
+                ArrangeConnections();
+                ClearTextBoxes();
+                pivotEdit = null;
                 //UpdateGridandCB();
             }
         }
@@ -646,10 +679,10 @@ namespace InputsApp
                 PivotNameCB.SelectedItem = null;
                 PartNameCB.SelectedItem = null;
 
-                pivotHegitUnitCB.SelectedItem = null;
-                pivotLengthUnitCB.SelectedItem = null;
-                pivotWidthUnitCB.SelectedItem = null;
-                pivotWeightUnitCB.SelectedItem = null;
+                pivotHegitUnitCB.SelectedIndex = 0;
+                pivotLengthUnitCB.SelectedIndex = 0;
+                pivotWidthUnitCB.SelectedIndex = 0;
+                pivotWeightUnitCB.SelectedIndex = 0;
 
                 RelationTabCB.IsEnabled = true;
                 SpanNameCB.IsEnabled = true;
@@ -717,8 +750,8 @@ namespace InputsApp
             }
             else
             {
-                pivotEdit = null;
-                ClearTextBoxes();
+                //pivotEdit = null;
+                //ClearTextBoxes();
             }
         }
 
@@ -912,11 +945,9 @@ namespace InputsApp
                 PivotCategory.Text,
                 0);
 
+            Pivot.ID = await _PivotRepository.AddPivot(Pivot);
             PivotsOBS.Add(Pivot);
-                
-            await _PivotRepository.AddPivot(Pivot);
             PivotsDG.ItemsSource = PivotsOBS;
-            //UpdateGridandCB();
             ClearTextBoxes();
         }
 
@@ -974,70 +1005,108 @@ namespace InputsApp
             decimal SpanDistancefromGround = 0;
             string SpanDistancefromGroundUnit = "";
 
-
-            if (IsAnyFieldEmpty(LengthTB.Text, DiameterTB.Text, SpanNameTB.Text, SpanCostTB.Text, SpanCostCurrencyCB.Text, SpanTypeCB.Text, FullSpanOutletsTB.Text, EmptySpanOutletsTB.Text))
+            //if span is selected
+            if(SpanTypeCB.SelectedIndex == 0)
             {
-                MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
+                if (IsAnyFieldEmpty(LengthTB.Text, DiameterTB.Text, SpanNameTB.Text, SpanCostTB.Text, SpanCostCurrencyCB.Text, SpanTypeCB.Text, FullSpanOutletsTB.Text, EmptySpanOutletsTB.Text))
+                {
+                    MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
 
-                return;
+                    return;
+                }
+                if (!string.IsNullOrEmpty(SpanHeightFromGroundTB.Text))
+                {
+                    SpanDistancefromGround = decimal.Parse(SpanHeightFromGroundTB.Text);
+                    SpanDistancefromGroundUnit = HeightFromGroundUnitCB.Text;
+                }
+
+                var FullSpan = new Spans
+                    (
+                    decimal.Parse(LengthTB.Text),
+                    decimal.Parse(DiameterTB.Text),
+                    SpanTypeCB.Text,
+                    SpanNameTB.Text,
+                    decimal.Parse(SpanCostTB.Text),
+                    SpanCostCurrencyCB.Text,
+                    int.Parse(FullSpanOutletsTB.Text),
+                    SpanDistancefromGround,
+                    SpanDistancefromGroundUnit,
+                    string.Join(",", PivotSpanParentOBS.Select(x => x.ID).ToList()),
+                    "Full"
+                );
+
+                var DoubleSpan = new Spans
+                    (
+                    decimal.Parse(LengthTB.Text),
+                    decimal.Parse(DiameterTB.Text),
+                    SpanTypeCB.Text,
+                    SpanNameTB.Text,
+                    decimal.Parse(SpanCostTB.Text),
+                    SpanCostCurrencyCB.Text,
+                    int.Parse(FullSpanOutletsTB.Text),
+                    SpanDistancefromGround,
+                    SpanDistancefromGroundUnit,
+                    string.Join(",", PivotSpanParentOBS.Select(x => x.ID).ToList()),
+                    "Double"
+                );
+
+                var EmptySpan = new Spans
+                    (
+                    decimal.Parse(LengthTB.Text),
+                    decimal.Parse(DiameterTB.Text),
+                    SpanTypeCB.Text,
+                    SpanNameTB.Text,
+                    decimal.Parse(SpanCostTB.Text),
+                    SpanCostCurrencyCB.Text,
+                    int.Parse(EmptySpanOutletsTB.Text),
+                    SpanDistancefromGround,
+                    SpanDistancefromGroundUnit,
+                    string.Join(",", PivotSpanParentOBS.Select(x => x.ID).ToList()),
+                    "Empty"
+                );
+
+                FullSpan.ID = await _spanRepository.AddSpan(FullSpan);
+                EmptySpan.ID = await _spanRepository.AddSpan(EmptySpan);
+                DoubleSpan.ID = await _spanRepository.AddSpan(DoubleSpan);
+                SpansOBS.Add(FullSpan);
+                SpansOBS.Add(EmptySpan);
+                SpansOBS.Add(DoubleSpan);
             }
-            if (!string.IsNullOrEmpty(SpanHeightFromGroundTB.Text))
+            else //if overhang is selected
             {
-                SpanDistancefromGround = decimal.Parse(SpanHeightFromGroundTB.Text);
-                SpanDistancefromGroundUnit = HeightFromGroundUnitCB.Text;
+                if (IsAnyFieldEmpty(LengthTB.Text, DiameterTB.Text, SpanNameTB.Text, SpanCostTB.Text, SpanCostCurrencyCB.Text, SpanTypeCB.Text, OverhangOutletsTB.Text))
+                {
+                    MessageBox.Show("Fill in all required fields.", "Missing Information", MessageBoxButton.OK);
+
+                    return;
+                }
+
+                if (!string.IsNullOrEmpty(SpanHeightFromGroundTB.Text))
+                {
+                    SpanDistancefromGround = decimal.Parse(SpanHeightFromGroundTB.Text);
+                    SpanDistancefromGroundUnit = HeightFromGroundUnitCB.Text;
+                }
+
+                var OverhangSpan = new Spans
+                    (
+                    decimal.Parse(LengthTB.Text),
+                    decimal.Parse(DiameterTB.Text),
+                    SpanTypeCB.Text,
+                    SpanNameTB.Text,
+                    decimal.Parse(SpanCostTB.Text),
+                    SpanCostCurrencyCB.Text,
+                    int.Parse(OverhangOutletsTB.Text),
+                    SpanDistancefromGround,
+                    SpanDistancefromGroundUnit,
+                    string.Join(",", PivotSpanParentOBS.Select(x => x.ID).ToList()),
+                    "Overhang"
+                );
+
+                OverhangSpan.ID = await _spanRepository.AddSpan(OverhangSpan);
+                SpansOBS.Add(OverhangSpan);
             }
 
-            var FullSpan = new Spans
-                (
-                decimal.Parse(LengthTB.Text),
-                decimal.Parse(DiameterTB.Text),
-                SpanTypeCB.Text,
-                SpanNameTB.Text,
-                decimal.Parse(SpanCostTB.Text),
-                SpanCostCurrencyCB.Text,
-                int.Parse(FullSpanOutletsTB.Text),
-                SpanDistancefromGround,
-                SpanDistancefromGroundUnit,
-                string.Join(",", PivotSpanParentOBS.Select(x=>x.ID).ToList()),
-                "Full"
-            );
             
-            var DoubleSpan = new Spans
-                (
-                decimal.Parse(LengthTB.Text),
-                decimal.Parse(DiameterTB.Text),
-                SpanTypeCB.Text,
-                SpanNameTB.Text,
-                decimal.Parse(SpanCostTB.Text),
-                SpanCostCurrencyCB.Text,
-                int.Parse(FullSpanOutletsTB.Text),
-                SpanDistancefromGround,
-                SpanDistancefromGroundUnit,
-                string.Join(",", PivotSpanParentOBS.Select(x=>x.ID).ToList()),
-                "Double"
-            );
-            
-            var EmptySpan = new Spans
-                (
-                decimal.Parse(LengthTB.Text),
-                decimal.Parse(DiameterTB.Text),
-                SpanTypeCB.Text,
-                SpanNameTB.Text,
-                decimal.Parse(SpanCostTB.Text),
-                SpanCostCurrencyCB.Text,
-                int.Parse(EmptySpanOutletsTB.Text),
-                SpanDistancefromGround,
-                SpanDistancefromGroundUnit,
-                string.Join(",", PivotSpanParentOBS.Select(x=>x.ID).ToList()),
-                "Empty"
-            );
-
-            FullSpan.ID = await _spanRepository.AddSpan(FullSpan);
-            EmptySpan.ID = await _spanRepository.AddSpan(EmptySpan);
-            DoubleSpan.ID = await _spanRepository.AddSpan(DoubleSpan);
-            SpansOBS.Add(FullSpan);
-            SpansOBS.Add(EmptySpan);
-            SpansOBS.Add(DoubleSpan);
 
             ClearTextBoxes();
         }
@@ -2099,6 +2168,32 @@ namespace InputsApp
         private void AddNewGearboxBT_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private async void deleteSpans_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this span?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Spans part = (Spans)((Button)sender).DataContext;
+
+                SpansOBS.Remove(part);
+
+                //delete relations for the deleted span
+                List<SpareRelationship> relatedSpares = RelationstOBS.Where((item) => item.SpanID == part.ID).ToList();
+
+                foreach (var item in relatedSpares)
+                {
+                    await _pivotPartsRepository.DeletePivotPartRelation(item.ID);
+                    RelationstOBS.Remove(item);
+                    SpanParentOBS.Remove(item);
+                }
+                NewSpanConnectionsGrid.ItemsSource = null;
+                NewSpanConnectionsGrid.ItemsSource = SpanParentOBS;
+                await _spanRepository.DeleteSpan(part.ID);
+
+            }
         }
     }
 }
